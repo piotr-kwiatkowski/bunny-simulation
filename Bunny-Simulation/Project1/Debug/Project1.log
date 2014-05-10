@@ -1,0 +1,17 @@
+﻿Build started 2014-05-10 20:31:23.
+     1>Project "D:\C++\GitHub repositories\Bunny-Simulation\Bunny-Simulation\Project1\Project1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /AI"C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib main.cpp Bunny.cpp
+         main.cpp
+         Bunny.cpp
+     1>Bunny.cpp(6): error C2065: 'cout' : undeclared identifier
+     1>Bunny.cpp(6): error C2228: left of '.age' must have class/struct/union
+                 type is 'Bunny *'
+                 did you intend to use '->' instead?
+     1>Bunny.cpp(6): error C2065: 'endl' : undeclared identifier
+         Generating Code...
+     1>Done Building Project "D:\C++\GitHub repositories\Bunny-Simulation\Bunny-Simulation\Project1\Project1.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.40
