@@ -38,12 +38,7 @@ Each bunny object must have:
 - Radioactive vampire bunnies do not die until they reach age 50.
 
 - The program should print a list of all the bunnies in the colony each turn along w/ all the bunnies details, sorted by age.
-- The program should also output each turns events such as:
-  "Bunny Thumper was born!
-  Bunny Fufu was born!
-Radioactive Mutant Vampire Bunny Darth Maul was born!
-Bunny Julius Caesar died!
-The program should write all screen output to a file.
-When all the bunnies have died the program terminates.
-If the bunny population exceeds 1000 a food shortage must occur
-killing exactly half of the bunnies (randomly chosen)
+- The program should also output each turns events such as: "Bunny Thumper was born! Bunny Fufu was born! Radioactive Mutant Vampire Bunny Darth Maul was born! Bunny Julius Caesar died!"
+- The program should write all screen output to a file.
+- When all the bunnies have died the program terminates.
+- If the bunny population exceeds 1000 a food shortage must occur killing exactly half of the bunnies (randomly chosen)
