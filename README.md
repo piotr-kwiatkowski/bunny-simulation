@@ -21,8 +21,8 @@ Requires:
 - linked lists
 - advanced classes
 
-Write a program that creates a linked list of bunny objects.
-Each bunny object must have:
+#Write a program that creates a linked list of bunny objects.
+#Each bunny object must have:
 - Sex: Male, Female (random at creation 50/50)
 - ??? Color: white, brown, black, spotted
 - Age : 0-10 (years old)
