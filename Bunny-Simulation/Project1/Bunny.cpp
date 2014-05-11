@@ -3,5 +3,5 @@
 
 void Bunny::printName(Bunny *oBunny)
 {
-	cout << "Wiek krolika: " << oBunny.age() << endl;
+	std::cout << "Wiek krolika: " << oBunny.age() << std::endl;
 }
