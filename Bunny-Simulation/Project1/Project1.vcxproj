@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bunny.h" />
+    <ClInclude Include="Colony.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

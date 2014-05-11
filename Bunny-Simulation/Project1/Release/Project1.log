@@ -1,0 +1,19 @@
+﻿Build started 2014-05-11 22:07:39.
+     1>Project "C:\Users\Magda\Documents\GitHub\Bunny-Simulation\Bunny-Simulation\Project1\Project1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /AI"C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _UNICODE /D UNICODE /EHa /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /TP /FU"C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib main.cpp Bunny.cpp
+         main.cpp
+         Bunny.cpp
+         Generating Code...
+         C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /clr /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _UNICODE /D UNICODE /EHa /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /TP /analyze- /errorReport:prompt "C:\Users\Magda\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.cpp"
+         .NETFramework,Version=v4.5.AssemblyAttributes.cpp
+       Link:
+         C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Magda\Documents\GitHub\Bunny-Simulation\Bunny-Simulation\Release\Bunny-Simulation.exe" /INCREMENTAL:NO /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Magda\Documents\GitHub\Bunny-Simulation\Bunny-Simulation\Release\Bunny-Simulation.pdb" /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 /SAFESEH Release\main.obj
+         Release\Bunny.obj
+         "Release\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
+         Project1.vcxproj -> C:\Users\Magda\Documents\GitHub\Bunny-Simulation\Bunny-Simulation\Release\Bunny-Simulation.exe
+     1>Done Building Project "C:\Users\Magda\Documents\GitHub\Bunny-Simulation\Bunny-Simulation\Project1\Project1.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:08.37

@@ -1,14 +1,22 @@
 #pragma once
+#include <iostream>
+
+using std::cout;
+using std::endl;
+using std::string;
 
 class Bunny
 {
-	enum ESex {male, female};
-	int age;
-	bool rmvb;// radioactive_mutant_vampire_bunny
+public:
+	enum ESex {male = 0, female};
+	int sex;
+	int age = 0;
+	bool rmvb = false; // radioactive_mutant_vampire_bunny
 
 public:
-	void printName(Bunny *oBunny);
+	void printAge();
+	void changeAge();
+	void printAll();
 
-	Bunny();
-	~Bunny();
+	Bunny(int, int, bool);
 };
