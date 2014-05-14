@@ -29,18 +29,21 @@ void Bunny::printAll()
 	}
 
 	std::cout << "Age: " << Bunny::age << std::endl;
+
 	std::cout << "Radioactive mutant vampire bunny: ";
-	if(Bunny::rmvb = false)
+	if (Bunny::rmvb = false)
 	{
 		std::cout << "no" << std::endl;
 	}
 	else if (Bunny::rmvb = true)
 	{
 		std::cout << "YES" << std::endl;
-
-Bunny::Bunny(int s, int a, bool r)
-{
-	sex = s;
-	age = a;
-	rmvb = r;
+	}
 }
+
+//Bunny::Bunny(int s, int a, bool r)
+//{
+//	sex = s;
+//	age = a;
+//	rmvb = r;
+//}

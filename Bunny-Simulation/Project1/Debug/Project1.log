@@ -1,18 +1,11 @@
-﻿Build started 2014-05-12 01:23:07.
+﻿Build started 2014-05-12 13:19:00.
      1>Project "C:\Users\Magda\Documents\GitHub\Bunny-Simulation\Bunny-Simulation\Project1\Project1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /AI"C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Bunny.cpp
-         Bunny.cpp
-     1>Bunny.cpp(41): error C2144: syntax error : 'int' should be preceded by ')'
-     1>Bunny.cpp(41): error C2512: 'Bunny::Bunny' : no appropriate default constructor available
-     1>Bunny.cpp(41): error C2059: syntax error : ')'
-     1>Bunny.cpp(42): error C2143: syntax error : missing ';' before '{'
-     1>Bunny.cpp(43): error C2065: 's' : undeclared identifier
-     1>Bunny.cpp(44): error C2065: 'a' : undeclared identifier
-     1>Bunny.cpp(45): error C2065: 'r' : undeclared identifier
-     1>Bunny.cpp(47): fatal error C1075: end of file found before the left brace '{' at 'Bunny.cpp(38)' was matched
+         C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /AI"C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib main.cpp
+         main.cpp
+     1>main.cpp(11): error C2059: syntax error : 'constant'
      1>Done Building Project "C:\Users\Magda\Documents\GitHub\Bunny-Simulation\Bunny-Simulation\Project1\Project1.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:01.70
+Time Elapsed 00:00:01.76

@@ -8,7 +8,7 @@ using namespace std;
 int main()
 {
 	setlocale(LC_ALL, "");
-	//Bunny oBunny(Bunny::male, 1, false);
+	Bunny oBunny(Bunny::ESex male, 1, false);
 	//oBunny.printAge();
 	//oBunny.changeAge();
 	//oBunny.printAll();
