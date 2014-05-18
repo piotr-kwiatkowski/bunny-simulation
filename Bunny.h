@@ -1,28 +1,25 @@
 #pragma once
-#ifndef _BUNNY_H_
-#define _BUNNY_H_
-
 #include <iostream>
-
-using std::cout;
-using std::endl;
-using std::string;
+#include <cstdlib> // rand
+#include <list>
+#include <vector>
 
 class Bunny
 {
-//public:
-	
-	int sex;
-	int age = 0;
-	bool rmvb = false; // radioactive_mutant_vampire_bunny
-
 public:
-	void printAge();
-	void changeAge();
-	void printAll();
+	std::string getName();
+	std::string setSex();
+	int getAge();
+    void setOneMoreYear();
+	void getAll(); // POTRZEBNE ?
+    void setNamesList();
+	std::vector<std::string> namesList;
 
-	enum ESex { male = 0, female };
+	Bunny();
+	~Bunny();
 
-	//Bunny(int, int, bool);
+private:
+    std::string name;
+	std::string sex;
+	int age;
 };
-#endif // _BUNNY_H_
