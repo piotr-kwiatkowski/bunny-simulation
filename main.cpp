@@ -16,15 +16,9 @@ int main()
 
 	Bunny oBunny1;
 	Bunny oBunny2;
-	Bunny oBunny3;
-	Bunny oBunny4;
-	Bunny oBunny5;
 
 	oBunny1.getAll();
 	oBunny2.getAll();
-	oBunny3.getAll();
-	oBunny4.getAll();
-	oBunny5.getAll();
 
 	return 0;
 }
