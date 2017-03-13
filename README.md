@@ -1,7 +1,5 @@
-Bunny-Simulation
-================
-
-### **(AKA Graduation)**
+Graduation
+==========
 
 Write a program that creates a linked list of bunny objects.
 
