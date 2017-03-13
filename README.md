@@ -61,9 +61,9 @@ Modify the program so that new babies are born in an empty random adjacent squar
 
 # **13-03-2017 Update:**
 ### *TODO:*
-- [ ] Play around with already written code / check current project state, store notes in *.txt* file
+- [x] ~~Play around with already written code / check current project state, store notes in *.txt* file~~
 - [ ] Analyse project again, prepare UML diagrams
-- [x] Main task #1
+- [x] ~~Main task #1~~
 - [ ] Main task #2
 - [ ] Main task #3
 - [ ] Main task #4
