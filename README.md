@@ -63,7 +63,7 @@ Modify the program so that new babies are born in an empty random adjacent squar
 ### *TODO:*
 - [ ] Play around with already written code / check current project state, store notes in *.txt* file
 - [ ] Analyse project again, prepare UML diagrams
-- [ ] Main task #1
+- [x] Main task #1
 - [ ] Main task #2
 - [ ] Main task #3
 - [ ] Main task #4
@@ -82,4 +82,6 @@ Modify the program so that new babies are born in an empty random adjacent squar
 
 ### Useful links:
 [Beginner Excercises](http://www.cplusplus.com/forum/articles/12974/) | 
-[Bunny Graduation (Long Post)](http://www.cplusplus.com/forum/beginner/92473/)
+[Bunny Graduation (Long Post)](http://www.cplusplus.com/forum/beginner/92473/) | 
+[Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) | 
+[Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
