@@ -1,6 +1,7 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
 #include <vector>
+#include "Bunny.h"
 
 class GameManager
 {
@@ -19,25 +20,25 @@ private:
 	// populate initial colony
 	void populateColony(std::vector<Bunny> *colony);
 	
-	void printColony(std::vector<Bunny> *colony);
+	void printColony(std::vector<Bunny> *colony) const;
 
 	// returns random name from .csv file
-	std::string getRandomName();
+	std::string getRandomName() const;
 
 	// returns random sex from SEX[]
-	std::string getRandomSex();
+	std::string getRandomSex() const;
 
 	// returns random color from COLORS[]
-	std::string getRandomColor();
+	std::string getRandomColor() const;
 
 	// returns true with 2% chance
-	bool isBunnyRadioactive();
+	bool isBunnyRadioactive() const;
 
-	// loads bunny names from .csv file
-	bool loadNamesFromFile();
+	// loads bunny names from .csv file, returns true if loaded
+	bool hasLoadedNames();
 
 	// next game turn
-	int nextTurn();
+	int nextTurn(std::vector<Bunny> *colony);
 };
 
 #endif // GAMEMANAGER_H

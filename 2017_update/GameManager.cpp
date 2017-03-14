@@ -10,7 +10,7 @@
 
 int GameManager::StartGame()
 {
-	if (this->loadNamesFromFile() == false)
+	if (this->hasLoadedNames() == false)
 	{
 		return EXIT_FAILURE;
 	}
@@ -18,11 +18,11 @@ int GameManager::StartGame()
 	std::vector<Bunny> bunniesColony;
 	this->populateColony(&bunniesColony);
 	this->printColony(&bunniesColony);
-	
+
 	while (true)  // MAIN GAME LOOP
 	{
 		std::cout << "\nMAIN LOOP\n";
-		if (this->nextTurn() == FAILURE)
+		if (this->nextTurn(&bunniesColony) == FAILURE)
 		{
 			// TODO: some end printings?
 			break;
@@ -33,7 +33,7 @@ int GameManager::StartGame()
 
 void GameManager::populateColony(std::vector<Bunny> *colony)
 {
-	for (int i = 0; i < INITIAL_RABBITS_NR; ++i)  // TODO: move this to a function & add try/catch block
+	for (int i = 0; i < INITIAL_RABBITS_NR; ++i)
 	{
 		Bunny newBunny(
 			this->getRandomName(),
@@ -45,7 +45,7 @@ void GameManager::populateColony(std::vector<Bunny> *colony)
 	}
 }
 
-void GameManager::printColony(std::vector<Bunny>* colony)
+void GameManager::printColony(std::vector<Bunny>* colony) const
 {
 	std::cout << "------------------------------------------------\n"
 		<< std::setw(10) << "NAME" << "\t"
@@ -55,27 +55,28 @@ void GameManager::printColony(std::vector<Bunny>* colony)
 		<< "MUTANT\n------------------------------------------------\n";
 	for (std::vector<Bunny>::iterator it = (*colony).begin(); it != (*colony).end(); ++it)
 	{
-		std::cout << std::setw(10) << (*it).getName() << "\t"
-			<< (*it).getSex() << "\t"
-			<< (*it).getAge() << "\t"
+		std::cout << std::setw(10) 
+			<< (*it).getName()  << "\t"
+			<< (*it).getSex()   << "\t"
+			<< (*it).getAge()   << "\t"
 			<< (*it).getColor() << "\t"
 			<< std::boolalpha << (*it).getIsRadioactiveVampireMutant() << std::noboolalpha << '\n';
 	}
 	std::cout << "------------------------------------------------\n" << std::endl;
 }
 
-std::string GameManager::getRandomName()
+std::string GameManager::getRandomName() const
 {
 	std::random_device rd;
 	std::mt19937_64 gen(rd());
 	std::uniform_int_distribution<> distribution(0, this->NAMES.size());
-	int tmp = distribution(gen);
-	//std::cout << NAMES[tmp] << std::endl;
-	//return NAMES[distribution(gen)];
-	return NAMES[tmp];
+	/*int tmp = distribution(gen);
+	std::cout << NAMES[tmp] << std::endl;
+	return NAMES[tmp];*/
+	return NAMES[distribution(gen)];
 }
 
-std::string GameManager::getRandomSex()
+std::string GameManager::getRandomSex() const
 {
 	std::random_device rd;
 	std::mt19937_64 gen(rd());
@@ -83,7 +84,7 @@ std::string GameManager::getRandomSex()
 	return this->SEX[distribution(gen)];
 }
 
-std::string GameManager::getRandomColor()
+std::string GameManager::getRandomColor() const
 {
 	std::random_device rd;
 	std::mt19937_64 gen(rd());
@@ -91,7 +92,7 @@ std::string GameManager::getRandomColor()
 	return this->COLORS[distribution(gen)];
 }
 
-bool GameManager::isBunnyRadioactive()
+bool GameManager::isBunnyRadioactive() const
 {
 	std::random_device rd;
 	std::mt19937_64 gen(rd());
@@ -105,12 +106,12 @@ bool GameManager::isBunnyRadioactive()
 	return true;
 }
 
-bool GameManager::loadNamesFromFile()
+bool GameManager::hasLoadedNames()
 {
 	std::fstream f;
-	f.open("D:\\IT\\git-repos\\Graduation\\2017_update\\names.csv", std::ios::in);
-	//f.open("D:\\_private\\git-repos\\Graduation\\2017_update\\names.csv", std::ios::in);  // <-- FIXME: relative path
-	//f.open("names.csv", std::ios::in);
+	//f.open("D:\\IT\\git-repos\\Graduation\\2017_update\\names.csv", std::ios::in); // HOME
+	f.open("D:\\_private\\git-repos\\Graduation\\2017_update\\names.csv", std::ios::in);  // TIETO
+	//f.open("names.csv", std::ios::in);  // FINAL
 	if (!f.good())
 	{
 		std::cout << "Error opening names file!\n";
@@ -126,7 +127,7 @@ bool GameManager::loadNamesFromFile()
 	return true;
 }
 
-int GameManager::nextTurn()
+int GameManager::nextTurn(std::vector<Bunny> *colony)
 {
 	// TODO: add 1 year to every rabbit
 	// TODO: check age of every rabbit, kill if too old

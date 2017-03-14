@@ -17,11 +17,11 @@ public:
 
 
 private:
-	std::string name;
-	std::string sex;
-	std::string color;
-	int age;
-	bool isRadioactiveVampireMutant;
+	std::string m_name;
+	std::string m_sex;
+	std::string m_color;
+	int m_age;
+	bool m_isRadioactiveVampireMutant;
 };
 
 #endif  /* BUNNY_H */

@@ -1,34 +1,36 @@
 #include <iostream>
 #include "Bunny.h"
 
-// ctor
+// Bunny class constructor
 Bunny::Bunny(std::string a_name, std::string a_sex, std::string a_color, int a_age, bool a_mutant) 
-	: name(a_name), sex(a_sex), color(a_color), age(a_age), isRadioactiveVampireMutant(a_mutant)
-{
-	//std::cout << "bunny ctor\n";
-}
+	: m_name(a_name)
+	, m_sex(a_sex)
+	, m_color(a_color)
+	, m_age(a_age)
+	, m_isRadioactiveVampireMutant(a_mutant)
+{}
 
 std::string Bunny::getName()
 {
-	return this->name;
+	return this->m_name;
 }
 
 std::string Bunny::getSex()
 {
-	return this->sex;
+	return this->m_sex;
 }
 
 std::string Bunny::getColor()
 {
-	return this->color;
+	return this->m_color;
 }
 
 int Bunny::getAge()
 {
-	return this->age;
+	return this->m_age;
 }
 
 bool Bunny::getIsRadioactiveVampireMutant()
 {
-	return this->isRadioactiveVampireMutant;
+	return this->m_isRadioactiveVampireMutant;
 }
