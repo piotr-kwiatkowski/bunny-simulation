@@ -40,19 +40,19 @@ Modify the program so that new babies are born in an empty random adjacent squar
 
 ---
 
-#### *Project requires:*
-* variables, data types, and numerical operators
-* basic input/output
-* logic (if statements, switch statements)
-* loops (for, while, do-while)
-* arrays
-* pseudo random number generation
-* strings & string functions
-* functions
-* structures/classes
+#### *Project requires:* (crossed out if already done)
+* ~~variables, data types, and numerical operators~~
+* ~~basic input/output~~
+* ~~logic (if statements, switch statements)~~
+* ~~loops (for, while, do-while)~~
+* ~~arrays~~
+* ~~pseudo random number generation~~
+* ~~strings & string functions~~
+* ~~functions~~
+* ~~structures/classes~~
 * enumerated data
-* file input/output
-* pointers
+* ~~file input/output~~
+* ~~pointers~~
 * sorting
 * linked lists
 * advanced classes
@@ -61,27 +61,28 @@ Modify the program so that new babies are born in an empty random adjacent squar
 
 # **13-03-2017 Update:**
 ### *TODO:*
-- [x] ~~Play around with already written code / check current project state, store notes in *.txt* file~~
+- [x] ~~Play around with already written code / check current project state, store notes in *.txt* file~~ DONE: 13-03-2017
 - [ ] Analyse project again, prepare UML diagrams
-- [x] ~~Main task #1~~
+- [x] ~~Main task #1~~ DONE: 13-03-2017
 - [ ] Main task #2
 - [ ] Main task #3
 - [ ] Main task #4
-- [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) and fix mistakes
+- [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
 - [ ] Main task #5
 - [ ] Main task #6
 - [ ] Main task #7
 - [ ] Main task #8
-- [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) and fix mistakes
+- [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
 - [ ] Create C++11/C++14 version (if not already)
 - [ ] Add optional #1 (real-time)
 - [ ] Add optional #2 (rabbit cull)
 - [ ] Add optional #3 (80x80 grid)
 - [ ] Add optional #4 (saving & playback)
+- [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
 - [ ] Die
 
 ### Useful links:
-[Beginner Excercises](http://www.cplusplus.com/forum/articles/12974/) | 
-[Bunny Graduation (Long Post)](http://www.cplusplus.com/forum/beginner/92473/) | 
-[Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) | 
-[Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
+* [Other beginner excercises (including this one)](http://www.cplusplus.com/forum/articles/12974/) (cplusplus.com)
+* [Implementation](http://www.cplusplus.com/forum/beginner/92473/) (cplusplus.com)
+* [Implementation review](http://codereview.stackexchange.com/questions/20407/linked-list-of-bunny-objects) (codereview.stackexchange.com)
+* [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) & [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
