@@ -8,27 +8,27 @@
 
 int GameManager::startGame()
 {
-	if (!this->hasLoadedNames())
-	{
-		return EXIT_FAILURE;
-	}
+    if (!this->hasLoadedNames())
+    {
+        return EXIT_FAILURE;
+    }
 
-	std::list<Bunny> bunniesColony;
-	this->populateColony(&bunniesColony);
-	this->printColony(&bunniesColony);
-	
-	int i = 11;
-	while (i)  // MAIN GAME LOOP
-	{
-		if (!this->nextTurn(&bunniesColony))
-		{
-			// TODO: some end printings?
+    std::list<Bunny> bunniesColony;
+    this->populateColony(&bunniesColony);
+    this->printColony(&bunniesColony);
+    
+    int i = 11;
+    while (i)  // MAIN GAME LOOP
+    {
+        if (!this->nextTurn(&bunniesColony))
+        {
+            // TODO: some end printings?
             std::cout << "-- !nextTurn()\n";
-			break;
-		}
-		i--;
-	}
-	return EXIT_SUCCESS;
+            break;
+        }
+        i--;
+    }
+    return EXIT_SUCCESS;
 }
 
 bool GameManager::hasLoadedNames()
@@ -91,39 +91,39 @@ bool GameManager::isBunnyRadioactive() const
 
 void GameManager::populateColony(std::list<Bunny> *a_colony)
 {
-	for (int i = 0; i < INITIAL_RABBITS_NR; ++i)
-	{
-		Bunny newBunny(
-			this->getRandomName(),
-			this->getRandomSex(),
-			this->getRandomColor(),
-			INITIAL_AGE,
-			this->isBunnyRadioactive()
+    for (int i = 0; i < INITIAL_RABBITS_NR; ++i)
+    {
+        Bunny newBunny(
+            this->getRandomName(),
+            this->getRandomSex(),
+            this->getRandomColor(),
+            INITIAL_AGE,
+            this->isBunnyRadioactive()
         );
-		(*a_colony).push_back(newBunny);
-	}
+        (*a_colony).push_back(newBunny);
+    }
 }
 
 void GameManager::printColony(std::list<Bunny> *colony) const
 {
-	std::cout << "------------------------------------------------\n"
-		<< std::setw(10) << "NAME" << "\t"
-		<< "SEX\t"
-		<< "AGE\t"
-		<< "COLOR\t"
-		<< "MUTANT\n------------------------------------------------\n";
+    std::cout << "------------------------------------------------\n"
+        << std::setw(10) << "NAME" << "\t"
+        << "SEX\t"
+        << "AGE\t"
+        << "COLOR\t"
+        << "MUTANT\n------------------------------------------------\n";
 
-	for (auto const &it : *colony)
-	{
-		std::cout << std::setw(10)
-			<< it.getName()  << "\t"
-			<< it.getSex()   << "\t"
-			<< it.getAge()   << "\t"
-			<< it.getColor() << "\t"
-			<< std::boolalpha << it.getIsMutant() 
-			<< std::noboolalpha << '\n';
-	}
-	std::cout << "------------------------------------------------\n" << std::endl;
+    for (auto const &it : *colony)
+    {
+        std::cout << std::setw(10)
+            << it.getName()  << "\t"
+            << it.getSex()   << "\t"
+            << it.getAge()   << "\t"
+            << it.getColor() << "\t"
+            << std::boolalpha << it.getIsMutant() 
+            << std::noboolalpha << '\n';
+    }
+    std::cout << "------------------------------------------------\n" << std::endl;
 }
 
 bool GameManager::nextTurn(std::list<Bunny> *colony)
@@ -141,7 +141,7 @@ bool GameManager::nextTurn(std::list<Bunny> *colony)
         return false;
     }
 
-	return true;
+    return true;
 }
 
 void GameManager::incrementColonyAge(std::list<Bunny> *colony)
