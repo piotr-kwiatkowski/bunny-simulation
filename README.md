@@ -59,25 +59,27 @@ Modify the program so that new babies are born in an empty random adjacent squar
 
 ---
 
-# **13-03-2017 Update:**
+# **2017 Update:**
 ### *TODO:*
 - [x] ~~Play around with already written code / check current project state, store notes in *.txt* file~~ **DONE: 13-03-2017**
 - [ ] Analyse project again, prepare UML diagrams
-- [x] ~~Main task #1~~ **DONE: 2017-03-13**
-- [x] ~~Main task #2~~ **DONE: 2017-07-26**
-- [ ] Main task #3
-- [ ] Main task #4
+- [ ] Main tasks:
+  - [x] ~~Main task #1~~ **DONE: 2017-03-13**
+  - [x] ~~Main task #2~~ **DONE: 2017-07-26**
+  - [ ] Main task #3
+  - [X] ~~Main task #4~~ **DONE: 2017-07-26**
+  - [X] ~~Main task #5~~ **DONE: 2017-07-26**
+  - [ ] Main task #6
+  - [ ] Main task #7
+  - [ ] Main task #8
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
-- [ ] Main task #5
-- [ ] Main task #6
-- [ ] Main task #7
-- [ ] Main task #8
+- [ ] Optional tasks:  
+  - [ ] Optional task #1 (real-time)
+  - [ ] Optional task #2 (rabbit cull)
+  - [ ] Optional task #3 (80x80 grid)
+  - [ ] Optional task #4 (saving & playback)
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
 - [ ] Create C++11/C++14 version (if not already)
-- [ ] Add optional #1 (real-time)
-- [ ] Add optional #2 (rabbit cull)
-- [ ] Add optional #3 (80x80 grid)
-- [ ] Add optional #4 (saving & playback)
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
 - [ ] Die
 
