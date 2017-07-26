@@ -1,26 +1,29 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
+
 #include <vector>
+#include <list>
 #include "Bunny.h"
 
 class GameManager
 {
 public:
-	int StartGame();
+	int startGame();
 
 private:
-	const std::string COLORS[4] = { "white", "brown", "black", "spotted" };
-	const std::string SEX[2]    = { "male", "female" };
+	const std::string COLORS[4]  = { "white", "brown", "black", "spotted" };
+	const std::string SEX[2]     = { "male", "female" };
 	const int INITIAL_RABBITS_NR = 5;
-	const int COLORS_NR   = 4;  // rename
-	const int INITIAL_AGE = 0;
-	const int FAILURE = 666;
-	std::vector<std::string> NAMES;
+	const int COLORS_NR          = 4;  // rename
+	const int INITIAL_AGE        = 0;
+	const int FAILURE            = 666;
+	
+    std::vector<std::string> NAMES;
 
 	// populate initial colony
-	void populateColony(std::vector<Bunny> *colony);
+	void populateColony(std::list<Bunny> *colony);
 	
-	void printColony(std::vector<Bunny> *colony) const;
+	void printColony(std::list<Bunny> *colony) const;
 
 	// returns random name from .csv file
 	std::string getRandomName() const;
@@ -38,7 +41,13 @@ private:
 	bool hasLoadedNames();
 
 	// next game turn
-	int nextTurn(std::vector<Bunny> *colony);
+	bool nextTurn(std::list<Bunny> *colony);
+
+    // add 1 year to age of every rabbit in colony
+    void incrementColonyAge(std::list<Bunny> *colony);
+
+    // kill elder rabbits
+    void killElders(std::list<Bunny> *colony);
 };
 
 #endif // GAMEMANAGER_H

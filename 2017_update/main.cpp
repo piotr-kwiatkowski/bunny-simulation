@@ -12,7 +12,9 @@
 int main(int argc, char const *argv[])
 {
 	GameManager oGameManager;
-	oGameManager.StartGame();
+	oGameManager.startGame();
+
+    std::cout << "\nPress enter to close program...";
 	std::cin.ignore();
 
 	return 0;
