@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
 	oGameManager.startGame();
 
     std::cout << "\nPress enter to close program...";
-	std::cin.ignore();
+	//std::cin.ignore();
 
 	return 0;
 }

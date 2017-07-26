@@ -48,6 +48,8 @@ private:
 
     // kill elder rabbits
     void killElders(std::list<Bunny> *colony);
+
+    void breed(std::list<Bunny> *colony);
 };
 
 #endif // GAMEMANAGER_H

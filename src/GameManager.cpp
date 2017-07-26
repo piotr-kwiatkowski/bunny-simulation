@@ -16,8 +16,9 @@ int GameManager::startGame()
 	std::list<Bunny> bunniesColony;
 	this->populateColony(&bunniesColony);
 	this->printColony(&bunniesColony);
-
-	while (true)  // MAIN GAME LOOP
+	
+	int i = 11;
+	while (i)  // MAIN GAME LOOP
 	{
 		if (!this->nextTurn(&bunniesColony))
 		{
@@ -25,19 +26,15 @@ int GameManager::startGame()
             std::cout << "-- !nextTurn()\n";
 			break;
 		}
+		i--;
 	}
 	return EXIT_SUCCESS;
 }
 
-/********************************************************************************
-                         INITIAL FUNCTIONS
-*********************************************************************************/
 bool GameManager::hasLoadedNames()
 {
     std::fstream f;
-    //f.open("D:\\IT\\git-repos\\Graduation\\2017_update\\names.csv", std::ios::in);      // HOME
-    f.open("D:\\_private\\git-repos\\Graduation\\2017_update\\names.csv", std::ios::in);  // OFFICE
-                                                                                          //f.open("names.csv", std::ios::in);                                                  // FINAL
+    f.open("names.csv", std::ios::in);
     if (!f.good())
     {
         std::cout << "Error opening names file!\n";
@@ -59,9 +56,6 @@ std::string GameManager::getRandomName() const
     std::random_device rd;
     std::mt19937_64 gen(rd());
     std::uniform_int_distribution<> distribution(0, this->NAMES.size());
-    /*int tmp = distribution(gen);
-    std::cout << NAMES[tmp] << std::endl;
-    return NAMES[tmp];*/
     return NAMES[distribution(gen)];
 }
 
@@ -119,21 +113,18 @@ void GameManager::printColony(std::list<Bunny> *colony) const
 		<< "COLOR\t"
 		<< "MUTANT\n------------------------------------------------\n";
 
-	for (std::list<Bunny>::iterator it = (*colony).begin(); it != (*colony).end(); ++it)
+	for (auto const &it : *colony)
 	{
 		std::cout << std::setw(10)
-			<< it->getName()  << "\t"
-			<< it->getSex()   << "\t"
-			<< it->getAge()   << "\t"
-			<< it->getColor() << "\t"
-			<< std::boolalpha << it->getIsRadioactiveVampireMutant() << std::noboolalpha << '\n';
+			<< it.getName()  << "\t"
+			<< it.getSex()   << "\t"
+			<< it.getAge()   << "\t"
+			<< it.getColor() << "\t"
+			<< std::boolalpha << it.getIsMutant() 
+			<< std::noboolalpha << '\n';
 	}
-
 	std::cout << "------------------------------------------------\n" << std::endl;
 }
-
-/*********************************************************************************/
-
 
 bool GameManager::nextTurn(std::list<Bunny> *colony)
 {
@@ -141,6 +132,7 @@ bool GameManager::nextTurn(std::list<Bunny> *colony)
 
     incrementColonyAge(colony);
     killElders(colony);
+    breed(colony);
 
     printColony(colony);
 
@@ -162,15 +154,53 @@ void GameManager::incrementColonyAge(std::list<Bunny> *colony)
 
 void GameManager::killElders(std::list<Bunny> *colony)
 {
-    for (std::list<Bunny>::iterator it = (*colony).begin(); it != (*colony).end(); ++it)
+    // NOTE: iterating over list with erasing!
+    std::list<Bunny>::iterator it = (*colony).begin();
+    while(it != (*colony).end())
     {
-        if (it->getIsRadioactiveVampireMutant() && it->getAge() >= 50)
+        if (it->getIsMutant() && it->getAge() >= 50)
         {
-            //(*colony).remove((*it));   // FIXME !!!
+            it = (*colony).erase(it);
         }
         else if ((*it).getAge() >= 10)
         {
-            //(*colony).remove((*it));   // FIXME !!!
+            it = (*colony).erase(it);
+        }
+        else {
+            it++;
+        }
+    }
+}
+
+void GameManager::breed(std::list<Bunny> *colony)
+{
+    bool adultMale = false;
+    for (auto const &it : *colony)
+    {
+        if (it.getSex() == "male" && it.getAge() > 1)
+        {
+            adultMale = true;
+            break;
+        }
+    }
+
+    if (!adultMale) {
+        return;
+    }
+    
+    for (auto const &it : *colony) 
+    {
+        if (it.getSex() == "female" && it.getAge() > 1)
+        {
+            Bunny newBunny(
+                this->getRandomName(),
+                this->getRandomSex(),
+                it.getColor(),
+                INITIAL_AGE,
+                this->isBunnyRadioactive()
+            );
+            (*colony).push_back(newBunny);   // FIXME !!!
+            //std::cout << "-- newBunny: " << newBunny.getName() << "\n";
         }
     }
 }

@@ -10,14 +10,16 @@ public:
 	Bunny(std::string a_name, std::string a_sex, std::string a_color, int a_age, bool a_mutant);
 	
     // getters
-	std::string getName();
-	std::string getSex();
-	std::string getColor();
-	int         getAge();
-	bool        getIsRadioactiveVampireMutant();
+	std::string getName()     const;
+	std::string getSex()      const;
+	std::string getColor()    const;
+	int         getAge()      const;
+	bool        getIsMutant() const;
 
     void incrementAge();
 
+	// for std::list::remove
+	bool operator==(const Bunny& other) const;
 
 private:
 	std::string m_name;

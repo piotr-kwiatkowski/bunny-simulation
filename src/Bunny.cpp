@@ -10,27 +10,27 @@ Bunny::Bunny(std::string a_name, std::string a_sex, std::string a_color, int a_a
 	, m_isRadioactiveVampireMutant(a_mutant)
 {}
 
-std::string Bunny::getName()
+std::string Bunny::getName() const
 {
 	return this->m_name;
 }
 
-std::string Bunny::getSex()
+std::string Bunny::getSex() const
 {
 	return this->m_sex;
 }
 
-std::string Bunny::getColor()
+std::string Bunny::getColor() const
 {
 	return this->m_color;
 }
 
-int Bunny::getAge()
+int Bunny::getAge() const
 {
 	return this->m_age;
 }
 
-bool Bunny::getIsRadioactiveVampireMutant()
+bool Bunny::getIsMutant() const
 {
 	return this->m_isRadioactiveVampireMutant;
 }
@@ -38,4 +38,9 @@ bool Bunny::getIsRadioactiveVampireMutant()
 void Bunny::incrementAge()
 {
     this->m_age++;
+}
+
+bool Bunny::operator==(const Bunny & other) const
+{
+	return this->getName() == other.getName() ? true : false;
 }
