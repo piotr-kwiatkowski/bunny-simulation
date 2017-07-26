@@ -54,7 +54,7 @@ Modify the program so that new babies are born in an empty random adjacent squar
 * ~~file input/output~~
 * ~~pointers~~
 * sorting
-* linked lists
+* ~~linked lists~~
 * advanced classes
 
 ---
@@ -63,8 +63,8 @@ Modify the program so that new babies are born in an empty random adjacent squar
 ### *TODO:*
 - [x] ~~Play around with already written code / check current project state, store notes in *.txt* file~~ **DONE: 13-03-2017**
 - [ ] Analyse project again, prepare UML diagrams
-- [x] ~~Main task #1~~ **DONE: 13-03-2017**
-- [ ] Main task #2
+- [x] ~~Main task #1~~ **DONE: 2017-03-13**
+- [x] ~~Main task #2~~ **DONE: 2017-07-26**
 - [ ] Main task #3
 - [ ] Main task #4
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
