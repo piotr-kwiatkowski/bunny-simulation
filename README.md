@@ -66,7 +66,7 @@ Modify the program so that new babies are born in an empty random adjacent squar
 - [ ] Main tasks:
   - [x] ~~Main task #1~~ **DONE: 2017-03-13**
   - [x] ~~Main task #2~~ **DONE: 2017-07-26**
-  - [ ] Main task #3
+  - [x] ~~Main task #3~~ **DONE: 2017-07-27**
   - [X] ~~Main task #4~~ **DONE: 2017-07-26**
   - [X] ~~Main task #5~~ **DONE: 2017-07-26**
   - [ ] Main task #6
