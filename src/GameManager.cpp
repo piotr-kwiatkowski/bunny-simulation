@@ -128,18 +128,17 @@ void GameManager::printColony(std::list<Bunny> *colony) const
 
 bool GameManager::nextTurn(std::list<Bunny> *colony)
 {
-    std::cout << "-- next year!\n";
-
     incrementColonyAge(colony);
     killElders(colony);
+	infect(colony);
+
     breed(colony);
+	
 	// sort colony by age
-
 	(*colony).sort([](Bunny a, Bunny b) { return a.getAge() < b.getAge(); });
-
     printColony(colony);
 
-    if ((*colony).empty())
+    if ((*colony).empty() || isColonyTotallyInfected(colony))
     {
         return false;
     }
@@ -209,4 +208,29 @@ void GameManager::breed(std::list<Bunny> *colony)
     }
 	// adding offspring to colony
 	(*colony).splice((*colony).end(), offspring);
+}
+
+void GameManager::infect(std::list<Bunny>* colony)
+{
+	int infected = 0;
+	for (auto const &it : *colony)
+	{
+		if (it.getIsMutant())
+		{
+			infected++;
+		}
+	}
+
+	for (int i = 0; i < infected; ++i)
+	{
+		// TODO:
+		// choose random int N = [1 : colony.size()-1]
+		// access Nth non-mutant node and change to mutant
+	}
+}
+
+bool GameManager::isColonyTotallyInfected(std::list<Bunny>* colony)
+{
+	int infected = 0;
+	return false;
 }
