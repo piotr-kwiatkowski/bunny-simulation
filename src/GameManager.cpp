@@ -174,13 +174,14 @@ void GameManager::killElders(std::list<Bunny> *colony)
 
 void GameManager::breed(std::list<Bunny> *colony)
 {
-    bool adultMale = false;
+    int adultMale = 0;
+	int adultFemale = 0;
     for (auto const &it : *colony)
     {
         if (it.getSex() == "male" && it.getAge() > 1)
         {
-            adultMale = true;
-            break;
+            adultMale++;
+			break;   // one adult male sufficient to breed
         }
     }
 
@@ -188,6 +189,7 @@ void GameManager::breed(std::list<Bunny> *colony)
         return;
     }
     
+	std::list<Bunny> offspring;
     for (auto const &it : *colony) 
     {
         if (it.getSex() == "female" && it.getAge() > 1)
@@ -199,8 +201,9 @@ void GameManager::breed(std::list<Bunny> *colony)
                 INITIAL_AGE,
                 this->isBunnyRadioactive()
             );
-            (*colony).push_back(newBunny);   // FIXME !!!
-            //std::cout << "-- newBunny: " << newBunny.getName() << "\n";
+            offspring.push_back(newBunny);
         }
     }
+	// adding offspring to colony
+	(*colony).splice((*colony).end(), offspring);
 }
