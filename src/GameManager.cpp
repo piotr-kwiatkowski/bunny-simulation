@@ -133,6 +133,9 @@ bool GameManager::nextTurn(std::list<Bunny> *colony)
     incrementColonyAge(colony);
     killElders(colony);
     breed(colony);
+	// sort colony by age
+
+	(*colony).sort([](Bunny a, Bunny b) { return a.getAge() < b.getAge(); });
 
     printColony(colony);
 
@@ -178,7 +181,7 @@ void GameManager::breed(std::list<Bunny> *colony)
 	int adultFemale = 0;
     for (auto const &it : *colony)
     {
-        if (it.getSex() == "male" && it.getAge() > 1)
+        if (it.getSex() == "male" && it.getAge() > 1 && !it.getIsMutant())
         {
             adultMale++;
 			break;   // one adult male sufficient to breed
@@ -192,7 +195,7 @@ void GameManager::breed(std::list<Bunny> *colony)
 	std::list<Bunny> offspring;
     for (auto const &it : *colony) 
     {
-        if (it.getSex() == "female" && it.getAge() > 1)
+        if (it.getSex() == "female" && it.getAge() > 1 && !it.getIsMutant())
         {
             Bunny newBunny(
                 this->getRandomName(),
