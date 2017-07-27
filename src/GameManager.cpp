@@ -135,7 +135,7 @@ bool GameManager::nextTurn(std::list<Bunny> *colony)
     breed(colony);
 	
 	// sort colony by age
-	(*colony).sort([](Bunny a, Bunny b) { return a.getAge() < b.getAge(); });
+	(*colony).sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });
     printColony(colony);
 
     if ((*colony).empty() || isColonyTotallyInfected(colony))
@@ -234,7 +234,7 @@ bool GameManager::isColonyTotallyInfected(std::list<Bunny>* colony)
 	int infected = 0;
 	for (auto const &it : *colony)
 	{
-		if (it.getIsMutant)
+		if (it.getIsMutant())
 		{
 			infected++;
 		}
