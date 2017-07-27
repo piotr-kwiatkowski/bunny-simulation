@@ -232,5 +232,19 @@ void GameManager::infect(std::list<Bunny>* colony)
 bool GameManager::isColonyTotallyInfected(std::list<Bunny>* colony)
 {
 	int infected = 0;
+	for (auto const &it : *colony)
+	{
+		if (it.getIsMutant)
+		{
+			infected++;
+		}
+	}
+
+	if (infected == (*colony).size())
+	{
+		std::cout << "ALL BUNNIES ARE MUTANTS!\n";
+		return true;
+	}
+
 	return false;
 }
