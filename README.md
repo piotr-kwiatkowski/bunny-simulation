@@ -7,7 +7,7 @@ Write a program that creates a linked list of bunny objects.
 - Sex: Male, Female (random at creation 50/50)
 - Color: white, brown, black, spotted
 - Age : 0-10 (years old)
-- radioactive_mutant_vampire_bunny: true/false (decided at time of bunny creation 2% chance of true)
+- Radioactive mutant vampire bunny: true/false (occurrence possibility: 2%)
 
 ## Main tasks:
 1. At program initialization 5 bunnies must be created and given random colors.
