@@ -4,9 +4,9 @@ Graduation
 Write a program that creates a linked list of bunny objects.
 
 #### Each bunny object must have:
-- Sex: Male, Female (random at creation 50/50)
+- Sex: male, female (random at creation 50/50)
 - Color: white, brown, black, spotted
-- Age : 0-10 (years old)
+- Age: 0-10 (years old)
 - Radioactive mutant vampire bunny: true/false (occurrence possibility: 2%)
 
 ## Main tasks:
@@ -20,7 +20,7 @@ Write a program that creates a linked list of bunny objects.
 1. Radioactive vampire bunnies do not die until they reach age 50.
 
 #### Also:
-- The program should print a list of all the bunnies in the colony each turn along w/ all the bunnies details, sorted by age.
+- The program should print a list of all the bunnies in the colony each turn along with all the bunnies details, sorted by age.
 - The program should also output each turns events such as:
  "Bunny Thumper was born!
  Bunny Fufu was born!
@@ -53,9 +53,9 @@ Modify the program so that new babies are born in an empty random adjacent squar
 * enumerated data
 * ~~file input/output~~
 * ~~pointers~~
-* sorting
+* ~~sorting~~
 * ~~linked lists~~
-* advanced classes
+* advanced classes (?)
 
 ---
 
@@ -70,8 +70,8 @@ Modify the program so that new babies are born in an empty random adjacent squar
   - [X] ~~Main task #4~~ **DONE: 2017-07-26**
   - [X] ~~Main task #5~~ **DONE: 2017-07-26**
   - [ ] Main task #6
-  - [ ] Main task #7
-  - [ ] Main task #8
+  - [x] ~~Main task #7~~ **DONE: 2017-07-27**
+  - [x] ~~Main task #8~~ **DONE: 2017-07-27**
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
 - [ ] Optional tasks:  
   - [ ] Optional task #1 (real-time)
