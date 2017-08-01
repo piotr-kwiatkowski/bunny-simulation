@@ -7,7 +7,11 @@ class Bunny
 {
 public:
     // constructor
-    Bunny(std::string a_name, std::string a_sex, std::string a_color, int a_age, bool a_mutant);
+    Bunny(std::string a_name
+		, std::string a_sex
+		, std::string a_color
+		, int a_age
+		, bool a_mutant);
     
     // getters
     std::string getName()     const;
@@ -16,6 +20,8 @@ public:
     int         getAge()      const;
     bool        getIsMutant() const;
 
+
+	void convertToMutant();
     void incrementAge();
 
     // for std::list::remove

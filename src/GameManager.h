@@ -49,7 +49,7 @@ private:
     // kill elder rabbits
     void killElders(std::list<Bunny> *colony);
 
-    void breed(std::list<Bunny> *colony);
+    bool breed(std::list<Bunny> *colony);
 
 	// infect colony if mutant(s) present
 	void infect(std::list<Bunny> *colony);

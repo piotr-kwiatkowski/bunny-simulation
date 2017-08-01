@@ -5,6 +5,7 @@
 #include "GameManager.h"
 #include "Bunny.h"
 
+#define __PRETTY_FUNCTION__ __FUNCTION__":" << __LINE__
 
 int GameManager::startGame()
 {
@@ -17,16 +18,14 @@ int GameManager::startGame()
     this->populateColony(&bunniesColony);
     this->printColony(&bunniesColony);
     
-    int i = 11;
-    while (i)  // MAIN GAME LOOP
+    while (true)  // MAIN GAME LOOP
     {
         if (!this->nextTurn(&bunniesColony))
         {
             // TODO: some end printings?
-            std::cout << "-- !nextTurn()\n";
+            std::cout << "-- nextTurn() false!\n";
             break;
         }
-        i--;
     }
     return EXIT_SUCCESS;
 }
@@ -77,6 +76,8 @@ std::string GameManager::getRandomColor() const
 
 bool GameManager::isBunnyRadioactive() const
 {
+	std::cout << __FUNCTION__ << std::endl;
+
     std::random_device rd;
     std::mt19937_64 gen(rd());
     std::uniform_int_distribution<> distribution(0, 99);
@@ -85,6 +86,7 @@ bool GameManager::isBunnyRadioactive() const
     {
         return false;
     }
+	
     std::cout << "\n>>>>>>>>>> MUTANT !!!!!!!!\n";
     return true;
 }
@@ -106,16 +108,16 @@ void GameManager::populateColony(std::list<Bunny> *a_colony)
 
 void GameManager::printColony(std::list<Bunny> *colony) const
 {
-    std::cout << "------------------------------------------------\n"
-        << std::setw(10) << "NAME" << "\t"
+    std::cout << "---------------------------------------------------------------\n"
+        << std::setw(20) << "NAME" << "\t"
         << "SEX\t"
         << "AGE\t"
         << "COLOR\t"
-        << "MUTANT\n------------------------------------------------\n";
+        << "MUTANT\n-------------------------------------------------------------\n";
 
     for (auto const &it : *colony)
     {
-        std::cout << std::setw(10)
+        std::cout << std::setw(20)
             << it.getName()  << "\t"
             << it.getSex()   << "\t"
             << it.getAge()   << "\t"
@@ -123,7 +125,7 @@ void GameManager::printColony(std::list<Bunny> *colony) const
             << std::boolalpha << it.getIsMutant() 
             << std::noboolalpha << '\n';
     }
-    std::cout << "------------------------------------------------\n" << std::endl;
+    std::cout << "----------------------------------------------------------------\n" << std::endl;
 }
 
 bool GameManager::nextTurn(std::list<Bunny> *colony)
@@ -132,7 +134,11 @@ bool GameManager::nextTurn(std::list<Bunny> *colony)
     killElders(colony);
 	infect(colony);
 
-    breed(colony);
+	if (!breed(colony))
+	{
+		std::cout << "COLONY CAN NOT BREED!\n";
+		return false;
+	}
 	
 	// sort colony by age
 	(*colony).sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });
@@ -140,9 +146,11 @@ bool GameManager::nextTurn(std::list<Bunny> *colony)
 
     if ((*colony).empty() || isColonyTotallyInfected(colony))
     {
+		std::cout << "-- nextturn false\n";
         return false;
     }
 
+	std::cout << "-- nextturn true\n";
     return true;
 }
 
@@ -174,22 +182,36 @@ void GameManager::killElders(std::list<Bunny> *colony)
     }
 }
 
-void GameManager::breed(std::list<Bunny> *colony)
+bool GameManager::breed(std::list<Bunny> *colony)
 {
-    int adultMale = 0;
-	int adultFemale = 0;
+    int adultMales   = 0;
+	int adultFemales = 0;
+	int children     = 0;
     for (auto const &it : *colony)
     {
         if (it.getSex() == "male" && it.getAge() > 1 && !it.getIsMutant())
         {
-            adultMale++;
-			break;   // one adult male sufficient to breed
+            adultMales++;
         }
+		else if (it.getSex() == "female" && it.getAge() > 1 && !it.getIsMutant())
+		{
+			adultFemales++;
+		}
+		else if (!it.getIsMutant())
+		{
+			children++;
+		}
     }
 
-    if (!adultMale) {
-        return;
+    if (!adultMales && !children) {
+		std::cout << "NO ADULT MALES\n";
+        return false;
     }
+	else if (!adultFemales && !children)
+	{
+		std::cout << "NO ADULT FEMALES!\n";
+		return false;
+	}
     
 	std::list<Bunny> offspring;
     for (auto const &it : *colony) 
@@ -207,11 +229,15 @@ void GameManager::breed(std::list<Bunny> *colony)
         }
     }
 	// adding offspring to colony
+	std::cout << "-- adding offspring to colony\n";
 	(*colony).splice((*colony).end(), offspring);
+	return true;
 }
 
 void GameManager::infect(std::list<Bunny>* colony)
 {
+	std::cout << __PRETTY_FUNCTION__ << std::endl;
+
 	int infected = 0;
 	for (auto const &it : *colony)
 	{
@@ -221,12 +247,37 @@ void GameManager::infect(std::list<Bunny>* colony)
 		}
 	}
 
+	std::cout << "-- infected: " << infected << std::endl;
+	
+	int colSize = (*colony).size();
+	std::random_device rd;
+	std::mt19937_64 gen(rd());
 	for (int i = 0; i < infected; ++i)
 	{
-		// TODO:
-		// choose random int N = [1 : colony.size()-1]
-		// access Nth non-mutant node and change to mutant
+		if (isColonyTotallyInfected(colony))
+		{
+			std::cout << "-- no infecting possible!\n";
+			break;
+		}
+
+		std::uniform_int_distribution<> distribution(0, colSize);
+		int rnd = distribution(gen);
+		std::cout << "-- colSize: " << colSize << "\trnd: " << rnd << std::endl;
+		std::list<Bunny>::iterator it = (*colony).begin();
+		std::advance(it, rnd);
+
+		if ((*it).getIsMutant())
+		{
+			std::cout << "\t-- already infected!\n";
+			i--;
+			continue;
+		}
+		else
+		{
+			(*it).convertToMutant();
+		}
 	}
+	std::cout << "-- end of breeding\n";
 }
 
 bool GameManager::isColonyTotallyInfected(std::list<Bunny>* colony)
