@@ -4,11 +4,15 @@ C++ implementation of [this](http://www.cplusplus.com/forum/articles/12974/) exc
 
 Write a program that creates a linked list of bunny objects.
 
+---
+
 #### Each bunny object must have:
 - Sex: male, female (random at creation 50/50)
 - Color: white, brown, black, spotted
 - Age: 0-10 (years old)
 - Radioactive mutant vampire bunny: true/false (occurrence possibility: 2%)
+
+---
 
 ## Main tasks:
 1. At program initialization 5 bunnies must be created and given random colors.
@@ -20,6 +24,8 @@ Write a program that creates a linked list of bunny objects.
 1. Radioactive vampire bunnies are excluded from regular breeding and do not count as adult bunnies.
 1. Radioactive vampire bunnies do not die until they reach age 50.
 
+---
+
 #### Also:
 - The program should print a list of all the bunnies in the colony each turn along with all the bunnies details, sorted by age.
 - The program should also output each turns events such as:
@@ -30,6 +36,8 @@ Write a program that creates a linked list of bunny objects.
 - The program should write all screen output to a file.
 - When all the bunnies have died the program terminates.
 - If the bunny population exceeds 1000 a food shortage must occur killing exactly half of the bunnies (randomly chosen)
+
+---
 
 ## Optional tasks:
 ★ Modify the program to run in real time, with each turn lasting 2 seconds, and a one second pause between each announement.
@@ -44,22 +52,8 @@ Modify the program so that new babies are born in an empty random adjacent squar
 
 ---
 
-#### *Project requires:* (crossed out if already done)
-* ~~variables, data types, and numerical operators~~
-* ~~basic input/output~~
-* ~~logic (if statements, switch statements)~~
-* ~~loops (for, while, do-while)~~
-* ~~arrays~~
-* ~~pseudo random number generation~~
-* ~~strings & string functions~~
-* ~~functions~~
-* ~~structures/classes~~
-* enumerated data
-* ~~file input/output~~
-* ~~pointers~~
-* ~~sorting~~
-* ~~linked lists~~
-* advanced classes (?)
+#### Project requires: (crossed out if already done)
+~~variables, data types and numerical operators~~, ~~basic input/output~~, ~~logic (if statements, switch statements)~~, ~~loops (for, while, do-while)~~, ~~arrays~~, ~~pseudo random number generation~~, ~~strings & string functions~~, ~~functions~~, ~~structures/classes~~, enumerated data, ~~file input/output~~, ~~pointers~~, ~~sorting~~, ~~linked lists~~, advanced classes (?)
 
 ---
 
@@ -76,6 +70,7 @@ Modify the program so that new babies are born in an empty random adjacent squar
   - [x] ~~Main task #6~~ **DONE: 2017-08-01**
   - [x] ~~Main task #7~~ **DONE: 2017-07-27**
   - [x] ~~Main task #8~~ **DONE: 2017-07-27**
+- [ ] Separate logics
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
 - [ ] Optional tasks:  
   - [ ] Optional task #1 (real-time)
@@ -86,6 +81,8 @@ Modify the program so that new babies are born in an empty random adjacent squar
 - [ ] Create C++11/C++14 version (if not already)
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
 - [ ] Die
+
+---
 
 ### Useful links:
 * [Other beginner excercises (including this one)](http://www.cplusplus.com/forum/articles/12974/) (cplusplus.com)
