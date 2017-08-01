@@ -37,7 +37,7 @@ bool Bunny::getIsMutant() const
 
 void Bunny::convertToMutant()
 {
-	this->m_isRadioactiveVampireMutant = true;
+    this->m_isRadioactiveVampireMutant = true;
 }
 
 void Bunny::incrementAge()

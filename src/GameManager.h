@@ -51,11 +51,11 @@ private:
 
     bool breed(std::list<Bunny> *colony);
 
-	// infect colony if mutant(s) present
-	void infect(std::list<Bunny> *colony);
+    // infect colony if mutant(s) present
+    void infect(std::list<Bunny> *colony);
 
-	// check if all colony is mutant positive
-	bool isColonyTotallyInfected(std::list<Bunny> *colony);
+    // check if all colony is mutant positive
+    bool isColonyTotallyInfected(std::list<Bunny> *colony);
 };
 
 #endif // GAMEMANAGER_H
