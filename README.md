@@ -73,10 +73,10 @@ Modify the program so that new babies are born in an empty random adjacent squar
 - [ ] Separate logics
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
 - [ ] Optional tasks:  
-  - [ ] Optional task #1 (real-time)
-  - [ ] Optional task #2 (rabbit cull)
-  - [ ] Optional task #3 (80x80 grid)
-  - [ ] Optional task #4 (saving & playback)
+  - [ ] Optional task ★ (real-time)
+  - [ ] Optional task ★★ (rabbit cull)
+  - [ ] Optional task ★★★★ (80x80 grid)
+  - [ ] Optional task ★★★★★ (saving & playback)
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
 - [ ] Create C++11/C++14 version (if not already)
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
