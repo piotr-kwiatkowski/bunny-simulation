@@ -41,7 +41,7 @@ private:
     bool hasLoadedNames();
 
     // next game turn
-    bool nextTurn(std::list<Bunny> *colony);
+    bool nextYear(std::list<Bunny> *colony);
 
     // add 1 year to age of every rabbit in colony
     void incrementColonyAge(std::list<Bunny> *colony);
