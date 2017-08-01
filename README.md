@@ -1,5 +1,6 @@
 Graduation
 ==========
+C++ implementation of [this](http://www.cplusplus.com/forum/articles/12974/) excercise.
 
 Write a program that creates a linked list of bunny objects.
 
@@ -63,13 +64,13 @@ Modify the program so that new babies are born in an empty random adjacent squar
 ### *TODO:*
 - [x] ~~Play around with already written code / check current project state, store notes in *.txt* file~~ **DONE: 13-03-2017**
 - [ ] Analyse project again, prepare UML diagrams
-- [ ] Main tasks:
+- [x] ~~Main tasks:~~
   - [x] ~~Main task #1~~ **DONE: 2017-03-13**
   - [x] ~~Main task #2~~ **DONE: 2017-07-26**
   - [x] ~~Main task #3~~ **DONE: 2017-07-27**
   - [X] ~~Main task #4~~ **DONE: 2017-07-26**
   - [X] ~~Main task #5~~ **DONE: 2017-07-26**
-  - [ ] Main task #6
+  - [x] ~~Main task #6~~ **DONE: 2017-08-01**
   - [x] ~~Main task #7~~ **DONE: 2017-07-27**
   - [x] ~~Main task #8~~ **DONE: 2017-07-27**
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
