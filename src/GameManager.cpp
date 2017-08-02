@@ -2,6 +2,9 @@
 #include <iomanip>   // std::setw
 #include <random>
 #include <fstream>   // fstream
+#include <thread>    // std::this_thread::wait_for
+#include <chrono>    // std::chrono::milliseconds
+#include <Windows.h>
 
 #include "GameManager.h"
 #include "Bunny.h"
@@ -10,7 +13,6 @@
 
 int GameManager::startGame()
 {
-    //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
     if (!this->hasLoadedNames())
     {
         return EXIT_FAILURE;
@@ -23,12 +25,14 @@ int GameManager::startGame()
     //========================================================================
     //            MAIN GAME LOOP
     //========================================================================
-    int rescueCntr = 0; 
-    while (true)    // TODO: iteration every 1 second
+    int rescueCntr = 0;
+    short res = 0;
+    while (true)
     {
+        // iteration every 1 second
+        //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         if (!this->nextYear(&bunniesColony))
         {
-            //std::cout << "-- nextTurn() false!\n";
             break;
         }
         
@@ -36,6 +40,19 @@ int GameManager::startGame()
         {
             std::cout << "-- max rescue counter approached !\n";
             return 666;
+        }
+        
+        while (true)
+        {
+            res = GetAsyncKeyState(VK_SPACE);
+            if ((0x80000000 & res != 0) || (0x00000001 & res != 0))
+            {
+                continue;
+            }
+            else
+            {
+                break;
+            }
         }
     }
     //========================================================================
