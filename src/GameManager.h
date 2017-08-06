@@ -8,15 +8,15 @@
 class GameManager
 {
 public:
-    int startGame();
+    int8_t startGame();
 
 private:
     const std::string COLORS[4]  = { "white", "brown", "black", "spotted" };
     const std::string SEX[2]     = { "male", "female" };
-    const int INITIAL_RABBITS_NR = 5;
-    const int COLORS_NR          = 4;  // rename
-    const int INITIAL_AGE        = 0;
-    const int FAILURE            = 666;
+    const int8_t INITIAL_RABBITS_NR = 5;
+    const int8_t COLORS_NR          = 4;  // rename
+    const int8_t INITIAL_AGE        = 0;
+    const int8_t FAILURE            = 66;
     
     std::vector<std::string> NAMES;
 

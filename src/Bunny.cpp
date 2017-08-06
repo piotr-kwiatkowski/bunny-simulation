@@ -2,7 +2,7 @@
 #include "Bunny.h"
 
 // Bunny class constructor
-Bunny::Bunny(std::string a_name, std::string a_sex, std::string a_color, int a_age, bool a_mutant) 
+Bunny::Bunny(std::string a_name, std::string a_sex, std::string a_color, int8_t a_age, bool a_mutant)
     : m_name(a_name)
     , m_sex(a_sex)
     , m_color(a_color)
@@ -25,7 +25,7 @@ std::string Bunny::getColor() const
     return this->m_color;
 }
 
-int Bunny::getAge() const
+int8_t Bunny::getAge() const
 {
     return this->m_age;
 }

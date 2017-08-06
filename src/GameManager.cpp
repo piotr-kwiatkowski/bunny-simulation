@@ -11,7 +11,7 @@
 
 #define __PRETTY_FUNCTION__ __FUNCTION__":" << __LINE__
 
-int GameManager::startGame()
+int8_t GameManager::startGame()
 {
     if (!this->hasLoadedNames())
     {
@@ -25,8 +25,8 @@ int GameManager::startGame()
     //========================================================================
     //            MAIN GAME LOOP
     //========================================================================
-    int rescueCntr = 0;
-    short res = 0;
+    int16_t rescueCntr = 0;
+    int16_t res = 0;
     while (true)
     {
         // iteration every 1 second
@@ -39,7 +39,7 @@ int GameManager::startGame()
         if (++rescueCntr > 1000)
         {
             std::cout << "-- max rescue counter approached !\n";
-            return 666;
+            return 66;
         }
         
         while (true)
@@ -168,7 +168,7 @@ bool GameManager::nextYear(std::list<Bunny> *colony)
     //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
     incrementColonyAge(colony);
     killElders(colony);
-    infect(colony);
+    //infect(colony);
     
     if (!breed(colony))
     {
