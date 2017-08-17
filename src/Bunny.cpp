@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>   // std::setw
 #include "Bunny.h"
 
 // Bunny class constructor
@@ -48,4 +49,15 @@ void Bunny::incrementAge()
 bool Bunny::operator==(const Bunny & other) const
 {
     return this->getName() == other.getName() ? true : false;
+}
+
+std::ostream& operator<<(std::ostream& os, const Bunny& a)
+{
+    return os << std::setw(20)
+        << a.getName() << "\t"
+        << a.getSex() << "\t"
+        << static_cast<int>(a.getAge()) << "\t" // cast to avoid printing int8_t as char
+        << a.getColor() << "\t"
+        << std::boolalpha << a.getIsMutant()
+        << std::noboolalpha;
 }

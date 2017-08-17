@@ -36,16 +36,16 @@ int8_t GameManager::startGame()
             break;
         }
         
-        if (++rescueCntr > 1000)
+        if (++rescueCntr > 100)
         {
-            std::cout << "-- max rescue counter approached !\n";
+            std::cout << "-- max rescue counter approached!\n";
             return 66;
         }
         
         while (true)
         {
             res = GetAsyncKeyState(VK_SPACE);
-            if ((0x80000000 & res != 0) || (0x00000001 & res != 0))
+            if (((0x80000000 & res) != 0) || ((0x00000001 & res) != 0))
             {
                 continue;
             }
@@ -63,7 +63,7 @@ bool GameManager::hasLoadedNames()
 {
     //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
     std::fstream f;
-    f.open("names.csv", std::ios::in);
+    f.open("src/names.csv", std::ios::in);
     if (!f.good())
     {
         std::cout << "Error opening names file!\n";
@@ -152,13 +152,7 @@ void GameManager::printColony(std::list<Bunny> *colony) const
 
     for (auto const &it : *colony)
     {
-        std::cout << std::setw(20)
-            << it.getName()  << "\t"
-            << it.getSex()   << "\t"
-            << it.getAge()   << "\t"
-            << it.getColor() << "\t"
-            << std::boolalpha << it.getIsMutant() 
-            << std::noboolalpha << '\n';
+        std::cout << it << '\n';
     }
     std::cout << "----------------------------------------------------------------\n" << std::endl;
 }
@@ -206,11 +200,11 @@ void GameManager::killElders(std::list<Bunny> *colony)
     std::list<Bunny>::iterator it = (*colony).begin();
     while(it != (*colony).end())
     {
-        if (it->getIsMutant() && it->getAge() >= 50)
+        if (it->getIsMutant() && it->getAge() > 50)
         {
             it = (*colony).erase(it);
         }
-        else if ((*it).getAge() >= 10)
+        else if ((*it).getAge() > 10)
         {
             it = (*colony).erase(it);
         }

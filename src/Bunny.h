@@ -26,6 +26,7 @@ public:
 
     // for std::list::remove
     bool operator==(const Bunny& other) const;
+    friend std::ostream &operator<<(std::ostream& os, const Bunny& a);
 
 private:
     std::string m_name;
