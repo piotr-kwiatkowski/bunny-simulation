@@ -12,7 +12,7 @@ GameManager::~GameManager()
 {
 }
 
-std::int8_t GameManager::startGame()
+int8_t GameManager::startGame()
 {
     Colony oColony;
     if (!oColony.hasLoadedNames())
