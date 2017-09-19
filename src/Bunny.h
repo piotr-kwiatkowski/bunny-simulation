@@ -2,6 +2,7 @@
 #define BUNNY_H
 
 #include <string>
+#include <cstdint>
 
 class Bunny
 {
@@ -14,12 +15,13 @@ public:
         , bool a_mutant);
     
     // getters
-    std::string getName()     const;
-    std::string getSex()      const;
-    std::string getColor()    const;
-    int8_t      getAge()      const;
-    bool        getIsMutant() const;
+    std::string getName()  const;
+    std::string getSex()   const;
+    std::string getColor() const;
+    int8_t      getAge()   const;
+    bool        isMutant() const;
 
+    void setRandomName(std::vector<std::string>* NAMES);
 
     void convertToMutant();
     void incrementAge();
