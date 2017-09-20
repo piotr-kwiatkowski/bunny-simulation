@@ -1,5 +1,5 @@
-Graduation
-==========
+Bunny Simulation
+================
 C++ implementation of [this](http://www.cplusplus.com/forum/articles/12974/) excercise.
 
 Write a program that creates a linked list of bunny objects.
