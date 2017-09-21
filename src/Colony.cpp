@@ -75,9 +75,8 @@ bool Colony::isBunnyRadioactive() const
     return true;
 }
 
-void Colony::populateColony(std::list<Bunny> *a_colony)
+void Colony::populateColony()
 {
-    //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
     for (int i = 0; i < INITIAL_RABBITS_NR; ++i)
     {
         Bunny newBunny(
@@ -87,67 +86,26 @@ void Colony::populateColony(std::list<Bunny> *a_colony)
             INITIAL_AGE,
             this->isBunnyRadioactive()
         );
-        if (newBunny.isMutant())
-        {
-            this->mutants++;
-        }
-        else
-        {
-            this->kids++;
-        }
-        (*a_colony).push_back(newBunny);
+
+        newBunny.isMutant() ? this->mutants++ : this->kids++;
+        this->colony.push_back(newBunny);
     }
 }
 
-void Colony::printColony(std::list<Bunny> *colony) const
+void Colony::printColony() const
 {
-    /*int16_t males   = 0;
-    int16_t females = 0;
-    int16_t vamps   = 0;
-    for (auto const &it : *colony)
-    {
-        if (it.getIsMutant())
-        {
-            vamps++;
-            continue;
-        }
-
-        if (it.getSex() == "male")
-        {
-            males++;
-        }
-        else if (it.getSex() == "female")
-        {
-            females++;
-        }
-    }*/
-    
     std::cout << "Adults\t* males: " << this->males
               << "\t\t* females: "   << this->females
               << "Kids: "            << this->kids
               << "Mutants: "         << this->mutants
               << "\n";
-
-    /*
-    std::cout << "---------------------------------------------------------------\n"
-        << std::setw(20) << "NAME" << "\t"
-        << "SEX\t"
-        << "AGE\t"
-        << "COLOR\t"
-        << "MUTANT\n-------------------------------------------------------------\n";
-
-    for (auto const &it : *colony)
-    {
-        std::cout << it << '\n';
-    }
-    std::cout << "----------------------------------------------------------------\n" << std::endl;*/
 }
 
 bool Colony::nextYear(std::list<Bunny> *colony)
 {
     //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
-    incrementColonyAge(colony);
-    killElders(colony);
+    incrementColonyAge();
+    killElders();
     //infect(colony);
     
     if (!breed(colony))
@@ -158,7 +116,7 @@ bool Colony::nextYear(std::list<Bunny> *colony)
     
     // sort colony by age
     (*colony).sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to function
-    printColony(colony);
+    printColony();
     
     if ((*colony).empty() || isColonyTotallyInfected(colony))
     {
@@ -170,33 +128,32 @@ bool Colony::nextYear(std::list<Bunny> *colony)
     return true;
 }
 
-void Colony::incrementColonyAge(std::list<Bunny> *colony)
+void Colony::incrementColonyAge()
 {
-    for (std::list<Bunny>::iterator it = (*colony).begin(); it != (*colony).end(); ++it)
+    for (auto it : this->colony)
     {
-        it->incrementAge();
-        if (it->getAge() > 1)
+        it.incrementAge();
+        if (it.getAge() > 1)
         {
             this->kids--;
-            it->getSex() == "male" ? this->males++ : this->females++;
+            it.getSex() == "male" ? this->males++ : this->females++;
         }
     }
 }
 
-void Colony::killElders(std::list<Bunny> *colony)
+void Colony::killElders()
 {
-    //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
     // NOTE: iterating over list with erasing!
-    std::list<Bunny>::iterator it = (*colony).begin();
-    while(it != (*colony).end())
+    std::list<Bunny>::iterator it = this->colony.begin();
+    while(it != this->colony.end())
     {
         if (it->isMutant() && it->getAge() > 50)
         {
-            it = (*colony).erase(it);
+            it = this->colony.erase(it);
         }
         else if ((*it).getAge() > 10)
         {
-            it = (*colony).erase(it);
+            it = this->colony.erase(it);
         }
         else {
             it++;
@@ -204,7 +161,7 @@ void Colony::killElders(std::list<Bunny> *colony)
     }
 }
 
-bool Colony::breed(std::list<Bunny> *colony)
+bool Colony::breed()
 {    
     if (!this->males || !this->females)
     {
@@ -213,7 +170,7 @@ bool Colony::breed(std::list<Bunny> *colony)
     }
 
     std::list<Bunny> offspring;
-    for (auto const &it : *colony)
+    for (auto it : this->colony)
     {
         if (it.getSex() == "female" && it.getAge() > 1 && !it.isMutant())
         {
@@ -228,19 +185,18 @@ bool Colony::breed(std::list<Bunny> *colony)
         }
     }
     // adding offspring to colony
-    (*colony).splice((*colony).end(), offspring);
+    this->colony.splice(this->colony.end(), offspring);
     return true;
 }
 
-void Colony::infect(std::list<Bunny>* colony)
+void Colony::infect()
 {
-    int colSize = (*colony).size();
-//    int colSize = this->
+    int colSize = this->colony.size();
     std::random_device rd;
     std::mt19937_64 gen(rd());
     for (int i = 0; i < this->mutants; ++i)
     {
-        if (isColonyTotallyInfected(colony))
+        if (isColonyTotallyInfected())
         {
             std::cout << "-- COLONY TOTALLY INFECTED!\n";
             break;
@@ -248,36 +204,16 @@ void Colony::infect(std::list<Bunny>* colony)
 
         std::uniform_int_distribution<> distribution(0, colSize-1);
         int rnd = distribution(gen);
-        //std::cout << "-- colSize: " << colSize << "\trnd: " << rnd << std::endl;
-        std::list<Bunny>::iterator it = (*colony).begin();
+        std::list<Bunny>::iterator it = this->colony.begin(); 
+        // auto it = this->colony.begin();
         std::advance(it, rnd);
-
-        if ((*it).isMutant())
-        {
-            //std::cout << "\t-- already infected!\n";
-            i--;
-            continue;
-        }
-        else
-        {
-            (*it).convertToMutant();
-        }
+        (*it).isMutant() ? i-- : (*it).convertToMutant();
     }
 }
 
-bool Colony::isColonyTotallyInfected(std::list<Bunny>* colony)
+bool Colony::isColonyTotallyInfected() const
 {
-    //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
-    int infected = 0;
-    for (auto const &it : *colony)
-    {
-        if (it.isMutant())
-        {
-            infected++;
-        }
-    }
-
-    if (infected == (*colony).size())
+    if (this->mutants == this->colony.size())
     {
         std::cout << "ALL BUNNIES ARE MUTANTS!\n";
         return true;

@@ -23,8 +23,8 @@ int8_t GameManager::startGame()
     Colony bunColony;
 
     std::list<Bunny> bunniesColony;
-    oColony.populateColony(&bunniesColony);
-    oColony.printColony(&bunniesColony);
+    oColony.populateColony();
+    oColony.printColony();
 
     //========================================================================
     //            MAIN GAME LOOP
