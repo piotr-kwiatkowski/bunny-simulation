@@ -30,7 +30,7 @@ int8_t GameManager::startGame()
     //            MAIN GAME LOOP
     //========================================================================
     int16_t rescueCntr = 0;
-    int16_t res = 0;
+    int16_t keyPressed = 0;
     while (true)
     {
         // iteration every 1 second
@@ -48,8 +48,8 @@ int8_t GameManager::startGame()
 
         while (true)
         {
-            res = GetAsyncKeyState(VK_SPACE);
-            if (((0x80000000 & res) != 0) || ((0x00000001 & res) != 0))
+            keyPressed = GetAsyncKeyState(VK_SPACE);
+            if (((0x80000000 & keyPressed) != 0) || ((0x00000001 & keyPressed) != 0))
             {
                 continue;
             }
