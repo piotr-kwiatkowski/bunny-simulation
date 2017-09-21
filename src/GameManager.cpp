@@ -20,9 +20,6 @@ int8_t GameManager::startGame()
         return EXIT_FAILURE;
     }
 
-    Colony bunColony;
-
-    std::list<Bunny> bunniesColony;
     oColony.populateColony();
     oColony.printColony();
 
@@ -35,7 +32,7 @@ int8_t GameManager::startGame()
     {
         // iteration every 1 second
         //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        if (!oColony.nextYear(&bunniesColony))
+        if (!this->nextYear(&oColony))
         {
             break;
         }
@@ -61,4 +58,23 @@ int8_t GameManager::startGame()
     }
     //========================================================================
     return EXIT_SUCCESS;
+}
+
+bool GameManager::nextYear(Colony *a_oColony) const
+{
+    a_oColony->incrementColonyAge();
+    a_oColony->killElders();
+    //a_oColony->infect();
+
+    if (!a_oColony->breed())
+    {
+        std::cout << "COLONY CAN NOT BREED!\n";
+        return false;
+    }
+
+    // sort colony by age
+    a_oColony->m_colony.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to function
+    a_oColony->printColony();
+
+    return a_oColony->m_colony.empty() || a_oColony->isColonyTotallyInfected();
 }

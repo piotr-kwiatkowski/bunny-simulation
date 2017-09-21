@@ -18,7 +18,7 @@ public:
     const int8_t FAILURE            = 66;
     
     std::vector<std::string> NAMES;
-    std::list<Bunny> colony;
+    std::list<Bunny> m_colony;
 
     int16_t males   = 0;
     int16_t females = 0;
@@ -44,10 +44,7 @@ public:
 
     // loads bunny names from .csv file, returns true if loaded
     bool hasLoadedNames();
-
-    // next game turn
-    bool nextYear(std::list<Bunny> *colony);
-
+    
     // add 1 year to age of every rabbit in colony
     void incrementColonyAge();
 

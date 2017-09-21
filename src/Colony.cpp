@@ -88,7 +88,7 @@ void Colony::populateColony()
         );
 
         newBunny.isMutant() ? this->mutants++ : this->kids++;
-        this->colony.push_back(newBunny);
+        this->m_colony.push_back(newBunny);
     }
 }
 
@@ -101,36 +101,9 @@ void Colony::printColony() const
               << "\n";
 }
 
-bool Colony::nextYear(std::list<Bunny> *colony)
-{
-    //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
-    incrementColonyAge();
-    killElders();
-    //infect(colony);
-    
-    if (!breed(colony))
-    {
-        std::cout << "COLONY CAN NOT BREED!\n";
-        return false;
-    }
-    
-    // sort colony by age
-    (*colony).sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to function
-    printColony();
-    
-    if ((*colony).empty() || isColonyTotallyInfected(colony))
-    {
-        //std::cout << "-- nextturn false\n";
-        return false;
-    }
-    
-    //std::cout << "-- nextturn true\n";
-    return true;
-}
-
 void Colony::incrementColonyAge()
 {
-    for (auto it : this->colony)
+    for (auto it : this->m_colony)
     {
         it.incrementAge();
         if (it.getAge() > 1)
@@ -144,16 +117,16 @@ void Colony::incrementColonyAge()
 void Colony::killElders()
 {
     // NOTE: iterating over list with erasing!
-    std::list<Bunny>::iterator it = this->colony.begin();
-    while(it != this->colony.end())
+    std::list<Bunny>::iterator it = this->m_colony.begin();
+    while(it != this->m_colony.end())
     {
         if (it->isMutant() && it->getAge() > 50)
         {
-            it = this->colony.erase(it);
+            it = this->m_colony.erase(it);
         }
         else if ((*it).getAge() > 10)
         {
-            it = this->colony.erase(it);
+            it = this->m_colony.erase(it);
         }
         else {
             it++;
@@ -170,7 +143,7 @@ bool Colony::breed()
     }
 
     std::list<Bunny> offspring;
-    for (auto it : this->colony)
+    for (auto it : this->m_colony)
     {
         if (it.getSex() == "female" && it.getAge() > 1 && !it.isMutant())
         {
@@ -185,13 +158,13 @@ bool Colony::breed()
         }
     }
     // adding offspring to colony
-    this->colony.splice(this->colony.end(), offspring);
+    this->m_colony.splice(this->m_colony.end(), offspring);
     return true;
 }
 
 void Colony::infect()
 {
-    int colSize = this->colony.size();
+    int colSize = this->m_colony.size();
     std::random_device rd;
     std::mt19937_64 gen(rd());
     for (int i = 0; i < this->mutants; ++i)
@@ -204,7 +177,7 @@ void Colony::infect()
 
         std::uniform_int_distribution<> distribution(0, colSize-1);
         int rnd = distribution(gen);
-        std::list<Bunny>::iterator it = this->colony.begin(); 
+        std::list<Bunny>::iterator it = this->m_colony.begin(); 
         // auto it = this->colony.begin();
         std::advance(it, rnd);
         (*it).isMutant() ? i-- : (*it).convertToMutant();
@@ -213,7 +186,7 @@ void Colony::infect()
 
 bool Colony::isColonyTotallyInfected() const
 {
-    if (this->mutants == this->colony.size())
+    if (this->mutants == this->m_colony.size())
     {
         std::cout << "ALL BUNNIES ARE MUTANTS!\n";
         return true;
