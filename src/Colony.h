@@ -17,6 +17,11 @@ public:
     const int8_t INITIAL_AGE        = 0;
     const int8_t FAILURE            = 66;
     
+    int16_t males   = 0;
+    int16_t females = 0;
+    int16_t kids    = 0;
+    int16_t mutants = 0;
+
     std::vector<std::string> NAMES;
 
     // populate initial colony
