@@ -73,7 +73,7 @@ bool GameManager::nextYear(Colony *a_oColony) const
     }
 
     // sort colony by age
-    a_oColony->m_colony.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to function
+    a_oColony->m_colony.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to method of Colony class
     a_oColony->printColony();
 
     return a_oColony->m_colony.empty() || a_oColony->isColonyTotallyInfected();
