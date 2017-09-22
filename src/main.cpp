@@ -9,8 +9,9 @@
 
 int main(int argc, char const *argv[])
 {
-    GameManager oGameManager;
-    oGameManager.startGame();
+    GameManager oGM;
+    oGM.drawGrid();
+    //oGM.startGame();
 
     //std::cout << "\nPress enter to close program...";
     //std::cin.ignore();
