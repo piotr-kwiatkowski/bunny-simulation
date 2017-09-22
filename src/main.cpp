@@ -10,6 +10,7 @@
 int main(int argc, char const *argv[])
 {
     GameManager oGM;
+    oGM.setWinSize(127, 64);
     oGM.drawGrid();
     //oGM.startGame();
 

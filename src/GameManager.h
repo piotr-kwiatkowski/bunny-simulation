@@ -11,6 +11,9 @@ public:
     // draw template grid for game
     void drawGrid() const;
 
+    // set game window size
+    void setWinSize(int8_t a_x, int8_t a_y) const;
+
 private:
     enum ConsoleColors // FIXME: use this to set colors in console
     {

@@ -75,6 +75,23 @@ void GameManager::print(std::string a_str) const
 {
 }
 
+void GameManager::setWinSize(int8_t a_x, int8_t a_y) const
+{
+    COORD coord;
+    coord.X = a_x;
+    coord.Y = a_y;
+
+    SMALL_RECT rect;
+    rect.Top  = 0;
+    rect.Left = 0;
+    rect.Bottom = a_y - 1;
+    rect.Right  = a_x - 1;
+
+    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleScreenBufferSize(handle, coord);  // set size of the internal buffer of the console
+    SetConsoleWindowInfo(handle, TRUE, &rect);  // set window size
+}
+
 void GameManager::drawGrid() const
 {
     setColor(14);
