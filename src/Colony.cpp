@@ -94,11 +94,22 @@ void Colony::populateColony()
 
 void Colony::printColony() const
 {
-    std::cout << "Adults\t* males: " << this->males
-              << "\t\t* females: "   << this->females
-              << "Kids: "            << this->kids
-              << "Mutants: "         << this->mutants
-              << "\n";
+    const int8_t LWIDTH = 11,
+                 SWIDTH = 4;
+
+    std::cout << std::setw(LWIDTH + SWIDTH + 7) << std::setfill('-') << "\n"
+        << "|  " << std::setfill(' ')
+        << std::setw(LWIDTH) << std::left  << "Males:"
+        << std::setw(SWIDTH) << std::right << this->males << "  |\n"
+        << "|  "
+        << std::setw(LWIDTH) << std::left  << "Females:"
+        << std::setw(SWIDTH) << std::right << this->females << "  |\n"
+        << "|  " << std::setw(LWIDTH) << std::left  << "Kids: "
+        << std::setw(SWIDTH) << std::right << this->kids << "  |\n"
+        << "|  " << std::setw(LWIDTH) << std::left  << "Mutants: "
+        << std::setw(SWIDTH) << std::right << this->mutants << "  |\n"
+        << std::setw(LWIDTH + SWIDTH + 7) << std::setfill('-') << "\n";
+
 }
 
 void Colony::incrementColonyAge()
