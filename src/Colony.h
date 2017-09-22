@@ -16,7 +16,7 @@ public:
     // populate initial colony
     void populateColony();
 
-    void printColony() const;
+    void print() const;
 
     // add 1 year to age of every rabbit in colony
     void incrementColonyAge();

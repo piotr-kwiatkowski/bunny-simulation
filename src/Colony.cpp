@@ -92,24 +92,45 @@ void Colony::populateColony()
     }
 }
 
-void Colony::printColony() const
+void Colony::print() const
 {
-    const int8_t LWIDTH = 11,
+    const int8_t BORDER = 81,
+                 LWIDTH = 11,
                  SWIDTH = 4;
 
-    std::cout << std::setw(LWIDTH + SWIDTH + 7) << std::setfill('-') << "\n"
-        << "|  " << std::setfill(' ')
-        << std::setw(LWIDTH) << std::left  << "Males:"
-        << std::setw(SWIDTH) << std::right << this->males << "  |\n"
-        << "|  "
-        << std::setw(LWIDTH) << std::left  << "Females:"
-        << std::setw(SWIDTH) << std::right << this->females << "  |\n"
-        << "|  " << std::setw(LWIDTH) << std::left  << "Kids: "
-        << std::setw(SWIDTH) << std::right << this->kids << "  |\n"
-        << "|  " << std::setw(LWIDTH) << std::left  << "Mutants: "
-        << std::setw(SWIDTH) << std::right << this->mutants << "  |\n"
-        << std::setw(LWIDTH + SWIDTH + 7) << std::setfill('-') << "\n";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
+    std::cout << std::setw(BORDER) << std::setfill('-') << "\n";
 
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+    std::cout << std::setw(LWIDTH + SWIDTH + 7) << std::setfill('-') << "\n"
+        << "|  " << std::setfill(' ');
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    std::cout
+        << std::setw(LWIDTH) << std::left << "Males:"
+        << std::setw(SWIDTH) << std::right << this->males;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+    std::cout << "  |\n|  ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    std::cout
+        << std::setw(LWIDTH) << std::left << "Females:"
+        << std::setw(SWIDTH) << std::right << this->females;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+    std::cout << "  |\n|  ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    std::cout
+        << std::setw(LWIDTH) << std::left << "Kids: "
+        << std::setw(SWIDTH) << std::right << this->kids;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+    std::cout << "  |\n|  ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    std::cout
+        << std::setw(LWIDTH) << std::left << "Mutants: "
+        << std::setw(SWIDTH) << std::right << this->mutants;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+    std::cout << "  |\n"
+        << std::setw(LWIDTH + SWIDTH + 7) << std::setfill('-') << "\n";
+    
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 }
 
 void Colony::incrementColonyAge()
