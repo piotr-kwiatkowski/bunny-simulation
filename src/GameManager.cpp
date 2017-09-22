@@ -2,15 +2,7 @@
 #include "Colony.h"
 #include <iostream>
 #include <windows.h>
-
-
-GameManager::GameManager()
-{
-}
-
-GameManager::~GameManager()
-{
-}
+#include <iomanip>
 
 int8_t GameManager::startGame()
 {
@@ -21,7 +13,7 @@ int8_t GameManager::startGame()
     }
 
     oColony.populateColony();
-    oColony.printColony();
+    oColony.print();
 
     //========================================================================
     //            MAIN GAME LOOP
@@ -74,7 +66,41 @@ bool GameManager::nextYear(Colony *a_oColony) const
 
     // sort colony by age
     a_oColony->m_colony.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to method of Colony class
-    a_oColony->printColony();
+    a_oColony->print();
 
     return a_oColony->m_colony.empty() || a_oColony->isColonyTotallyInfected();
+}
+
+void GameManager::print(std::string a_str) const
+{
+}
+
+void GameManager::drawGrid() const
+{
+    setColor(14);
+    moveTo(0, 0);
+    std::cout << std::setw(60) << std::setfill('-') << "\n";
+    for (int i = 1; i < 29; ++i)
+    {
+        moveTo(0, i);
+        std::cout << "|";
+        moveTo(58, i);
+        std::cout << "|";
+
+    }
+    moveTo(0, 29);
+    std::cout << std::setw(60) << std::setfill('-') << "\n";
+}
+
+void GameManager::moveTo(int8_t a_x, int8_t a_y) const
+{
+    COORD coord; // FIXME: move this outside method?
+    coord.X = a_x;
+    coord.Y = a_y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void GameManager::setColor(int a_color) const
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), a_color);
 }
