@@ -9,6 +9,8 @@
 
 int main(int argc, char const *argv[])
 {
+    std::cout << "This is a test of a new branch\n";
+
     GameManager oGM;
     oGM.setWinSize(127, 64);
     oGM.drawGrid();
