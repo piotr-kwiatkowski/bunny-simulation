@@ -4,6 +4,10 @@
 #include <windows.h>
 #include <iomanip>
 
+#define BORDER '#'
+const int8_t GWIDTH  = 80;
+const int8_t GHEIGHT = 40;
+
 int8_t GameManager::startGame()
 {
     Colony oColony;
@@ -49,6 +53,7 @@ int8_t GameManager::startGame()
         }
     }
     //========================================================================
+    moveTo(0, GHEIGHT + 1);
     return EXIT_SUCCESS;
 }
 
@@ -96,17 +101,28 @@ void GameManager::drawGrid() const
 {
     setColor(14);
     moveTo(0, 0);
-    std::cout << std::setw(60) << std::setfill('-') << "\n";
-    for (int i = 1; i < 29; ++i)
+    std::cout << std::setw(GWIDTH) << std::setfill(BORDER) << "\n";
+    for (int i = 1; i < GHEIGHT; ++i)
     {
         moveTo(0, i);
-        std::cout << "|";
-        moveTo(58, i);
-        std::cout << "|";
-
+        std::cout << BORDER;
+        moveTo(GWIDTH-2, i);
+        std::cout << BORDER;
     }
-    moveTo(0, 29);
-    std::cout << std::setw(60) << std::setfill('-') << "\n";
+    moveTo(0, GHEIGHT);
+    std::cout << std::setw(GWIDTH) << std::setfill(BORDER) << "\n";
+}
+
+void GameManager::drawLegend() const
+{
+    moveTo(GWIDTH + 2, 2);
+    std::cout << "MALES: ";
+    moveTo(GWIDTH + 2, 4);
+    std::cout << "FEMALES: ";
+    moveTo(GWIDTH + 2, 6);
+    std::cout << "KIDS: ";
+    moveTo(GWIDTH + 2, 8);
+    std::cout << "MUTANTS: ";
 }
 
 void GameManager::moveTo(int8_t a_x, int8_t a_y) const

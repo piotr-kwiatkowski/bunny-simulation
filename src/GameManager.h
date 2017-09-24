@@ -11,6 +11,8 @@ public:
     // draw template grid for game
     void drawGrid() const;
 
+    void drawLegend() const;
+
     // set game window size
     void setWinSize(int8_t a_x, int8_t a_y) const;
 
