@@ -153,7 +153,7 @@ void Colony::incrementAge()
     //for (auto const& it : this->m_bunniesList)
     {
         it->incrementAge();
-        if (it->getAge() == 2)
+        if (it->getAge() == (int8_t)2)
         {
             this->m_kids--;
             it->getSex() == "male" ? this->m_males++ : this->m_females++;
@@ -183,11 +183,11 @@ void Colony::killElders()
 
 bool Colony::breed()
 {    
-    if ((!this->m_males || !this->m_females) && !this->m_kids)
+    /*if ((!this->m_males || !this->m_females) && !this->m_kids)
     {
         std::cout << "NO ADULT PAIRS!\n";
         return false;
-    }
+    }*/
 
     std::list<Bunny> offspring;
     for (auto it : this->m_bunniesList)
@@ -204,8 +204,9 @@ bool Colony::breed()
             offspring.push_back(newBunny);
         }
     }
+    std::cout << offspring.size() << " bunnies created\n";
     // adding offspring list to colony list
-    this->m_bunniesList.splice(this->m_bunniesList.end(), offspring);
+    //this->m_bunniesList.splice(this->m_bunniesList.end(), offspring);
     return true;
 }
 

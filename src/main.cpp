@@ -8,6 +8,9 @@
 #include <Windows.h>
 #include "GameManager.h"
 
+#include <thread>
+
+// tmp function to display console colors
 void clrs()
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);

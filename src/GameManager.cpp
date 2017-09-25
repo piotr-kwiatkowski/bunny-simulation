@@ -49,12 +49,13 @@ int8_t GameManager::start()
             break;
         }
 
-        if (++tmp_rescueCntr > 100)
+        if (++tmp_rescueCntr > 3)
         {
             std::cout << "-- max rescue counter approached!\n";
             return 66;
         }
-        /*
+
+        // press and hold SPACE to pause the game
         while (true)
         {
             keyPressed = GetAsyncKeyState(VK_SPACE);
@@ -66,7 +67,7 @@ int8_t GameManager::start()
             {
                 break;
             }
-        }*/
+        }
     }
     //========================================================================
     moveTo(0, GRID_HEIGHT + 4);
