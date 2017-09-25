@@ -6,12 +6,14 @@ class GameManager
 {
 public:
     // main game loop
-    int8_t startGame();
+    int8_t start();
 
     // draw template grid for game
     void drawGrid() const;
 
     void drawLegend() const;
+
+    void updateLegend(Colony *a_oColony) const;
 
     // set game window size
     void setWinSize(int8_t a_x, int8_t a_y) const;

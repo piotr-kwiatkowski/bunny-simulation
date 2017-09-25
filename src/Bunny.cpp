@@ -40,7 +40,7 @@ void Bunny::setRandomName(std::vector<std::string>* NAMES)
 {
     std::random_device rd;
     std::mt19937_64 gen(rd());
-    std::uniform_int_distribution<> distribution(0, NAMES->size()-1);
+    std::uniform_int_distribution<> distribution(0, static_cast<int>(NAMES->size()-1));
     this->m_name = (*NAMES)[distribution(gen)];
 }
 

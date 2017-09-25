@@ -8,7 +8,12 @@
 class Colony
 {
 public:
-    std::list<Bunny> m_colony;
+    Colony();
+    ~Colony();
+
+    std::list<Bunny> m_bunniesList;
+
+    bool isColonyEmpty() const;
 
     // loads bunny names from .csv file, returns true if loaded
     bool hasLoadedNames();
@@ -16,10 +21,11 @@ public:
     // populate initial colony
     void populateColony();
 
+    // TODO: this method should mbe moved to Manager class
     void print() const;
 
     // add 1 year to age of every rabbit in colony
-    void incrementColonyAge();
+    void incrementAge();
 
     // kill elder rabbits
     void killElders();
@@ -32,6 +38,14 @@ public:
     // check if all colony is mutant positive
     bool isColonyTotallyInfected() const;
 
+    int16_t getMales() const;
+
+    int16_t getFemales() const;
+
+    int16_t getKids() const;
+
+    int16_t getMutants() const;
+
 private:
     const std::string COLORS[4]  = { "white", "brown", "black", "spotted" };
     const std::string SEX[2]     = { "male", "female" };
@@ -42,10 +56,10 @@ private:
     
     std::vector<std::string> NAMES;
     
-    int16_t males   = 0;
-    int16_t females = 0;
-    int16_t kids    = 0;
-    int16_t mutants = 0;
+    int16_t m_males   = 0;
+    int16_t m_females = 0;
+    int16_t m_kids    = 0;
+    int16_t m_mutants = 0;
 
     // returns random name from .csv file
     std::string getRandomName() const;

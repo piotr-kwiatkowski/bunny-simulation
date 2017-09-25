@@ -1,22 +1,30 @@
 /*
-    ============================================
-         2017 UPDATE for Graduation project   
-    ============================================
+    =======================
+         2017 UPDATE 
+    =======================
  */
 
 #include <iostream>
+#include <Windows.h>
 #include "GameManager.h"
+
+void clrs()
+{
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    // you can loop k higher to see more color choices
+    for (int k = 1; k < 255; k++)
+    {
+        // pick the colorattribute k you want
+        SetConsoleTextAttribute(hConsole, k);
+        std::cout << k << " Sample text\n";
+    }
+}
 
 int main(int argc, char const *argv[])
 {
-    std::cout << "This is a test of a new branch\n";
-
     GameManager oGM;
-    oGM.setWinSize(127, 50); // max reasonable height = 50
-    oGM.drawGrid();
-    oGM.drawLegend();
-    //oGM.startGame();
-
+    oGM.start();
+    
     std::cout << "\nPress enter to close program...";
     std::cin.ignore();
 

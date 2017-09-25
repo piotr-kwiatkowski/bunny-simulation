@@ -10,9 +10,28 @@
 
 #define __PRETTY_FUNCTION__ __FUNCTION__":" << __LINE__
 
+Colony::Colony() 
+    : m_males(0), m_females(0), m_kids(0), m_mutants(0)
+{
+}
+
+Colony::~Colony()
+{
+}
+
+bool Colony::isColonyEmpty() const
+{
+    //std::cout << "-- bunnies list size: " << this->m_bunniesList.size() << "\n";
+    if (this->m_bunniesList.size())
+    {
+        return false;
+    }
+    return true;
+    //return !this->m_bunniesList.size();
+}
+
 bool Colony::hasLoadedNames()
 {
-    //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
     std::fstream f;
     f.open("src/names.csv", std::ios::in);
     if (!f.good())
@@ -32,18 +51,15 @@ bool Colony::hasLoadedNames()
 
 std::string Colony::getRandomName() const
 {
-    //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
     // TODO: add commentary
     std::random_device rd;
     std::mt19937_64 gen(rd());
-    std::uniform_int_distribution<> distribution(0, this->NAMES.size()-1);
-    //std::cout << "-- ==============================\n";
+    std::uniform_int_distribution<> distribution(0, static_cast<int>(this->NAMES.size())-1);
     return NAMES[distribution(gen)];
 }
 
 std::string Colony::getRandomSex() const
 {
-    //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
     std::random_device rd;
     std::mt19937_64 gen(rd());
     std::uniform_int_distribution<> distribution(0, 1);
@@ -52,7 +68,6 @@ std::string Colony::getRandomSex() const
 
 std::string Colony::getRandomColor() const
 {
-    //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
     std::random_device rd;
     std::mt19937_64 gen(rd());
     std::uniform_int_distribution<> distribution(0, COLORS_NR - 1);
@@ -61,7 +76,6 @@ std::string Colony::getRandomColor() const
 
 bool Colony::isBunnyRadioactive() const
 {
-    //std::cout << "-- " << __PRETTY_FUNCTION__ << std::endl;
     std::random_device rd;
     std::mt19937_64 gen(rd());
     std::uniform_int_distribution<> distribution(0, 99);
@@ -71,7 +85,6 @@ bool Colony::isBunnyRadioactive() const
         return false;
     }
     
-    //std::cout << "\n>>>>>>>>>> MUTANT !!!!!!!!\n";
     return true;
 }
 
@@ -87,8 +100,8 @@ void Colony::populateColony()
             this->isBunnyRadioactive()
         );
 
-        newBunny.isMutant() ? this->mutants++ : this->kids++;
-        this->m_colony.push_back(newBunny);
+        newBunny.isMutant() ? this->m_mutants++ : this->m_kids++;
+        this->m_bunniesList.push_back(newBunny);
     }
 }
 
@@ -107,25 +120,25 @@ void Colony::print() const
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     std::cout
         << std::setw(LWIDTH) << std::left << "Males:"
-        << std::setw(SWIDTH) << std::right << this->males;
+        << std::setw(SWIDTH) << std::right << this->m_males;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
     std::cout << "  |\n|  ";
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     std::cout
         << std::setw(LWIDTH) << std::left << "Females:"
-        << std::setw(SWIDTH) << std::right << this->females;
+        << std::setw(SWIDTH) << std::right << this->m_females;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
     std::cout << "  |\n|  ";
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     std::cout
         << std::setw(LWIDTH) << std::left << "Kids: "
-        << std::setw(SWIDTH) << std::right << this->kids;
+        << std::setw(SWIDTH) << std::right << this->m_kids;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
     std::cout << "  |\n|  ";
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     std::cout
         << std::setw(LWIDTH) << std::left << "Mutants: "
-        << std::setw(SWIDTH) << std::right << this->mutants;
+        << std::setw(SWIDTH) << std::right << this->m_mutants;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
     std::cout << "  |\n"
         << std::setw(LWIDTH + SWIDTH + 7) << std::setfill('-') << "\n";
@@ -133,15 +146,17 @@ void Colony::print() const
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 }
 
-void Colony::incrementColonyAge()
+void Colony::incrementAge()
 {
-    for (auto it : this->m_colony)
+    std::list<Bunny>::iterator it;
+    for (it = this->m_bunniesList.begin(); it != this->m_bunniesList.end(); ++it)
+    //for (auto const& it : this->m_bunniesList)
     {
-        it.incrementAge();
-        if (it.getAge() > 1)
+        it->incrementAge();
+        if (it->getAge() == 2)
         {
-            this->kids--;
-            it.getSex() == "male" ? this->males++ : this->females++;
+            this->m_kids--;
+            it->getSex() == "male" ? this->m_males++ : this->m_females++;
         }
     }
 }
@@ -149,16 +164,16 @@ void Colony::incrementColonyAge()
 void Colony::killElders()
 {
     // NOTE: iterating over list with erasing!
-    std::list<Bunny>::iterator it = this->m_colony.begin();
-    while(it != this->m_colony.end())
+    std::list<Bunny>::iterator it = this->m_bunniesList.begin();
+    while(it != this->m_bunniesList.end())
     {
         if (it->isMutant() && it->getAge() > 50)
         {
-            it = this->m_colony.erase(it);
+            it = this->m_bunniesList.erase(it);
         }
         else if ((*it).getAge() > 10)
         {
-            it = this->m_colony.erase(it);
+            it = this->m_bunniesList.erase(it);
         }
         else {
             it++;
@@ -168,14 +183,14 @@ void Colony::killElders()
 
 bool Colony::breed()
 {    
-    if (!this->males || !this->females)
+    if ((!this->m_males || !this->m_females) && !this->m_kids)
     {
         std::cout << "NO ADULT PAIRS!\n";
         return false;
     }
 
     std::list<Bunny> offspring;
-    for (auto it : this->m_colony)
+    for (auto it : this->m_bunniesList)
     {
         if (it.getSex() == "female" && it.getAge() > 1 && !it.isMutant())
         {
@@ -189,17 +204,17 @@ bool Colony::breed()
             offspring.push_back(newBunny);
         }
     }
-    // adding offspring to colony
-    this->m_colony.splice(this->m_colony.end(), offspring);
+    // adding offspring list to colony list
+    this->m_bunniesList.splice(this->m_bunniesList.end(), offspring);
     return true;
 }
 
 void Colony::infect()
 {
-    int colSize = this->m_colony.size();
+    int colSize = static_cast<int>(this->m_bunniesList.size());
     std::random_device rd;
     std::mt19937_64 gen(rd());
-    for (int i = 0; i < this->mutants; ++i)
+    for (int i = 0; i < this->m_mutants; ++i)
     {
         if (isColonyTotallyInfected())
         {
@@ -209,7 +224,7 @@ void Colony::infect()
 
         std::uniform_int_distribution<> distribution(0, colSize-1);
         int rnd = distribution(gen);
-        std::list<Bunny>::iterator it = this->m_colony.begin(); 
+        std::list<Bunny>::iterator it = this->m_bunniesList.begin(); 
         // auto it = this->colony.begin();
         std::advance(it, rnd);
         (*it).isMutant() ? i-- : (*it).convertToMutant();
@@ -218,11 +233,31 @@ void Colony::infect()
 
 bool Colony::isColonyTotallyInfected() const
 {
-    if (this->mutants == this->m_colony.size())
+    if (this->m_mutants == this->m_bunniesList.size())
     {
         std::cout << "ALL BUNNIES ARE MUTANTS!\n";
         return true;
     }
 
     return false;
+}
+
+int16_t Colony::getMales() const
+{
+    return this->m_males;
+}
+
+int16_t Colony::getFemales() const
+{
+    return this->m_females;
+}
+
+int16_t Colony::getKids() const
+{
+    return this->m_kids;
+}
+
+int16_t Colony::getMutants() const
+{
+    return this->m_mutants;
 }
