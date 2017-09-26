@@ -1,15 +1,13 @@
-C++ implementation of [this](http://www.cplusplus.com/forum/articles/12974/) excercise created in my spare time.
+C++ implementation of [this](http://www.cplusplus.com/forum/articles/12974/) exercise created in my spare time.
 
-This is my first (and definitely last) attempt of creating game in a console ([this](http://www.cplusplus.com/forum/articles/28558/) explains quite well, why it is such a bad idea).
+This is my first (and __definitely__ last) attempt of creating game in a console ([this](http://www.cplusplus.com/forum/articles/28558/) explains quite well, why it is such a bad idea - *even for an ASCII game*).
 
 ---
 
-Bunny Simulation
+Bunny Simulation (2017 update)
 ================
 
 Write a program that creates a linked list of bunny objects.
-
----
 
 #### Each bunny object must have:
 - Sex: male, female (random at creation 50/50)
@@ -29,8 +27,6 @@ Write a program that creates a linked list of bunny objects.
 1. Radioactive vampire bunnies are excluded from regular breeding and do not count as adult bunnies.
 1. Radioactive vampire bunnies do not die until they reach age 50.
 
----
-
 #### Also:
 - The program should print a list of all the bunnies in the colony each turn along with all the bunnies details, sorted by age.
 - The program should also output each turns events such as:
@@ -41,8 +37,6 @@ Write a program that creates a linked list of bunny objects.
 - The program should write all screen output to a file.
 - When all the bunnies have died the program terminates.
 - If the bunny population exceeds 1000 a food shortage must occur killing exactly half of the bunnies (randomly chosen)
-
----
 
 ## Optional tasks:
 ★ Modify the program to run in real time, with each turn lasting 2 seconds, and a one second pause between each announement.
@@ -62,8 +56,7 @@ Modify the program so that new babies are born in an empty random adjacent squar
 
 ---
 
-# **2017 Update:**
-### *TODO:*
+# *TODO list:*
 - [x] ~~Play around with already written code / check current project state, store notes in *.txt* file~~ **DONE: 13-03-2017**
 - [ ] Analyse project again, prepare UML diagrams
 - [x] ~~Main tasks:~~
