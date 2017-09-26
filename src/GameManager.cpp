@@ -20,6 +20,7 @@ static int16_t loop_ctr = 0;
 int8_t GameManager::start()
 {
     this->setWinSize(120, 50); // max reasonable height = 50
+    system("color 07"); // FIXME
     this->drawGrid();
     this->drawLegend();
 
@@ -132,7 +133,8 @@ void GameManager::setWinSize(int8_t a_x, int8_t a_y) const
 
 void GameManager::drawGrid() const
 {
-    setColor(112);
+    //setColor(112);  // background: grey, text: black
+    setColor(GREY);
     moveTo(0, 0);
     std::cout << std::setw(GRID_WIDTH) << std::setfill(BORDER) << "\n";
     for (int i = 1; i < GRID_HEIGHT; ++i)
