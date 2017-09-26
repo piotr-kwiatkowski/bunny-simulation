@@ -1,6 +1,11 @@
+C++ implementation of [this](http://www.cplusplus.com/forum/articles/12974/) excercise created in my spare time.
+
+This is my first (and definitely last) attempt of creating game in a console ([this](http://www.cplusplus.com/forum/articles/28558/) explains quite well, why it is such a bad idea).
+
+---
+
 Bunny Simulation
 ================
-C++ implementation of [this](http://www.cplusplus.com/forum/articles/12974/) excercise.
 
 Write a program that creates a linked list of bunny objects.
 
@@ -70,7 +75,7 @@ Modify the program so that new babies are born in an empty random adjacent squar
   - [x] ~~Main task #6~~ **DONE: 2017-08-01**
   - [x] ~~Main task #7~~ **DONE: 2017-07-27**
   - [x] ~~Main task #8~~ **DONE: 2017-07-27**
-- [ ] Separate logics
+- [x] ~~Separate logics~~ **DONE: around 2017-09-25**
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
 - [ ] Optional tasks:  
   - [ ] Optional task ★ (real-time)
@@ -80,7 +85,7 @@ Modify the program so that new babies are born in an empty random adjacent squar
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
 - [ ] Create C++11/C++14 version (if not already)
 - [ ] Ask for code review on [Code Review](http://codereview.stackexchange.com/) & [4programmers](https://4programmers.net/Forum/C_i_C++/) & [wykop](http://wykop.pl/tag/cpp/)
-- [ ] Die
+- [ ] Read [this](http://www.cplusplus.com/forum/articles/28558/) again so you remember not to create game in a console window, you idiot
 
 ---
 
