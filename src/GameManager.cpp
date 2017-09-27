@@ -7,15 +7,21 @@
 #include <thread>
 
 #define BORDER '#'
-const int8_t GRID_WIDTH  = 80;
-const int8_t GRID_HEIGHT = 40;
+const int8_t GRID_START = 0;
 
-const int8_t LINE_MALE    = 2;
-const int8_t LINE_FEMALE  = 4;
-const int8_t LINE_KIDS    = 6;
-const int8_t LINE_MUTANTS = 8;
+const int8_t GRID_WIDTH  = 79;
+const int8_t GRID_HEIGHT = 41;
 
-static int16_t loop_ctr = 0;
+const int8_t LEGEND_INFO_WIDTH  = GRID_WIDTH + 3;
+const int8_t LEGEND_VALUE_WIDTH = GRID_WIDTH + 15;
+
+const int8_t LINE_YEAR    = 2;
+const int8_t LINE_MALE    = 6;
+const int8_t LINE_FEMALE  = 8;
+const int8_t LINE_KIDS    = 10;
+const int8_t LINE_MUTANTS = 12;
+
+static int16_t yearCtr = 0;
 
 int8_t GameManager::start()
 {
@@ -40,17 +46,17 @@ int8_t GameManager::start()
     int16_t keyPressed = 0;
     while (true)
     {
-        loop_ctr++;
+        yearCtr++;
         // iteration every 1 second
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        if (!this->nextYear(&oColony))
+        if (!this->performNextYear(&oColony))
         {
             moveTo(30, GRID_HEIGHT / 2);
             std::cout << ">> GAME OVER <<";
             break;
         }
 
-        if (++tmp_rescueCntr > 3)
+        if (++tmp_rescueCntr > 30)
         {
             std::cout << "-- max rescue counter approached!\n";
             return 66;
@@ -72,37 +78,21 @@ int8_t GameManager::start()
     }
     //========================================================================
     moveTo(0, GRID_HEIGHT + 4);
-    std::cout << "loop_ctr: " << loop_ctr;
+    std::cout << "loop_ctr: " << yearCtr;
     return EXIT_SUCCESS;
 }
 
-bool GameManager::nextYear(Colony *a_oColony) const
+bool GameManager::performNextYear(Colony *a_oColony) const
 {
-    moveTo(loop_ctr, 0);
-    std::cout << "-";
     a_oColony->incrementAge();
     a_oColony->killElders();
     a_oColony->infect(); // TODO: first breeding? tests needed
     a_oColony->breed();
 
-    /*if (!a_oColony->breed())
-    {
-        moveTo(0, GRID_HEIGHT / 3);
-        std::cout << "COLONY CAN NOT BREED!\n";
-        return false;
-    }*/
-
     // sort colony by age
     //a_oColony->m_bunniesList.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to method of Colony class
     this->updateLegend(a_oColony);
     
-    /*
-    moveTo(0, 10);
-    std::cout
-        << "-- is colony empty: " << std::boolalpha << a_oColony->isColonyEmpty() << std::noboolalpha
-        << " -- colony totally infected: " << std::boolalpha << a_oColony->isColonyTotallyInfected() << std::noboolalpha << "\n";
-    std::cout << "-- || : " << std::boolalpha << (a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected()) << std::noboolalpha << "\n";*/
-
     //return !(a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected());
     if (a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected())
     {
@@ -136,41 +126,51 @@ void GameManager::drawGrid() const
 {
     //setColor(112);  // background: grey, text: black
     setColor(GREY);
-    moveTo(0, 0);
+    moveTo(1, 1);
     std::cout << std::setw(GRID_WIDTH) << std::setfill(BORDER) << "\n";
-    for (int i = 1; i < GRID_HEIGHT; ++i)
+    for (int i = 2; i < GRID_HEIGHT; ++i)
     {
-        moveTo(0, i);
+        moveTo(1, i);
         std::cout << BORDER;
-        moveTo(GRID_WIDTH-2, i);
+        moveTo(GRID_WIDTH-1, i);
         std::cout << BORDER;
     }
-    moveTo(0, GRID_HEIGHT);
+    moveTo(1, GRID_HEIGHT);
     std::cout << std::setw(GRID_WIDTH) << std::setfill(BORDER) << "\n";
 }
 
 void GameManager::drawLegend() const
 {
-    moveTo(GRID_WIDTH + 2, LINE_MALE);
+    moveTo(LEGEND_INFO_WIDTH, LINE_YEAR);
+    std::cout << "YEAR: ";
+    moveTo(LEGEND_INFO_WIDTH, LINE_MALE);
     std::cout << "MALES: ";
-    moveTo(GRID_WIDTH + 2, LINE_FEMALE);
+    moveTo(LEGEND_INFO_WIDTH, LINE_FEMALE);
     std::cout << "FEMALES: ";
-    moveTo(GRID_WIDTH + 2, LINE_KIDS);
+    moveTo(LEGEND_INFO_WIDTH, LINE_KIDS);
     std::cout << "KIDS: ";
-    moveTo(GRID_WIDTH + 2, LINE_MUTANTS);
+    moveTo(LEGEND_INFO_WIDTH, LINE_MUTANTS);
     std::cout << "MUTANTS: ";
 }
 
 void GameManager::updateLegend(Colony *a_oColony) const
 {
-    moveTo(GRID_WIDTH + 15, LINE_MALE);
+    setColor(GREY);
+    moveTo(LEGEND_VALUE_WIDTH, LINE_YEAR);
+    std::cout << yearCtr;
+    setColor(WHITE);
+    moveTo(LEGEND_VALUE_WIDTH, LINE_MALE);
     std::cout << a_oColony->getMalesCtr();
-    moveTo(GRID_WIDTH + 15, LINE_FEMALE);
+    setColor(PINK);
+    moveTo(LEGEND_VALUE_WIDTH, LINE_FEMALE);
     std::cout << a_oColony->getFemalesCtr();
-    moveTo(GRID_WIDTH + 15, LINE_KIDS);
+    setColor(GREEN);
+    moveTo(LEGEND_VALUE_WIDTH, LINE_KIDS);
     std::cout << a_oColony->getKidsCtr();
-    moveTo(GRID_WIDTH + 15, LINE_MUTANTS);
+    setColor(RED);
+    moveTo(LEGEND_VALUE_WIDTH, LINE_MUTANTS);
     std::cout << a_oColony->getMutantsCtr();
+    setColor(GREY);
 }
 
 void GameManager::moveTo(int8_t a_x, int8_t a_y) const

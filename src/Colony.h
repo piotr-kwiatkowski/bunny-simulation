@@ -38,6 +38,8 @@ public:
     // check if all colony is mutant positive
     bool isColonyTotallyInfected() const;
 
+    void performCull();
+
     int16_t getMalesCtr() const;
 
     int16_t getFemalesCtr() const;
@@ -54,12 +56,18 @@ private:
     const int8_t INITIAL_AGE        = 0;
     const int8_t FAILURE            = 66;
     
+    const int8_t ADULT_AGE = 5;
+
+    const int8_t DEATH_AGE_MUTANT = 50;
+    const int8_t DEATH_AGE_ADULT  = 20;
+
+    
     std::vector<std::string> NAMES;
     
-    int16_t m_males   = 0;
-    int16_t m_females = 0;
-    int16_t m_kids    = 0;
-    int16_t m_mutants = 0;
+    int16_t m_malesCtr   = 0;
+    int16_t m_femalesCtr = 0;
+    int16_t m_kidsCtr    = 0;
+    int16_t m_mutantsCtr = 0;
 
     // returns random name from .csv file
     std::string getRandomName() const;

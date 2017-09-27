@@ -19,10 +19,10 @@ public:
     void setWinSize(int8_t a_x, int8_t a_y) const;
 
 private:
-    enum ConsoleColors // FIXME: use this to set colors in console
+    enum ConsoleColors
     {
-        BLACK, DBLUE, DGREEN, DSEA, DRED,
-        DVIOLET, DYELLOW, DWHITE, GREY, BLUE,
+        BLACK, DARK_BLUE, DARK_GREEN, DARK_SEA, DARK_RED,
+        DARK_VIOLET, DARK_YELLOW, DARK_WHITE, GREY, BLUE,
         GREEN, SEA, RED, PINK, YELLOW, WHITE
     };
 
@@ -33,7 +33,7 @@ private:
     void setColor(int a_color) const;
 
     // update colony (age, breeding, infecting etc.)
-    bool nextYear(Colony *colony) const;
+    bool performNextYear(Colony *a_oColony) const;
 
     // shortage to avoid using std::cout
     void print(std::string a_str) const; // TODO: argument as std::ostream?
