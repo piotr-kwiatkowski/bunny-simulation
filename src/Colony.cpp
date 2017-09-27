@@ -187,7 +187,8 @@ bool Colony::breed()
     {
         return false;
     }
-
+    
+    int16_t newMutants = 0;
     int16_t maxBunniesToBreed = this->getFemalesCtr();
     std::list<Bunny> offspring; // TODO: why not using original list?
     for (std::list<Bunny>::iterator it = this->m_bunniesList.begin(); it != this->m_bunniesList.end(); ++it)
@@ -197,7 +198,7 @@ bool Colony::breed()
             break;
         }
 
-        if (it->getSex() == "female" && it->getAge() > 1 && !it->isMutant())
+        if (it->getSex() == "female" && it->getAge() > ADULT_AGE && !it->isMutant())
         {
             Bunny newBunny(
                 this->getRandomName(),
@@ -206,6 +207,10 @@ bool Colony::breed()
                 INITIAL_AGE,
                 this->isBunnyRadioactive()
             );
+            if (newBunny.isMutant())
+            {
+                newMutants++;
+            }
             offspring.push_back(newBunny);
         }
         else
@@ -217,14 +222,15 @@ bool Colony::breed()
     }
 
     // adding offspring list to colony list
-    this->m_kidsCtr += offspring.size();
+    this->m_kidsCtr += (offspring.size() - newMutants);
+    this->m_mutantsCtr += newMutants;
     this->m_bunniesList.splice(this->m_bunniesList.end(), offspring);
     return true;
 }
 
 void Colony::infect()
 {
-    int colSize = static_cast<int>(this->m_bunniesList.size());
+    //int colSize = static_cast<int>(this->m_bunniesList.size());
     std::random_device rd;
     std::mt19937_64 gen(rd());
     for (int i = 0; i < this->m_mutantsCtr; ++i)
@@ -235,12 +241,20 @@ void Colony::infect()
             break;
         }
 
-        std::uniform_int_distribution<> distribution(0, colSize-1);
+        std::uniform_int_distribution<> distribution(0, this->m_bunniesList.size()-1);
         int rnd = distribution(gen);
         std::list<Bunny>::iterator it = this->m_bunniesList.begin(); 
-        // auto it = this->colony.begin();
         std::advance(it, rnd);
-        (*it).isMutant() ? i-- : (*it).convertToMutant();
+        if (it->isMutant())
+        {
+            i--;
+        }
+        else
+        {
+            it->convertToMutant();
+            it->getSex() == "male" ? this->m_malesCtr-- : this->m_femalesCtr--;
+            this->m_mutantsCtr++;
+        }
     }
 }
 
