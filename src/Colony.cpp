@@ -183,30 +183,46 @@ void Colony::killElders()
 
 bool Colony::breed()
 {    
-    /*if ((!this->m_males || !this->m_females) && !this->m_kids)
+    if (!this->getMalesCtr() || !this->getFemalesCtr())
     {
-        std::cout << "NO ADULT PAIRS!\n";
+        //std::cout << "-- NO ADULT PAIRS!\n";
         return false;
-    }*/
+    }
 
-    std::list<Bunny> offspring;
-    for (auto it : this->m_bunniesList)
+    int16_t maxBunniesToBreed = this->getFemalesCtr();
+    //std::cout << "max bunnies to breed: " << maxBunniesToBreed << "\n";
+    std::list<Bunny> offspring; // TODO: why not using original list?
+    //for (auto it : this->m_bunniesList)
+    for (std::list<Bunny>::iterator it = this->m_bunniesList.begin(); it != this->m_bunniesList.end(); ++it)
     {
-        if (it.getSex() == "female" && it.getAge() > 1 && !it.isMutant())
+        if (!maxBunniesToBreed)
+        {
+            break;
+        }
+
+        if (it->getSex() == "female" && it->getAge() > 1 && !it->isMutant())
         {
             Bunny newBunny(
                 this->getRandomName(),
                 this->getRandomSex(),
-                it.getColor(),
+                it->getColor(),
                 INITIAL_AGE,
                 this->isBunnyRadioactive()
             );
             offspring.push_back(newBunny);
         }
+        else
+        {
+            continue;
+        }
+
+        maxBunniesToBreed--;
     }
-    std::cout << offspring.size() << " bunnies created\n";
+
+    //std::cout << offspring.size() << " bunnies created\n";
     // adding offspring list to colony list
-    //this->m_bunniesList.splice(this->m_bunniesList.end(), offspring);
+    this->m_kids += offspring.size();
+    this->m_bunniesList.splice(this->m_bunniesList.end(), offspring);
     return true;
 }
 
@@ -243,22 +259,22 @@ bool Colony::isColonyTotallyInfected() const
     return false;
 }
 
-int16_t Colony::getMales() const
+int16_t Colony::getMalesCtr() const
 {
     return this->m_males;
 }
 
-int16_t Colony::getFemales() const
+int16_t Colony::getFemalesCtr() const
 {
     return this->m_females;
 }
 
-int16_t Colony::getKids() const
+int16_t Colony::getKidsCtr() const
 {
     return this->m_kids;
 }
 
-int16_t Colony::getMutants() const
+int16_t Colony::getMutantsCtr() const
 {
     return this->m_mutants;
 }

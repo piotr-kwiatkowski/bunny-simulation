@@ -82,14 +82,15 @@ bool GameManager::nextYear(Colony *a_oColony) const
     std::cout << "-";
     a_oColony->incrementAge();
     a_oColony->killElders();
-    a_oColony->infect();
+    a_oColony->infect(); // TODO: first breeding? tests needed
+    a_oColony->breed();
 
-    if (!a_oColony->breed())
+    /*if (!a_oColony->breed())
     {
         moveTo(0, GRID_HEIGHT / 3);
         std::cout << "COLONY CAN NOT BREED!\n";
         return false;
-    }
+    }*/
 
     // sort colony by age
     //a_oColony->m_bunniesList.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to method of Colony class
@@ -163,13 +164,13 @@ void GameManager::drawLegend() const
 void GameManager::updateLegend(Colony *a_oColony) const
 {
     moveTo(GRID_WIDTH + 15, LINE_MALE);
-    std::cout << a_oColony->getMales();
+    std::cout << a_oColony->getMalesCtr();
     moveTo(GRID_WIDTH + 15, LINE_FEMALE);
-    std::cout << a_oColony->getFemales();
+    std::cout << a_oColony->getFemalesCtr();
     moveTo(GRID_WIDTH + 15, LINE_KIDS);
-    std::cout << a_oColony->getKids();
+    std::cout << a_oColony->getKidsCtr();
     moveTo(GRID_WIDTH + 15, LINE_MUTANTS);
-    std::cout << a_oColony->getMutants();
+    std::cout << a_oColony->getMutantsCtr();
 }
 
 void GameManager::moveTo(int8_t a_x, int8_t a_y) const

@@ -38,13 +38,13 @@ public:
     // check if all colony is mutant positive
     bool isColonyTotallyInfected() const;
 
-    int16_t getMales() const;
+    int16_t getMalesCtr() const;
 
-    int16_t getFemales() const;
+    int16_t getFemalesCtr() const;
 
-    int16_t getKids() const;
+    int16_t getKidsCtr() const;
 
-    int16_t getMutants() const;
+    int16_t getMutantsCtr() const;
 
 private:
     const std::string COLORS[4]  = { "white", "brown", "black", "spotted" };
