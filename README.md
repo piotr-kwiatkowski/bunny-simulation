@@ -1,4 +1,4 @@
-C++ implementation of [this](http://www.cplusplus.com/forum/articles/12974/) exercise created in my spare time.
+C++ implementation of [this](http://www.cplusplus.com/forum/articles/12974/) exercise as a starting point with some additional simple visual stuff.
 
 This is my first (and __definitely__ last) attempt of creating game in a console ([this](http://www.cplusplus.com/forum/articles/28558/) explains quite well, why it is such a bad idea - *even for an ASCII game*).
 
