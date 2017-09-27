@@ -8,8 +8,6 @@
 
 #include "Colony.h"
 
-#define __PRETTY_FUNCTION__ __FUNCTION__":" << __LINE__
-
 Colony::Colony() 
     : m_malesCtr(0), m_femalesCtr(0), m_kidsCtr(0), m_mutantsCtr(0)
 {
@@ -230,10 +228,10 @@ bool Colony::breed()
 
 void Colony::infect()
 {
-    //int colSize = static_cast<int>(this->m_bunniesList.size());
     std::random_device rd;
     std::mt19937_64 gen(rd());
-    for (int i = 0; i < this->m_mutantsCtr; ++i)
+    int16_t mutantsLeft = this->m_mutantsCtr;
+    while (mutantsLeft--)
     {
         if (isColonyTotallyInfected())
         {
@@ -241,13 +239,13 @@ void Colony::infect()
             break;
         }
 
-        std::uniform_int_distribution<> distribution(0, this->m_bunniesList.size()-1);
-        int rnd = distribution(gen);
+        std::uniform_int_distribution<> dis(0, this->m_bunniesList.size()-1);
+        int rnd = dis(gen);
         std::list<Bunny>::iterator it = this->m_bunniesList.begin(); 
         std::advance(it, rnd);
         if (it->isMutant())
         {
-            i--;
+            mutantsLeft++;
         }
         else
         {

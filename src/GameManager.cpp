@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <memory>
 #include <thread>
+#include <random>
 
 #define BORDER '#'
 const int8_t GRID_START = 0;
@@ -63,18 +64,18 @@ int8_t GameManager::start()
         }
 
         // press and hold SPACE to pause the game
-        while (true)
-        {
-            keyPressed = GetAsyncKeyState(VK_SPACE);
-            if (((0x80000000 & keyPressed) != 0) || ((0x00000001 & keyPressed) != 0))
-            {
-                continue;
-            }
-            else
-            {
-                break;
-            }
-        }
+        //while (true)
+        //{
+        //    keyPressed = GetAsyncKeyState(VK_SPACE);
+        //    if (((0x80000000 & keyPressed) != 0) || ((0x00000001 & keyPressed) != 0))
+        //    {
+        //        continue;
+        //    }
+        //    else
+        //    {
+        //        break;
+        //    }
+        //}
     }
     //========================================================================
     moveTo(0, GRID_HEIGHT + 4);
