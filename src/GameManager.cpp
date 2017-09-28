@@ -11,6 +11,9 @@
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
 
+#include "al.h"
+#include "alc.h"
+
 #define BORDER '#'
 const int8_t GRID_START = 0;
 
@@ -30,11 +33,12 @@ static int16_t yearCtr = 0;
 
 int8_t GameManager::start()
 {
+    PlaySoundA("snd/wind.wav", NULL, SND_ASYNC | SND_LOOP);
     this->setWinSize(120, 50); // max reasonable height = 50
     system("color 07"); // FIXME
     this->drawGrid();
     this->drawLegend();
-
+    
     Colony oColony; // TODO: use smart pointer
     if (!oColony.hasLoadedNames())
     {
@@ -83,7 +87,6 @@ int8_t GameManager::start()
     }
     //========================================================================
     moveTo(0, GRID_HEIGHT + 4);
-    std::cout << "loop_ctr: " << yearCtr;
     return EXIT_SUCCESS;
 }
 
@@ -163,7 +166,7 @@ void GameManager::updateLegend(Colony *a_oColony) const
     setColor(GREY);
     moveTo(LEGEND_VALUE_WIDTH, LINE_YEAR);
     std::cout << yearCtr;
-    PlaySoundA(TEXT("snd/01.wav"), NULL, SND_ASYNC);
+    //PlaySoundA(TEXT("snd/01.wav"), NULL, SND_ASYNC);
     setColor(WHITE);
     moveTo(LEGEND_VALUE_WIDTH, LINE_MALE);
     std::cout << a_oColony->getMalesCtr();
