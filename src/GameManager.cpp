@@ -1,11 +1,15 @@
 #include "GameManager.h"
 #include "Colony.h"
+
 #include <iostream>
 #include <windows.h>
 #include <iomanip>
 #include <memory>
 #include <thread>
 #include <random>
+
+#include <mmsystem.h>
+#pragma comment(lib, "winmm.lib")
 
 #define BORDER '#'
 const int8_t GRID_START = 0;
@@ -159,6 +163,7 @@ void GameManager::updateLegend(Colony *a_oColony) const
     setColor(GREY);
     moveTo(LEGEND_VALUE_WIDTH, LINE_YEAR);
     std::cout << yearCtr;
+    PlaySoundA(TEXT("snd/01.wav"), NULL, SND_ASYNC);
     setColor(WHITE);
     moveTo(LEGEND_VALUE_WIDTH, LINE_MALE);
     std::cout << a_oColony->getMalesCtr();
