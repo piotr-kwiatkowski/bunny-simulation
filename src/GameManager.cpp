@@ -65,7 +65,7 @@ int8_t GameManager::start()
             break;
         }
 
-        if (++tmp_rescueCntr > 30)
+        if (++tmp_rescueCntr > 100)
         {
             std::cout << "-- max rescue counter approached!\n";
             return 66;
@@ -92,10 +92,15 @@ int8_t GameManager::start()
 
 bool GameManager::performNextYear(Colony *a_oColony) const
 {
+    if (a_oColony->getMutantsCtr() > 8)
+    {
+        //std::cin.get();
+    }
+
     a_oColony->incrementAge();
     a_oColony->killElders();
-    //a_oColony->infect(); // TODO: breeding should be first? tests needed
-    //a_oColony->breed();
+    a_oColony->infect(); // TODO: breeding should be first? tests needed
+    a_oColony->breed();
 
     // sort colony by age
     //a_oColony->m_bunniesList.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to method of Colony class
