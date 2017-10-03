@@ -19,13 +19,12 @@ Colony::~Colony()
 
 bool Colony::isColonyEmpty() const
 {
-    //std::cout << "-- bunnies list size: " << this->m_bunniesList.size() << "\n";
-    if (this->m_bunniesList.size())
+    if (getColonySize())
     {
         return false;
     }
     return true;
-    //return !this->m_bunniesList.size();
+    //return !getColonySize();
 }
 
 bool Colony::hasLoadedNames()
@@ -146,36 +145,62 @@ void Colony::print() const
 
 void Colony::incrementAge()
 {
+    size_t initialTotalAge = 0;
+    size_t endTotalAge = 0;
     std::list<Bunny>::iterator it;
     for (it = this->m_bunniesList.begin(); it != this->m_bunniesList.end(); ++it)
-    //for (auto const& it : this->m_bunniesList)
     {
+        initialTotalAge += it->getAge();
         it->incrementAge();
-        if (it->getAge() == ADULT_AGE)
+        endTotalAge += it->getAge();
+
+        if (it->getAge() == ADULT_AGE && !it->isMutant())
         {
             this->m_kidsCtr--;
             it->getSex() == "male" ? this->m_malesCtr++ : this->m_femalesCtr++;
         }
     }
+
+    // test
+    if (endTotalAge - initialTotalAge != m_bunniesList.size())
+    {
+        std::cout << "-- incrementing age ERROR!\n";  // TODO: print to error log file
+        std::cin.get();
+    }
+
 }
 
 void Colony::killElders()
 {
+    size_t initSize = getColonySize();
+    size_t killCtr = 0;
     // NOTE: iterating over list with erasing!
     std::list<Bunny>::iterator it = this->m_bunniesList.begin();
     while(it != this->m_bunniesList.end())
     {
         if (it->isMutant() && it->getAge() > DEATH_AGE_MUTANT)
         {
+            m_mutantsCtr--;
             it = this->m_bunniesList.erase(it);
+            killCtr++;
         }
-        else if ((*it).getAge() > DEATH_AGE_ADULT)
+        else if (!it->isMutant() && it->getAge() > DEATH_AGE_ADULT)
         {
+            it->getSex() == "male" ? m_malesCtr-- : m_femalesCtr--;
             it = this->m_bunniesList.erase(it);
+            killCtr++;
         }
         else {
             it++;
         }
+    }
+    size_t endSize = getColonySize();
+
+    // test
+    if (initSize - endSize != killCtr)
+    {
+        std::cout << "-- kill counter error!";  // TODO: print to error log file
+        std::cin.get();
     }
 }
 
@@ -186,8 +211,8 @@ bool Colony::breed()
         return false;
     }
     
-    int16_t newMutants = 0;
-    int16_t maxBunniesToBreed = this->getFemalesCtr();
+    size_t newMutants = 0;
+    size_t maxBunniesToBreed = this->getFemalesCtr();
     std::list<Bunny> offspring; // TODO: why not using original list?
     for (std::list<Bunny>::iterator it = this->m_bunniesList.begin(); it != this->m_bunniesList.end(); ++it)
     {
@@ -228,18 +253,24 @@ bool Colony::breed()
 
 void Colony::infect()
 {
+    size_t 
+        stSize      = m_bunniesList.size(),
+        stMales     = getMalesCtr(),
+        stFemales   = getFemalesCtr(),
+        stMutants   = getMutantsCtr();
+
     std::random_device rd;
     std::mt19937_64 gen(rd());
-    int16_t mutantsLeft = this->m_mutantsCtr;
+    size_t mutantsLeft = this->m_mutantsCtr;
     while (mutantsLeft--)
     {
         if (isColonyTotallyInfected())
         {
-            std::cout << "-- COLONY TOTALLY INFECTED!\n";
+            //std::cout << "-- COLONY TOTALLY INFECTED!\n";
             break;
         }
 
-        std::uniform_int_distribution<> dis(0, this->m_bunniesList.size()-1);
+        std::uniform_int_distribution<> dis(0, static_cast<int>(getColonySize())-1);
         int rnd = dis(gen);
         std::list<Bunny>::iterator it = this->m_bunniesList.begin(); 
         std::advance(it, rnd);
@@ -254,11 +285,17 @@ void Colony::infect()
             this->m_mutantsCtr++;
         }
     }
+
+    if (getMutantsCtr() - stMutants != (stMales - getMalesCtr()) + (stFemales - getFemalesCtr()))
+    {
+        std::cout << "-- infect number error!";
+        std::cin.get();
+    }
 }
 
 bool Colony::isColonyTotallyInfected() const
 {
-    if (this->m_mutantsCtr == this->m_bunniesList.size())
+    if (this->m_mutantsCtr == getColonySize())
     {
         std::cout << "ALL BUNNIES ARE MUTANTS!\n";
         return true;
@@ -272,22 +309,27 @@ void Colony::performCull()
     throw std::logic_error("cull not implemented!");
 }
 
-int16_t Colony::getMalesCtr() const
+size_t Colony::getColonySize() const
+{
+    return m_bunniesList.size();
+}
+
+size_t Colony::getMalesCtr() const
 {
     return this->m_malesCtr;
 }
 
-int16_t Colony::getFemalesCtr() const
+size_t Colony::getFemalesCtr() const
 {
     return this->m_femalesCtr;
 }
 
-int16_t Colony::getKidsCtr() const
+size_t Colony::getKidsCtr() const
 {
     return this->m_kidsCtr;
 }
 
-int16_t Colony::getMutantsCtr() const
+size_t Colony::getMutantsCtr() const
 {
     return this->m_mutantsCtr;
 }

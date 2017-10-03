@@ -94,13 +94,15 @@ bool GameManager::performNextYear(Colony *a_oColony) const
 {
     a_oColony->incrementAge();
     a_oColony->killElders();
-    a_oColony->infect(); // TODO: first breeding? tests needed
-    a_oColony->breed();
+    //a_oColony->infect(); // TODO: breeding should be first? tests needed
+    //a_oColony->breed();
 
     // sort colony by age
     //a_oColony->m_bunniesList.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to method of Colony class
     this->updateLegend(a_oColony);
     
+    //std::cin.get();
+
     //return !(a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected());
     if (a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected())
     {

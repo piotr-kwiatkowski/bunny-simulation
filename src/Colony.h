@@ -40,13 +40,12 @@ public:
 
     void performCull();
 
-    int16_t getMalesCtr() const;
-
-    int16_t getFemalesCtr() const;
-
-    int16_t getKidsCtr() const;
-
-    int16_t getMutantsCtr() const;
+    // getters
+    size_t getColonySize() const;
+    size_t getMalesCtr() const;
+    size_t getFemalesCtr() const;
+    size_t getKidsCtr() const;
+    size_t getMutantsCtr() const;
 
 private:
     const std::string COLORS[4]  = { "white", "brown", "black", "spotted" };
@@ -64,10 +63,10 @@ private:
     
     std::vector<std::string> NAMES;
     
-    int16_t m_malesCtr   = 0;
-    int16_t m_femalesCtr = 0;
-    int16_t m_kidsCtr    = 0;
-    int16_t m_mutantsCtr = 0;
+    size_t m_malesCtr   = 0;
+    size_t m_femalesCtr = 0;
+    size_t m_kidsCtr    = 0;
+    size_t m_mutantsCtr = 0;
 
     // returns random name from .csv file
     std::string getRandomName() const;
