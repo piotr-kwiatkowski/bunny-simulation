@@ -13,27 +13,27 @@ Bunny::Bunny(std::string a_name, std::string a_sex, std::string a_color, int8_t 
 
 std::string Bunny::getName() const
 {
-    return this->m_name;
+    return m_name;
 }
 
 std::string Bunny::getSex() const
 {
-    return this->m_sex;
+    return m_sex;
 }
 
 std::string Bunny::getColor() const
 {
-    return this->m_color;
+    return m_color;
 }
 
 int8_t Bunny::getAge() const
 {
-    return this->m_age;
+    return m_age;
 }
 
 bool Bunny::isMutant() const
 {
-    return this->m_isRadioactiveVampireMutant;
+    return m_isRadioactiveVampireMutant;
 }
 
 void Bunny::setRandomName(std::vector<std::string>* NAMES)
@@ -41,22 +41,22 @@ void Bunny::setRandomName(std::vector<std::string>* NAMES)
     std::random_device rd;
     std::mt19937_64 gen(rd());
     std::uniform_int_distribution<> distribution(0, static_cast<int>(NAMES->size()-1));
-    this->m_name = (*NAMES)[distribution(gen)];
+    m_name = (*NAMES)[distribution(gen)];
 }
 
 void Bunny::convertToMutant()
 {
-    this->m_isRadioactiveVampireMutant = true;
+    m_isRadioactiveVampireMutant = true;
 }
 
 void Bunny::incrementAge()
 {
-    this->m_age++;
+    m_age++;
 }
 
 bool Bunny::operator==(const Bunny & other) const
 {
-    return this->getName() == other.getName() ? true : false;
+    return getName() == other.getName();
 }
 
 std::ostream& operator<<(std::ostream& os, const Bunny& a)

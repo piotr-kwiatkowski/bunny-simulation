@@ -42,7 +42,7 @@ bool Colony::hasLoadedNames()
     {
         std::string tmpName;
         std::getline(f, tmpName);
-        this->NAMES.push_back(tmpName);
+        NAMES.push_back(tmpName);
     }
     return true;
 }
@@ -52,7 +52,7 @@ std::string Colony::getRandomName() const
     // TODO: add commentary
     std::random_device rd;
     std::mt19937_64 gen(rd());
-    std::uniform_int_distribution<> distribution(0, static_cast<int>(this->NAMES.size())-1);
+    std::uniform_int_distribution<> distribution(0, static_cast<int>(NAMES.size())-1);
     return NAMES[distribution(gen)];
 }
 
@@ -61,7 +61,7 @@ std::string Colony::getRandomSex() const
     std::random_device rd;
     std::mt19937_64 gen(rd());
     std::uniform_int_distribution<> distribution(0, 1);
-    return this->SEX[distribution(gen)];
+    return SEX[distribution(gen)];
 }
 
 std::string Colony::getRandomColor() const
@@ -69,7 +69,7 @@ std::string Colony::getRandomColor() const
     std::random_device rd;
     std::mt19937_64 gen(rd());
     std::uniform_int_distribution<> distribution(0, COLORS_NR - 1);
-    return this->COLORS[distribution(gen)];
+    return COLORS[distribution(gen)];
 }
 
 bool Colony::isBunnyRadioactive() const
@@ -98,8 +98,8 @@ void Colony::populateColony()
             false
         );
 
-        newBunny.isMutant() ? this->m_mutantsCtr++ : this->m_kidsCtr++;
-        this->m_bunniesList.push_back(newBunny);
+        newBunny.isMutant() ? m_mutantsCtr++ : m_kidsCtr++;
+        m_bunniesList.push_back(newBunny);
     }
 }
 
@@ -118,25 +118,25 @@ void Colony::print() const
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     std::cout
         << std::setw(LWIDTH) << std::left << "Males:"
-        << std::setw(SWIDTH) << std::right << this->m_malesCtr;
+        << std::setw(SWIDTH) << std::right << m_malesCtr;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
     std::cout << "  |\n|  ";
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     std::cout
         << std::setw(LWIDTH) << std::left << "Females:"
-        << std::setw(SWIDTH) << std::right << this->m_femalesCtr;
+        << std::setw(SWIDTH) << std::right << m_femalesCtr;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
     std::cout << "  |\n|  ";
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     std::cout
         << std::setw(LWIDTH) << std::left << "Kids: "
-        << std::setw(SWIDTH) << std::right << this->m_kidsCtr;
+        << std::setw(SWIDTH) << std::right << m_kidsCtr;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
     std::cout << "  |\n|  ";
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     std::cout
         << std::setw(LWIDTH) << std::left << "Mutants: "
-        << std::setw(SWIDTH) << std::right << this->m_mutantsCtr;
+        << std::setw(SWIDTH) << std::right << m_mutantsCtr;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
     std::cout << "  |\n"
         << std::setw(LWIDTH + SWIDTH + 7) << std::setfill('-') << "\n";
@@ -149,7 +149,7 @@ void Colony::incrementAge()
     size_t initialTotalAge = 0;
     size_t endTotalAge = 0;
     std::list<Bunny>::iterator it;
-    for (it = this->m_bunniesList.begin(); it != this->m_bunniesList.end(); ++it)
+    for (it = m_bunniesList.begin(); it != m_bunniesList.end(); ++it)
     {
         initialTotalAge += it->getAge();
         it->incrementAge();
@@ -157,8 +157,8 @@ void Colony::incrementAge()
 
         if (it->getAge() == ADULT_AGE && !it->isMutant())
         {
-            this->m_kidsCtr--;
-            it->getSex() == "male" ? this->m_malesCtr++ : this->m_femalesCtr++;
+            m_kidsCtr--;
+            it->getSex() == "male" ? m_malesCtr++ : m_femalesCtr++;
         }
     }
 
@@ -176,19 +176,19 @@ void Colony::killElders()
     size_t initSize = getColonySize();
     size_t killCtr = 0;
     // NOTE: iterating over list with erasing!
-    std::list<Bunny>::iterator it = this->m_bunniesList.begin();
-    while(it != this->m_bunniesList.end())
+    std::list<Bunny>::iterator it = m_bunniesList.begin();
+    while(it != m_bunniesList.end())
     {
         if (it->isMutant() && it->getAge() > DEATH_AGE_MUTANT)
         {
             m_mutantsCtr--;
-            it = this->m_bunniesList.erase(it);
+            it = m_bunniesList.erase(it);
             killCtr++;
         }
         else if (!it->isMutant() && it->getAge() > DEATH_AGE_ADULT)
         {
             it->getSex() == "male" ? m_malesCtr-- : m_femalesCtr--;
-            it = this->m_bunniesList.erase(it);
+            it = m_bunniesList.erase(it);
             killCtr++;
         }
         else {
@@ -213,22 +213,22 @@ bool Colony::breed()
     }
     
     size_t newMutants = 0;
-    size_t maxBunniesToBreed = this->getFemalesCtr();
+    size_t maxBunniesToBreed = getFemalesCtr();
     if (!maxBunniesToBreed)
     {
         return false;
     }
     std::list<Bunny> offspring; // TODO: why not using original list?
-    for (std::list<Bunny>::iterator it = this->m_bunniesList.begin(); it != this->m_bunniesList.end(); ++it)
+    for (std::list<Bunny>::iterator it = m_bunniesList.begin(); it != m_bunniesList.end(); ++it)
     {
         if (it->getSex() == "female" && it->getAge() > ADULT_AGE && !it->isMutant())
         {
             Bunny newBunny(
-                this->getRandomName(),
-                this->getRandomSex(),
+                getRandomName(),
+                getRandomSex(),
                 it->getColor(),
                 INITIAL_AGE,
-                this->isBunnyRadioactive()
+                isBunnyRadioactive()
             );
             if (newBunny.isMutant())
             {
@@ -249,9 +249,9 @@ bool Colony::breed()
     }
 
     // adding offspring list to colony list
-    this->m_kidsCtr += (offspring.size() - newMutants);
-    this->m_mutantsCtr += newMutants;
-    this->m_bunniesList.splice(this->m_bunniesList.end(), offspring);
+    m_kidsCtr += (offspring.size() - newMutants);
+    m_mutantsCtr += newMutants;
+    m_bunniesList.splice(m_bunniesList.end(), offspring);
     return true;
 }
 
@@ -259,7 +259,7 @@ void Colony::infect()
 {
     std::random_device rd;
     std::mt19937_64 gen(rd());
-    size_t mutantsToCreate = this->m_mutantsCtr;
+    size_t mutantsToCreate = m_mutantsCtr;
     std::vector<size_t> prevDists;
     while (mutantsToCreate--)
     {
@@ -279,7 +279,7 @@ void Colony::infect()
             prevDists.push_back(currentDist);
         }
 
-        std::list<Bunny>::iterator it = this->m_bunniesList.begin();
+        std::list<Bunny>::iterator it = m_bunniesList.begin();
         std::advance(it, currentDist);  // increment it by rnd distance -- bad idea when list is huge
         if (it->isMutant() || it->getAge() < ADULT_AGE)
         {
@@ -290,9 +290,9 @@ void Colony::infect()
             it->convertToMutant();
             if (it->getAge() >= ADULT_AGE)
             {
-                it->getSex() == "male" ? this->m_malesCtr-- : this->m_femalesCtr--;
+                it->getSex() == "male" ? m_malesCtr-- : m_femalesCtr--;
             }
-            this->m_mutantsCtr++;
+            m_mutantsCtr++;
         }
     }
 }
@@ -314,20 +314,20 @@ size_t Colony::getColonySize() const
 
 size_t Colony::getMalesCtr() const
 {
-    return this->m_malesCtr;
+    return m_malesCtr;
 }
 
 size_t Colony::getFemalesCtr() const
 {
-    return this->m_femalesCtr;
+    return m_femalesCtr;
 }
 
 size_t Colony::getKidsCtr() const
 {
-    return this->m_kidsCtr;
+    return m_kidsCtr;
 }
 
 size_t Colony::getMutantsCtr() const
 {
-    return this->m_mutantsCtr;
+    return m_mutantsCtr;
 }

@@ -34,10 +34,10 @@ static size_t yearCtr = 0;
 int8_t GameManager::start()
 {
     PlaySoundA("snd/wind.wav", NULL, SND_ASYNC | SND_LOOP);
-    this->setWinSize(120, 50); // max reasonable height = 50
+    setWinSize(120, 50); // max reasonable height = 50
     system("color 07"); // FIXME
-    this->drawGrid();
-    this->drawLegend();
+    drawGrid();
+    drawLegend();
     
     Colony oColony; // TODO: use smart pointer
     if (!oColony.hasLoadedNames())
@@ -46,7 +46,7 @@ int8_t GameManager::start()
     }
 
     oColony.populateColony();
-    this->updateLegend(&oColony);
+    updateLegend(&oColony);
 
     //========================================================================
     //            MAIN GAME LOOP
@@ -58,7 +58,7 @@ int8_t GameManager::start()
         yearCtr++;
         // iteration every 1 second
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        if (!this->performNextYear(&oColony))
+        if (!performNextYear(&oColony))
         {
             moveTo(25, (GRID_HEIGHT / 2)-1);
             std::cout << std::setw(20) << "COLONY TOTALLY INFECTED";
@@ -101,7 +101,7 @@ bool GameManager::performNextYear(Colony *a_oColony) const
 
     // sort colony by age
     //a_oColony->m_bunniesList.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to method of Colony class
-    this->updateLegend(a_oColony);
+    updateLegend(a_oColony);
     
     return !(a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected());
 }
