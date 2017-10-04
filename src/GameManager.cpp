@@ -17,7 +17,7 @@
 #define BORDER '#'
 
 const int8_t WINDOW_WIDTH  = 120;
-const int8_t WINDOW_HEIGHT = 60;
+const int8_t WINDOW_HEIGHT = 60; // max reasonable height for ASUS == 50
 
 const int8_t GRID_START = 0;
 
@@ -38,12 +38,12 @@ static size_t yearCtr = 0;
 int8_t GameManager::start()
 {
     PlaySoundA("snd/wind.wav", NULL, SND_ASYNC | SND_LOOP);
-    setWinSize(WINDOW_WIDTH, WINDOW_HEIGHT); // max reasonable height = 50
+    setWinSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     system("color 07"); // FIXME
     drawGrid();
     drawLegend();
     
-    Colony oColony; // TODO: use smart pointer
+    Colony oColony;
     if (!oColony.hasLoadedNames())
     {
         return EXIT_FAILURE;
@@ -55,7 +55,6 @@ int8_t GameManager::start()
     //========================================================================
     //            MAIN GAME LOOP
     //========================================================================
-    int16_t tmp_rescueCntr = 0;
     int16_t keyPressed = 0;
     while (true)
     {
@@ -70,13 +69,7 @@ int8_t GameManager::start()
             std::cout << std::setw(20) << ">> GAME OVER <<";
             break;
         }
-
-        if (++tmp_rescueCntr > 100)
-        {
-            std::cout << "-- max rescue counter approached!\n";
-            return 66;
-        }
-
+        
         // press and hold SPACE to pause the game
         //while (true)
         //{
