@@ -5,6 +5,7 @@
 #include <thread>    // std::this_thread::wait_for
 #include <chrono>    // std::chrono::milliseconds
 #include <windows.h>
+#include <vector>
 
 #include "Colony.h"
 
@@ -256,45 +257,30 @@ bool Colony::breed()
 
 void Colony::infect()
 {
-    /*size_t
-        stSize = m_bunniesList.size(),
-        stMales, stFemales, stMutants,
-        endMales, endFemales, endMutants;
-    stMales = stFemales = stMutants = endMales = endFemales = endMutants = 0;
-
-    for (auto it : m_bunniesList)
-    {
-        if (it.isMutant())
-        {
-            stMutants++;
-        }
-        else
-        {
-            it.getSex() == "male" ? stMales++ : stFemales++;
-        }
-    }*/
-
-    if (getMalesCtr() + getFemalesCtr() == 0)
-    {
-        return;
-    }
-    size_t alarm = 0;
     std::random_device rd;
     std::mt19937_64 gen(rd());
     size_t mutantsToCreate = this->m_mutantsCtr;
+    std::vector<size_t> prevDists;
     while (mutantsToCreate--)
     {
-        alarm++;
         if (isColonyTotallyInfected())
         {
-            //std::cout << "-- COLONY TOTALLY INFECTED!\n";
             break;
         }
 
-        std::uniform_int_distribution<> dis(0, static_cast<int>(getColonySize())-1);
-        size_t distance = dis(gen);
+        std::uniform_int_distribution<> distribution(0, static_cast<int>(getColonySize())-1);
+        size_t currentDist = distribution(gen);
+        if (std::find(std::begin(prevDists), std::end(prevDists), currentDist) != std::end(prevDists))
+        {
+            continue;
+        }
+        else
+        {
+            prevDists.push_back(currentDist);
+        }
+
         std::list<Bunny>::iterator it = this->m_bunniesList.begin();
-        std::advance(it, distance);  // increment it by rnd distance -- bad idea when list is huge
+        std::advance(it, currentDist);  // increment it by rnd distance -- bad idea when list is huge
         if (it->isMutant() || it->getAge() < ADULT_AGE)
         {
             mutantsToCreate++;
@@ -303,64 +289,17 @@ void Colony::infect()
         {
             it->convertToMutant();
             if (it->getAge() >= ADULT_AGE)
-            /*{
-                m_kidsCtr--;
-            }
-            else*/
             {
                 it->getSex() == "male" ? this->m_malesCtr-- : this->m_femalesCtr--;
             }
             this->m_mutantsCtr++;
         }
-
-        if (alarm > 1000)
-        {
-            std::cout << "WYJEBALO SIE";
-            std::cin.get();
-            break;
-        }
     }
-
-    /*for (auto it : m_bunniesList)
-    {
-        if (it.isMutant())
-        {
-            endMutants++;
-        }
-        else
-        {
-            it.getSex() == "male" ? endMales++ : endFemales++;
-        }
-    }
-
-    if (endMutants - stMutants != (stMales-endMales) + (stFemales-endFemales))
-    {
-        std::cout << "-- infect number error:\ngetMutantsCtr() - stMutants" << getMutantsCtr() - stMutants 
-            << "\nstMales - getMalesCtr(): " << stMales - getMalesCtr() 
-            << "\nstFemales - getFemalesCtr(): " << stFemales - getFemalesCtr();
-        std::cin.get();
-    }*/
 }
 
 bool Colony::isColonyTotallyInfected() const
 {
-    /*size_t ctr = 0;
-    for (auto it : m_bunniesList)
-    {
-        if (it.isMutant())
-        {
-            ctr++;
-        }
-    }*/
-    
-    //if (ctr == getColonySize())
-    if (this->m_mutantsCtr == getColonySize())
-    {
-        std::cout << "ALL BUNNIES ARE MUTANTS!\n";
-        return true;
-    }
-
-    return false;
+    return m_mutantsCtr == getColonySize();
 }
 
 void Colony::performCull()

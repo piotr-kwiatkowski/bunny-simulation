@@ -29,7 +29,7 @@ const int8_t LINE_FEMALE  = 8;
 const int8_t LINE_KIDS    = 10;
 const int8_t LINE_MUTANTS = 12;
 
-static int16_t yearCtr = 0;
+static size_t yearCtr = 0;
 
 int8_t GameManager::start()
 {
@@ -60,8 +60,10 @@ int8_t GameManager::start()
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         if (!this->performNextYear(&oColony))
         {
-            moveTo(30, GRID_HEIGHT / 2);
-            std::cout << ">> GAME OVER <<";
+            moveTo(25, (GRID_HEIGHT / 2)-1);
+            std::cout << std::setw(20) << "COLONY TOTALLY INFECTED";
+            moveTo(25, GRID_HEIGHT / 2);
+            std::cout << std::setw(20) << ">> GAME OVER <<";
             break;
         }
 
@@ -92,11 +94,6 @@ int8_t GameManager::start()
 
 bool GameManager::performNextYear(Colony *a_oColony) const
 {
-    if (a_oColony->getMutantsCtr() > 8)
-    {
-        //std::cin.get();
-    }
-
     a_oColony->incrementAge();
     a_oColony->killElders();
     a_oColony->infect(); // TODO: breeding should be first? tests needed
@@ -106,14 +103,7 @@ bool GameManager::performNextYear(Colony *a_oColony) const
     //a_oColony->m_bunniesList.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to method of Colony class
     this->updateLegend(a_oColony);
     
-    //std::cin.get();
-
-    //return !(a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected());
-    if (a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected())
-    {
-        return false;
-    }
-    return true;
+    return !(a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected());
 }
 
 void GameManager::print(std::string a_str) const
@@ -151,7 +141,8 @@ void GameManager::drawGrid() const
         std::cout << BORDER;
     }
     moveTo(1, GRID_HEIGHT);
-    std::cout << std::setw(GRID_WIDTH) << std::setfill(BORDER) << "\n";
+    std::cout << std::setw(GRID_WIDTH) << std::setfill(BORDER) << "\n"
+        << std::setfill(' ');
 }
 
 void GameManager::drawLegend() const
@@ -172,20 +163,20 @@ void GameManager::updateLegend(Colony *a_oColony) const
 {
     setColor(GREY);
     moveTo(LEGEND_VALUE_WIDTH, LINE_YEAR);
-    std::cout << yearCtr;
+    printf("%3zu", yearCtr);
     //PlaySoundA(TEXT("snd/01.wav"), NULL, SND_ASYNC);
     setColor(WHITE);
     moveTo(LEGEND_VALUE_WIDTH, LINE_MALE);
-    std::cout << a_oColony->getMalesCtr();
+    printf("%3zu", a_oColony->getMalesCtr());
     setColor(PINK);
     moveTo(LEGEND_VALUE_WIDTH, LINE_FEMALE);
-    std::cout << a_oColony->getFemalesCtr();
+    printf("%3zu", a_oColony->getFemalesCtr());
     setColor(GREEN);
     moveTo(LEGEND_VALUE_WIDTH, LINE_KIDS);
-    std::cout << a_oColony->getKidsCtr();
+    printf("%3zu", a_oColony->getKidsCtr());
     setColor(RED);
     moveTo(LEGEND_VALUE_WIDTH, LINE_MUTANTS);
-    std::cout << a_oColony->getMutantsCtr();
+    printf("%3zu", a_oColony->getMutantsCtr());
     setColor(GREY);
 }
 
