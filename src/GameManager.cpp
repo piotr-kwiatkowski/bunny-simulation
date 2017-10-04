@@ -15,10 +15,14 @@
 #include "alc.h"
 
 #define BORDER '#'
+
+const int8_t WINDOW_WIDTH  = 120;
+const int8_t WINDOW_HEIGHT = 60;
+
 const int8_t GRID_START = 0;
 
-const int8_t GRID_WIDTH  = 79;
-const int8_t GRID_HEIGHT = 41;
+const int8_t GRID_WIDTH  = 98;
+const int8_t GRID_HEIGHT = 51;
 
 const int8_t LEGEND_INFO_WIDTH  = GRID_WIDTH + 3;
 const int8_t LEGEND_VALUE_WIDTH = GRID_WIDTH + 15;
@@ -34,7 +38,7 @@ static size_t yearCtr = 0;
 int8_t GameManager::start()
 {
     PlaySoundA("snd/wind.wav", NULL, SND_ASYNC | SND_LOOP);
-    setWinSize(120, 50); // max reasonable height = 50
+    setWinSize(WINDOW_WIDTH, WINDOW_HEIGHT); // max reasonable height = 50
     system("color 07"); // FIXME
     drawGrid();
     drawLegend();
