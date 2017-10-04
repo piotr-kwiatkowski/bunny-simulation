@@ -36,6 +36,8 @@ private:
     std::string m_color;
     int8_t      m_age;
     bool        m_isRadioactiveVampireMutant;
+
+    int8_t m_position[2];
 };
 
 #endif  /* BUNNY_H */

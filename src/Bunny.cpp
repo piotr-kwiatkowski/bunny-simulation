@@ -9,6 +9,7 @@ Bunny::Bunny(std::string a_name, std::string a_sex, std::string a_color, int8_t 
     , m_color(a_color)
     , m_age(a_age)
     , m_isRadioactiveVampireMutant(a_mutant)
+    , m_position{0, 0}
 {}
 
 std::string Bunny::getName() const
