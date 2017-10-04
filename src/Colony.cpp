@@ -88,6 +88,7 @@ bool Colony::isBunnyRadioactive() const
 
 void Colony::populateColony()
 {
+    int8_t males = 0, females = 0;
     for (int i = 0; i < INITIAL_RABBITS_NR; ++i)
     {
         Bunny newBunny(
@@ -98,7 +99,12 @@ void Colony::populateColony()
             false
         );
 
-        newBunny.isMutant() ? m_mutantsCtr++ : m_kidsCtr++;
+        if (m_kidsCtr == INITIAL_RABBITS_NR-1 && (males || females))
+        {
+            i--;
+            continue;
+        }
+        m_kidsCtr++;
         m_bunniesList.push_back(newBunny);
     }
 }
