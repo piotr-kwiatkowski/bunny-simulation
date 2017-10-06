@@ -6,9 +6,27 @@
 
 #include <iostream>
 #include <Windows.h>
-#include "GameManager.h"
+#include <ostream>
 
 #include <thread>
+#include <mutex>
+
+#include "GameManager.h"
+
+
+// console print wrapper
+class Print
+{
+    std::mutex mtx;
+
+public:
+    Print(std::string a_msg, size_t a_x, size_t a_y)
+    {
+
+    }
+
+};
+
 
 // tmp function to display console colors
 void clrs()
@@ -27,7 +45,7 @@ int main(int argc, char const *argv[])
 {
     GameManager oGM;
     oGM.start();
-    
+
     std::cout << "\nPress enter to close program...";
     std::cin.ignore();
 
