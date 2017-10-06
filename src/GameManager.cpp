@@ -185,7 +185,7 @@ void GameManager::moveTo(int8_t a_x, int8_t a_y) const
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-void GameManager::setColor(int a_color) const
+void GameManager::setColor(ConsoleColors a_color) const
 {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), a_color);
 }

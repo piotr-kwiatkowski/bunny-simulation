@@ -30,7 +30,7 @@ private:
     void moveTo(int8_t a_x, int8_t a_y) const;
 
     // set color of console text
-    void setColor(int a_color) const;
+    void setColor(ConsoleColors a_color) const;
 
     // update colony (age, breeding, infecting etc.)
     bool performNextYear(Colony *a_oColony) const;
