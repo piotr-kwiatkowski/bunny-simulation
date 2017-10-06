@@ -13,21 +13,6 @@
 
 #include "GameManager.h"
 
-
-// console print wrapper
-class Print
-{
-    std::mutex mtx;
-
-public:
-    Print(std::string a_msg, size_t a_x, size_t a_y)
-    {
-
-    }
-
-};
-
-
 // tmp function to display console colors
 void clrs()
 {
