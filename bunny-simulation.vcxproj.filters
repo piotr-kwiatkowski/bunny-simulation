@@ -27,7 +27,7 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Print.cpp">
+    <ClCompile Include="src\Print.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClInclude Include="src\GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Print.h">
+    <ClInclude Include="src\Print.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

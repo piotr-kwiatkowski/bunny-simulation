@@ -142,17 +142,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Print.cpp" />
     <ClCompile Include="src\Bunny.cpp" />
     <ClCompile Include="src\Colony.cpp" />
     <ClCompile Include="src\GameManager.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Print.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Print.h" />
     <ClInclude Include="src\Bunny.h" />
     <ClInclude Include="src\Colony.h" />
     <ClInclude Include="src\GameManager.h" />
+    <ClInclude Include="src\Print.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
