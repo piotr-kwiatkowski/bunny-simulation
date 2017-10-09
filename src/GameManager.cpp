@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "Colony.h"
+#include "Print.h"
 
 #include <iostream>
 #include <windows.h>
@@ -16,8 +17,8 @@
 
 #define BORDER '#'
 
-const int8_t WINDOW_WIDTH  = 120;
-const int8_t WINDOW_HEIGHT = 60; // max reasonable height for ASUS == 50
+const int8_t WINDOW_WIDTH  = 125;
+const int8_t WINDOW_HEIGHT = 53; // max reasonable height for ASUS == 50
 
 const int8_t GRID_START = 0;
 
@@ -56,6 +57,24 @@ int8_t GameManager::start()
     //            MAIN GAME LOOP
     //========================================================================
     int16_t keyPressed = 0;
+    
+    bool gameOver = false;
+    Print pr;
+    // thread 1 for calculations (original Colony object)
+    // infinite loop until game over approached --> gameOver = true;
+    //std::thread thread_math();
+
+    // thread 2 for drawing (copied Colony object?)
+    // draw until gameOver == true
+    //std::thread thread_draw(std::ref(pr));
+
+    // thread 1 join
+    //thread_math.join();
+
+    // thread 2 join
+    //thread_draw.join();
+
+    // loop to remove
     while (true)
     {
         yearCtr++;
@@ -177,6 +196,7 @@ void GameManager::updateLegend(Colony *a_oColony) const
     setColor(GREY);
 }
 
+// TODO: erase after method completion in Print class
 void GameManager::moveTo(int8_t a_x, int8_t a_y) const
 {
     COORD coord; // FIXME: move this outside method?
