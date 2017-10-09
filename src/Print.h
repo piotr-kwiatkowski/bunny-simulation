@@ -1,6 +1,7 @@
 #pragma once
 
 #include <mutex>
+#include <fstream>
 
 // console print wrapper
 class Print
@@ -10,8 +11,7 @@ public:
 
 private:
     std::mutex mtx;
-    //std::ofstream f;
-
+    std::ofstream f;
     void moveTo(size_t a_x, size_t a_y);
 };
 
