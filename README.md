@@ -4,7 +4,7 @@ This is my first (and __definitely__ last) attempt of creating game in a console
 
 ---
 
-Bunny Simulation (2017 update)
+Bunny Simulation
 ================
 
 Write a program that creates a linked list of bunny objects.
