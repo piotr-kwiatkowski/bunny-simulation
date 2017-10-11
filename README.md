@@ -4,8 +4,7 @@ This is my first (and __definitely__ last) attempt of creating game in a console
 
 ---
 
-Bunny Simulation
-================
+# Bunny Simulation
 
 Write a program that creates a linked list of bunny objects.
 
@@ -14,8 +13,6 @@ Write a program that creates a linked list of bunny objects.
 - Color: white, brown, black, spotted
 - Age: 0-10 (years old)
 - Radioactive mutant vampire bunny: true/false (occurrence possibility: 2%)
-
----
 
 ## Main tasks:
 1. At program initialization 5 bunnies must be created and given random colors.
@@ -49,9 +46,7 @@ Modify the program so that new babies are born in an empty random adjacent squar
 
 ★★★★★ Modify the program so that it saves each turn to a file and can play back at accelearted speed all subsequent turns.
 
----
-
-#### Project requires: (crossed out if already done)
+## Project requires: (crossed out if already done)
 ~~variables, data types and numerical operators~~, ~~basic input/output~~, ~~logic (if statements, switch statements)~~, ~~loops (for, while, do-while)~~, ~~arrays~~, ~~pseudo random number generation~~, ~~strings & string functions~~, ~~functions~~, ~~structures/classes~~, enumerated data, ~~file input/output~~, ~~pointers~~, ~~sorting~~, ~~linked lists~~, advanced classes (?)
 
 ---
