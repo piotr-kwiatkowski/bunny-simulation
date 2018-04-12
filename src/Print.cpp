@@ -7,9 +7,8 @@
 void Print::console(std::string a_msg, size_t a_x, size_t a_y)
 {
     std::lock_guard<std::mutex> guard(mtx);
-    moveTo(a_x, a_y);
-    std::cout << a_msg;
-    f << "test";
+    //moveTo(a_x, a_y);
+    f << a_msg << std::endl;
 }
 
 void Print::moveTo(size_t a_x, size_t a_y)
