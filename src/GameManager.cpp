@@ -17,24 +17,44 @@
 
 #define BORDER '#'
 
-const int8_t WINDOW_WIDTH  = 125;
-const int8_t WINDOW_HEIGHT = 53; // max reasonable height for ASUS == 50
+const size_t WINDOW_WIDTH  = 125;
+const size_t WINDOW_HEIGHT = 53; // max reasonable height for ASUS == 50
 
-const int8_t GRID_START = 0;
+const size_t GRID_START = 0;
 
-const int8_t GRID_WIDTH  = 98;
-const int8_t GRID_HEIGHT = 51;
+const size_t GRID_WIDTH  = 98;
+const size_t GRID_HEIGHT = 51;
 
-const int8_t LEGEND_INFO_WIDTH  = GRID_WIDTH + 3;
-const int8_t LEGEND_VALUE_WIDTH = GRID_WIDTH + 15;
+const size_t LEGEND_INFO_WIDTH  = GRID_WIDTH + 3;
+const size_t LEGEND_VALUE_WIDTH = GRID_WIDTH + 15;
 
-const int8_t LINE_YEAR    = 2;
-const int8_t LINE_MALE    = 6;
-const int8_t LINE_FEMALE  = 8;
-const int8_t LINE_KIDS    = 10;
-const int8_t LINE_MUTANTS = 12;
+const size_t LINE_YEAR    = 2;
+const size_t LINE_MALE    = 6;
+const size_t LINE_FEMALE  = 8;
+const size_t LINE_KIDS    = 10;
+const size_t LINE_MUTANTS = 12;
 
 static size_t yearCtr = 0;
+static bool gameOver = false;
+
+void printTest()
+{
+    size_t i = 0;
+    while (true)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        COORD coord; // FIXME: move this outside method?
+        coord.X = WINDOW_WIDTH - 2;
+        coord.Y = WINDOW_HEIGHT - 2;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << i;
+        i > 8 ? i = 0 : i++;
+        if (gameOver)
+        {
+            break;
+        }
+    }
+}
 
 int8_t GameManager::start()
 {
@@ -58,7 +78,8 @@ int8_t GameManager::start()
     //========================================================================
     int16_t keyPressed = 0;
     
-    bool gameOver = false;
+    std::thread test_thread(printTest);
+
     Print pr;
     // thread 1 for calculations (original Colony object)
     // infinite loop until game over approached --> gameOver = true;
@@ -82,6 +103,7 @@ int8_t GameManager::start()
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         if (!performNextYear(&oColony))
         {
+            gameOver = true;
             moveTo(25, (GRID_HEIGHT / 2)-1);
             std::cout << std::setw(20) << "COLONY TOTALLY INFECTED";
             moveTo(25, GRID_HEIGHT / 2);
@@ -105,6 +127,9 @@ int8_t GameManager::start()
     }
     //========================================================================
     moveTo(0, GRID_HEIGHT + 4);
+    
+    test_thread.join();
+    
     return EXIT_SUCCESS;
 }
 
