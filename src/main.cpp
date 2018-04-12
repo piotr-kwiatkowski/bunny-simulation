@@ -33,6 +33,7 @@ void print1()
     Print pr;
     while (true)
     {
+        std::cout << "111";
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         for (size_t i = 0; i < 10; i++)
         {
@@ -41,7 +42,21 @@ void print1()
     }
 }
 
-void print2()
+class Log
+{
+    std::mutex m_mtx;
+    std::ofstream f;
+public:
+    Log();
+
+    void shared_print()
+    {
+        std::lock_guard<std::mutex> locker(m_mtx);
+        f << "From Russia with love";
+    }
+};
+
+void testFun(Log& log)
 {
     int i = 0;
     while (true)
@@ -53,16 +68,14 @@ void print2()
 
 int main(int argc, char const *argv[])
 {
-    GameManager oGM;
-    oGM.start();
+    /*GameManager oGM;
+    oGM.start();*/
 
-    /*Print pr;
-    std::thread t1(print1);
-    std::thread t2(print2);
-    t1.detach();
-    t2.detach();*/
+    Log lg;
+    std::thread t1(testFun, lg);
+    t1.join();
+    //std::thread t2(print2);
 
-    //std::cout << "\nPress enter to close program...";
     std::cin.ignore();
 
     return 0;
