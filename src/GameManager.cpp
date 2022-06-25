@@ -12,8 +12,8 @@
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
 
-#include "al.h"
-#include "alc.h"
+#include "../inc/al.h"
+#include "../inc/alc.h"
 
 #define BORDER '#'
 
