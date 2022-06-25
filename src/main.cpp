@@ -47,7 +47,7 @@ class Log
     std::mutex m_mtx;
     std::ofstream f;
 public:
-    Log();
+    //Log();
 
     void shared_print()
     {
@@ -72,10 +72,11 @@ int main(int argc, char const *argv[])
     oGM.start();*/
 
     Log lg;
-    std::thread t1(testFun, lg);
-    t1.join();
+    //std::thread t1(testFun, lg);
+    //t1.join();
     //std::thread t2(print2);
 
+    std::cout << "Click key to close..";
     std::cin.ignore();
 
     return 0;
