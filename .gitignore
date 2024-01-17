@@ -3,6 +3,8 @@
 
 # directories
 .vs/
+.vscode/
+.idea/
 
 # User-specific files
 *.suo
