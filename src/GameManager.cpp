@@ -25,6 +25,8 @@ const size_t GRID_START = 0;
 const size_t GRID_WIDTH  = 98;
 const size_t GRID_HEIGHT = 51;
 
+const size_t MAX_BUNNIES = GRID_WIDTH * GRID_HEIGHT; // TODO: use it to verify if there is more bunnies than places within grid
+
 const size_t LEGEND_INFO_WIDTH  = GRID_WIDTH + 3;
 const size_t LEGEND_VALUE_WIDTH = GRID_WIDTH + 15;
 
@@ -58,9 +60,9 @@ static void printTest()
 
 int8_t GameManager::start()
 {
-    PlaySoundA("snd/wind.wav", NULL, SND_ASYNC | SND_LOOP);
+    //PlaySoundA("snd/wind.wav", NULL, SND_ASYNC | SND_LOOP); // FIXME
     setWinSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-    system("color 07"); // FIXME
+    system("color 07"); // FIXME: what does this do?
     drawGrid();
     drawLegend();
     
@@ -76,11 +78,11 @@ int8_t GameManager::start()
     //========================================================================
     //            MAIN GAME LOOP
     //========================================================================
-    int16_t keyPressed = 0;
+    //int16_t keyPressed = 0;
     
-    std::thread test_thread(printTest);
+    //std::thread test_thread(printTest);
 
-    Print pr;
+    //Print pr;
     // thread 1 for calculations (original Colony object)
     // infinite loop until game over approached --> gameOver = true;
     //std::thread thread_math();
@@ -95,7 +97,7 @@ int8_t GameManager::start()
     // thread 2 join
     //thread_draw.join();
 
-    // loop to remove
+    // loop to remove?
     while (true)
     {
         yearCtr++;
@@ -128,7 +130,7 @@ int8_t GameManager::start()
     //========================================================================
     moveTo(0, GRID_HEIGHT + 4);
     
-    test_thread.join();
+    //test_thread.join();
     
     return EXIT_SUCCESS;
 }
