@@ -34,7 +34,7 @@ bool Colony::hasLoadedNames()
     f.open("src/names.csv", std::ios::in);
     if (!f.good())
     {
-        std::cout << "Error opening names file!\n";
+        std::cout << "Error opening names file!" << std::endl;;
         return false;
     }
 
@@ -88,25 +88,27 @@ bool Colony::isBunnyRadioactive() const
 
 void Colony::populateColony()
 {
-    int8_t males = 0, females = 0;
+    int8_t males = 0, females = 0; // ?
     for (int i = 0; i < INITIAL_RABBITS_NR; ++i)
     {
         Bunny newBunny(
             getRandomName(),
             getRandomSex(),
             getRandomColor(),
-            INITIAL_AGE,
-            false
+            INITIAL_AGE,  // FIXME: age should be random 0-10 years
+            false         // FIXME: where's the 2% chance of a mutant?
         );
 
-        if (m_kidsCtr == INITIAL_RABBITS_NR-1 && (males || females))
+        if (m_kidsCtr == INITIAL_RABBITS_NR-1 && (males || females)) // ohui, pojebalo mnie z tym ifem xD
         {
             i--;
             continue;
         }
-        m_kidsCtr++;
+        m_kidsCtr++; // xD LOL
         m_bunniesList.push_back(newBunny);
     }
+
+    std::cout << "\n--- m_kidsCtr: " << m_kidsCtr << std::endl;
 }
 
 void Colony::print() const
@@ -150,33 +152,40 @@ void Colony::print() const
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 }
 
+// increment age of every bunny
 void Colony::incrementAge()
 {
-    size_t initialTotalAge = 0;
-    size_t endTotalAge = 0;
+    //size_t initialTotalAge = 0;
+    //size_t endTotalAge = 0;
     std::list<Bunny>::iterator it;
     for (it = m_bunniesList.begin(); it != m_bunniesList.end(); ++it)
     {
-        initialTotalAge += it->getAge();
+        //initialTotalAge += it->getAge(); // FIXME: wtf is this incrementing?
         it->incrementAge();
-        endTotalAge += it->getAge();
+        //endTotalAge += it->getAge();
 
-        if (it->getAge() == ADULT_AGE && !it->isMutant())
+        if (it->getAge() == ADULT_AGE && !it->isMutant())  // so every non-mutant is breeding no matter the sex? no pairs needed?
         {
-            m_kidsCtr--;
+            // m_kidsCtr--; // FIXME: why? kid dies? m_kidsCtr++?
+            m_kidsCtr++; // why incrementing instead of creating new Bunny object and storing in m_bunniesList? 
+            // because std::list is too slow?
             it->getSex() == "male" ? m_malesCtr++ : m_femalesCtr++;
         }
     }
 
+    std::cout << "--- bunnies age incremented" << std::endl;
+
     // test
-    if (endTotalAge - initialTotalAge != m_bunniesList.size())
-    {
-        std::cout << "-- incrementing age ERROR!\n";  // TODO: print to error log file
-        std::cin.get();
-    }
+    //if (endTotalAge - initialTotalAge != m_bunniesList.size())  // wtf xD co tu kurwa robi ten test? xDDD
+    //{
+    //    std::cout << "-- incrementing age ERROR!\n";  // TODO: print to error log file
+    //    std::cin.get();
+    //}
 
 }
 
+// kill too old bunnies
+// regular bunny dies > 10 years old, mutants die at 50 years old
 void Colony::killElders()
 {
     size_t initSize = getColonySize();
@@ -190,12 +199,14 @@ void Colony::killElders()
             m_mutantsCtr--;
             it = m_bunniesList.erase(it);
             killCtr++;
+            std::cout << "--- mutant killed" << std::endl;
         }
         else if (!it->isMutant() && it->getAge() > DEATH_AGE_ADULT)
         {
             it->getSex() == "male" ? m_malesCtr-- : m_femalesCtr--;
-            it = m_bunniesList.erase(it);
+            it = m_bunniesList.erase(it); // FIXME: and what is happening with "it"? is it pointing to next element?
             killCtr++;
+            std::cout << "--- bunny killed" << std::endl;
         }
         else {
             it++;
@@ -206,11 +217,12 @@ void Colony::killElders()
     // test
     if (initSize - endSize != killCtr)
     {
-        std::cout << "-- kill counter error!";  // TODO: print to error log file
+        std::cout << "-- kill counter error!" << std::endl;;  // TODO: print to error log file
         std::cin.get();
     }
 }
 
+// if there is one male >= 2 years old, every female bunny >= 2 years old breeds 1 bunny ()
 bool Colony::breed()
 {
     if (!getMalesCtr() || !getFemalesCtr())
@@ -261,22 +273,27 @@ bool Colony::breed()
     return true;
 }
 
+// infect random bunnies
 void Colony::infect()
 {
-    std::random_device rd;
-    std::mt19937_64 gen(rd());
+    std::random_device rd;     // a seed source for the random number engine
+    std::mt19937_64 gen(rd()); // mersenne_twister_engine seeded with rd()
     size_t mutantsToCreate = m_mutantsCtr;
     std::vector<size_t> prevDists;
+
+    std::cout << "--- colony size: " << getColonySize() << std::endl;
+
     while (mutantsToCreate--)
     {
         if (isColonyTotallyInfected())
         {
-            break;
+            break; // FIXME: any msg?
+            std::cout << "--- colony is totally infected" << std::endl;
         }
 
-        std::uniform_int_distribution<> distribution(0, static_cast<int>(getColonySize())-1);
+        std::uniform_int_distribution<> distribution(0, static_cast<int>(getColonySize()) - 1); // FIXME?: wtf is this doing? why -1 after closing parenthesis? this static_cast seems redundant
         size_t currentDist = distribution(gen);
-        if (std::find(std::begin(prevDists), std::end(prevDists), currentDist) != std::end(prevDists))
+        if (std::find(std::begin(prevDists), std::end(prevDists), currentDist) != std::end(prevDists)) // wtf is here happening?
         {
             continue;
         }
