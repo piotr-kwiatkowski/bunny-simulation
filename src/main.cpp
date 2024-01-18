@@ -28,7 +28,7 @@ static void clrs()
     }
 }
 
-static void print1()
+static void print1() // FIXME: fn name
 {
     Print pr;
     while (true)
@@ -68,10 +68,10 @@ static void testFun(Log& log)
 
 int main(int argc, char const *argv[])
 {
-    /*GameManager oGM;
-    oGM.start();*/
+    GameManager oGM;
+    oGM.start();
 
-    Log lg;
+    //Log lg;
     //std::thread t1(testFun, lg);
     //t1.join();
     //std::thread t2(print2);
