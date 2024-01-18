@@ -18,7 +18,7 @@
 #define BORDER '#'
 
 const size_t WINDOW_WIDTH  = 125;
-const size_t WINDOW_HEIGHT = 53; // max reasonable height for ASUS == 50
+const size_t WINDOW_HEIGHT = 58; // max reasonable height for ASUS == 50
 
 const size_t GRID_START = 0;
 
@@ -65,15 +65,26 @@ int8_t GameManager::start()
     system("color 07"); // FIXME: what does this do?
     drawGrid();
     drawLegend();
+    //return EXIT_SUCCESS;
     
     Colony oColony;
-    if (!oColony.hasLoadedNames())
+    if (!oColony.hasLoadedNames()) // TODO: verify
     {
         return EXIT_FAILURE;
     }
 
-    oColony.populateColony();
-    updateLegend(&oColony);
+    oColony.populateColony(); // TODO: verify
+    updateLegend(&oColony);   // TODO: verify
+
+    // debug:
+    for (size_t i = 0; i < 5; i++)
+    {
+        performNextYear(&oColony);
+    }
+    
+
+    return EXIT_SUCCESS;
+
 
     //========================================================================
     //            MAIN GAME LOOP
@@ -137,10 +148,20 @@ int8_t GameManager::start()
 
 bool GameManager::performNextYear(Colony *a_oColony) const
 {
+    std::cout << "now increment" << std::endl;
     a_oColony->incrementAge();
-    a_oColony->killElders();
-    a_oColony->infect(); // TODO: breeding should be first? tests needed
+
+    std::cout << "now breed" << std::endl;
     a_oColony->breed();
+    
+    std::cout << "now kill" << std::endl;
+    a_oColony->killElders(); // TODO: killing after breding?
+    
+    std::cout << "now infect" << std::endl;
+    a_oColony->infect();     // TODO: breeding should be first?
+
+    // TODO: food shortage if colony has 1000 bunnies
+    // a_oColony->performFoodShortage();
 
     // sort colony by age
     //a_oColony->m_bunniesList.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to method of Colony class
