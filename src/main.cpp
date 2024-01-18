@@ -16,7 +16,7 @@
 #include "Print.h"
 
 // tmp function to display console colors
-void clrs()
+static void clrs()
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     // you can loop k higher to see more color choices
@@ -28,7 +28,7 @@ void clrs()
     }
 }
 
-void print1()
+static void print1()
 {
     Print pr;
     while (true)
@@ -56,7 +56,7 @@ public:
     }
 };
 
-void testFun(Log& log)
+static void testFun(Log& log)
 {
     int i = 0;
     while (true)

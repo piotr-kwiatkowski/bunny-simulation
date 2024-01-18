@@ -37,7 +37,7 @@ const size_t LINE_MUTANTS = 12;
 static size_t yearCtr = 0;
 static bool gameOver = false;
 
-void printTest()
+static void printTest()
 {
     size_t i = 0;
     while (true)
