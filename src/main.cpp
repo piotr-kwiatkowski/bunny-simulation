@@ -99,7 +99,7 @@ static void colors()
     }
 }
 
-static void print1() // FIXME: fn name
+static void print1() // FIXME: naming; print what?
 {
     Print pr;
     while (true)

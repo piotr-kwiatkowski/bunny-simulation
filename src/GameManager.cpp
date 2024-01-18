@@ -15,7 +15,7 @@
 #include "../inc/al.h"
 #include "../inc/alc.h"
 
-#define BORDER '#'
+constexpr auto BORDER = '#';
 
 const size_t WINDOW_WIDTH  = 125;
 const size_t WINDOW_HEIGHT = 58; // max reasonable height for ASUS == 50
@@ -77,13 +77,12 @@ int8_t GameManager::start()
     updateLegend(&oColony);   // TODO: verify
 
     // debug:
-    for (size_t i = 0; i < 5; i++)
+    /*for (size_t i = 0; i < 5; i++)
     {
         performNextYear(&oColony);
+        std::cin.ignore();
     }
-    
-
-    return EXIT_SUCCESS;
+    return EXIT_SUCCESS;*/
 
 
     //========================================================================
@@ -148,16 +147,9 @@ int8_t GameManager::start()
 
 bool GameManager::performNextYear(Colony *a_oColony) const
 {
-    std::cout << "now increment" << std::endl;
     a_oColony->incrementAge();
-
-    std::cout << "now breed" << std::endl;
     a_oColony->breed();
-    
-    std::cout << "now kill" << std::endl;
     a_oColony->killElders(); // TODO: killing after breding?
-    
-    std::cout << "now infect" << std::endl;
     a_oColony->infect();     // TODO: breeding should be first?
 
     // TODO: food shortage if colony has 1000 bunnies
@@ -170,7 +162,7 @@ bool GameManager::performNextYear(Colony *a_oColony) const
     return !(a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected());
 }
 
-void GameManager::print(std::string a_str) const
+void GameManager::print(std::string a_str) const // FIXME: naming; print what?
 {
 }
 

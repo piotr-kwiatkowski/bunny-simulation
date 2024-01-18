@@ -155,6 +155,8 @@ void Colony::print() const
 // increment age of every bunny
 void Colony::incrementAge()
 {
+    //std::cout << "now increment " << std::endl;
+
     //size_t initialTotalAge = 0;
     //size_t endTotalAge = 0;
     std::list<Bunny>::iterator it;
@@ -188,6 +190,8 @@ void Colony::incrementAge()
 // regular bunny dies > 10 years old, mutants die at 50 years old
 void Colony::killElders()
 {
+    //std::cout << "now kill" << std::endl;
+
     size_t initSize = getColonySize();
     size_t killCtr = 0;
     // NOTE: iterating over list with erasing!
@@ -199,14 +203,14 @@ void Colony::killElders()
             m_mutantsCtr--;
             it = m_bunniesList.erase(it);
             killCtr++;
-            std::cout << "--- mutant killed" << std::endl;
+            //std::cout << "--- mutant killed" << std::endl;
         }
         else if (!it->isMutant() && it->getAge() > DEATH_AGE_ADULT)
         {
             it->getSex() == "male" ? m_malesCtr-- : m_femalesCtr--;
             it = m_bunniesList.erase(it); // FIXME: and what is happening with "it"? is it pointing to next element?
             killCtr++;
-            std::cout << "--- bunny killed" << std::endl;
+            //std::cout << "--- bunny killed" << std::endl;
         }
         else {
             it++;
@@ -225,6 +229,8 @@ void Colony::killElders()
 // if there is one male >= 2 years old, every female bunny >= 2 years old breeds 1 bunny ()
 bool Colony::breed()
 {
+    //std::cout << "now breed" << std::endl;
+
     if (!getMalesCtr() || !getFemalesCtr())
     {
         return false;
@@ -276,6 +282,8 @@ bool Colony::breed()
 // infect random bunnies
 void Colony::infect()
 {
+    //std::cout << "now infect " << std::endl;
+
     std::random_device rd;     // a seed source for the random number engine
     std::mt19937_64 gen(rd()); // mersenne_twister_engine seeded with rd()
     size_t mutantsToCreate = m_mutantsCtr;
