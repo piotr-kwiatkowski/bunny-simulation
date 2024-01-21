@@ -27,7 +27,7 @@ private:
     };
 
     // move cursor to position [X, Y]
-    void moveTo(int8_t a_x, int8_t a_y) const;
+    void moveCursorTo(int8_t a_x, int8_t a_y) const;
 
     // set color of console text
     void setColor(ConsoleColors a_color) const;

@@ -116,9 +116,9 @@ int8_t GameManager::start()
         if (!performNextYear(&oColony))
         {
             gameOver = true;
-            moveTo(25, (GRID_HEIGHT / 2)-1);
+            moveCursorTo(25, (GRID_HEIGHT / 2)-1); // FIXME: magic numbers
             std::cout << std::setw(20) << "COLONY TOTALLY INFECTED";
-            moveTo(25, GRID_HEIGHT / 2);
+            moveCursorTo(25, GRID_HEIGHT / 2); // FIXME: magic numbers
             std::cout << std::setw(20) << ">> GAME OVER <<";
             break;
         }
@@ -138,7 +138,7 @@ int8_t GameManager::start()
         //}
     }
     //========================================================================
-    moveTo(0, GRID_HEIGHT + 4);
+    moveCursorTo(0, GRID_HEIGHT + 4);
     
     //test_thread.join();
     
@@ -187,57 +187,57 @@ void GameManager::drawGrid() const
 {
     //setColor(112);  // background: grey, text: black
     setColor(GREY);
-    moveTo(1, 1);
+    moveCursorTo(1, 1);
     std::cout << std::setw(GRID_WIDTH) << std::setfill(BORDER) << "\n";
     for (int i = 2; i < GRID_HEIGHT; ++i)
     {
-        moveTo(1, i);
+        moveCursorTo(1, i);
         std::cout << BORDER;
-        moveTo(GRID_WIDTH-1, i);
+        moveCursorTo(GRID_WIDTH-1, i);
         std::cout << BORDER;
     }
-    moveTo(1, GRID_HEIGHT);
+    moveCursorTo(1, GRID_HEIGHT);
     std::cout << std::setw(GRID_WIDTH) << std::setfill(BORDER) << "\n"
         << std::setfill(' ');
 }
 
 void GameManager::drawLegend() const
 {
-    moveTo(LEGEND_INFO_WIDTH, LINE_YEAR);
+    moveCursorTo(LEGEND_INFO_WIDTH, LINE_YEAR);
     std::cout << "YEAR: ";
-    moveTo(LEGEND_INFO_WIDTH, LINE_MALE);
+    moveCursorTo(LEGEND_INFO_WIDTH, LINE_MALE);
     std::cout << "MALES: ";
-    moveTo(LEGEND_INFO_WIDTH, LINE_FEMALE);
+    moveCursorTo(LEGEND_INFO_WIDTH, LINE_FEMALE);
     std::cout << "FEMALES: ";
-    moveTo(LEGEND_INFO_WIDTH, LINE_KIDS);
+    moveCursorTo(LEGEND_INFO_WIDTH, LINE_KIDS);
     std::cout << "KIDS: ";
-    moveTo(LEGEND_INFO_WIDTH, LINE_MUTANTS);
+    moveCursorTo(LEGEND_INFO_WIDTH, LINE_MUTANTS);
     std::cout << "MUTANTS: ";
 }
 
 void GameManager::updateLegend(Colony *a_oColony) const
 {
     setColor(GREY);
-    moveTo(LEGEND_VALUE_WIDTH, LINE_YEAR);
+    moveCursorTo(LEGEND_VALUE_WIDTH, LINE_YEAR);
     printf("%3zu", yearCtr);
     //PlaySoundA(TEXT("snd/01.wav"), NULL, SND_ASYNC);
     setColor(WHITE);
-    moveTo(LEGEND_VALUE_WIDTH, LINE_MALE);
+    moveCursorTo(LEGEND_VALUE_WIDTH, LINE_MALE);
     printf("%3zu", a_oColony->getMalesCtr());
     setColor(PINK);
-    moveTo(LEGEND_VALUE_WIDTH, LINE_FEMALE);
+    moveCursorTo(LEGEND_VALUE_WIDTH, LINE_FEMALE);
     printf("%3zu", a_oColony->getFemalesCtr());
     setColor(GREEN);
-    moveTo(LEGEND_VALUE_WIDTH, LINE_KIDS);
+    moveCursorTo(LEGEND_VALUE_WIDTH, LINE_KIDS);
     printf("%3zu", a_oColony->getKidsCtr());
     setColor(RED);
-    moveTo(LEGEND_VALUE_WIDTH, LINE_MUTANTS);
+    moveCursorTo(LEGEND_VALUE_WIDTH, LINE_MUTANTS);
     printf("%3zu", a_oColony->getMutantsCtr());
     setColor(GREY);
 }
 
 // TODO: erase after method completion in Print class
-void GameManager::moveTo(int8_t a_x, int8_t a_y) const
+void GameManager::moveCursorTo(int8_t a_x, int8_t a_y) const
 {
     COORD coord; // FIXME: move this outside method?
     coord.X = a_x;
