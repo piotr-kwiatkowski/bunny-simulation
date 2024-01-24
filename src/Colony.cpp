@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <iomanip>   // std::setw
 #include <random>
@@ -8,6 +9,9 @@
 #include <vector>
 
 #include "Colony.h"
+#include "GameManager.h"
+
+const size_t GRID_HEIGHT = 51; // FIXME: this is a duplicated const
 
 Colony::Colony() 
     : m_malesCtr(0), m_femalesCtr(0), m_kidsCtr(0), m_mutantsCtr(0)
@@ -86,7 +90,7 @@ bool Colony::isBunnyRadioactive() const
     return true;
 }
 
-void Colony::populateColony()
+void Colony::initColony()
 {
     int8_t males = 0, females = 0; // ?
     for (int i = 0; i < INITIAL_RABBITS_NR; ++i)
@@ -96,19 +100,22 @@ void Colony::populateColony()
             getRandomSex(),
             getRandomColor(),
             INITIAL_AGE,  // FIXME: age should be random 0-10 years
-            false         // FIXME: where's the 2% chance of a mutant?
+            false         // FIXME: where's the 2% chance of a mutant? no initial mutants?
         );
 
-        if (m_kidsCtr == INITIAL_RABBITS_NR-1 && (males || females)) // ohui, pojebalo mnie z tym ifem xD
+        if (m_kidsCtr == INITIAL_RABBITS_NR-1 && (males || females)) // wtf is this if? xD
         {
-            i--;
+            i--; // wtf? why decrementing during iteration?
             continue;
         }
         m_kidsCtr++; // xD LOL
         m_bunniesList.push_back(newBunny);
     }
 
-    std::cout << "\n--- m_kidsCtr: " << m_kidsCtr << std::endl;
+    // DEBUGGING:
+    GameManager oGM;
+    oGM.moveCursorTo(0, GRID_HEIGHT + 2);
+    std::cout << "--- m_kidsCtr: " << m_kidsCtr << std::endl;
 }
 
 void Colony::print() const
@@ -155,8 +162,6 @@ void Colony::print() const
 // increment age of every bunny
 void Colony::incrementAge()
 {
-    //std::cout << "now increment " << std::endl;
-
     //size_t initialTotalAge = 0;
     //size_t endTotalAge = 0;
     std::list<Bunny>::iterator it;
@@ -166,16 +171,13 @@ void Colony::incrementAge()
         it->incrementAge();
         //endTotalAge += it->getAge();
 
-        if (it->getAge() == ADULT_AGE && !it->isMutant())  // so every non-mutant is breeding no matter the sex? no pairs needed?
+        // check if bunny is an adult
+        if (!it->isMutant() && it->getAge() == ADULT_AGE)
         {
-            // m_kidsCtr--; // FIXME: why? kid dies? m_kidsCtr++?
-            m_kidsCtr++; // why incrementing instead of creating new Bunny object and storing in m_bunniesList? 
-            // because std::list is too slow?
+            m_kidsCtr--;
             it->getSex() == "male" ? m_malesCtr++ : m_femalesCtr++;
         }
     }
-
-    std::cout << "--- bunnies age incremented" << std::endl;
 
     // test
     //if (endTotalAge - initialTotalAge != m_bunniesList.size())  // wtf xD co tu kurwa robi ten test? xDDD
@@ -184,53 +186,51 @@ void Colony::incrementAge()
     //    std::cin.get();
     //}
 
+    // DEBUGGING:
+    GameManager oGM;
+    oGM.moveCursorTo(0, GRID_HEIGHT + 1);
+    std::cout << "--- bunnies age incremented" << std::endl;
 }
 
-// kill too old bunnies
-// regular bunny dies > 10 years old, mutants die at 50 years old
 void Colony::killElders()
 {
-    //std::cout << "now kill" << std::endl;
-
     size_t initSize = getColonySize();
-    size_t killCtr = 0;
+    //size_t killCtr = 0;
     // NOTE: iterating over list with erasing!
     std::list<Bunny>::iterator it = m_bunniesList.begin();
     while(it != m_bunniesList.end())
     {
+        // if bunny is mutant and above 50 yo
         if (it->isMutant() && it->getAge() > DEATH_AGE_MUTANT)
         {
-            m_mutantsCtr--;
             it = m_bunniesList.erase(it);
-            killCtr++;
-            //std::cout << "--- mutant killed" << std::endl;
+            m_mutantsCtr--;
+            //killCtr++;
+            continue;
         }
+        // if bunny is not a mutant and above age 10
         else if (!it->isMutant() && it->getAge() > DEATH_AGE_ADULT)
         {
             it->getSex() == "male" ? m_malesCtr-- : m_femalesCtr--;
-            it = m_bunniesList.erase(it); // FIXME: and what is happening with "it"? is it pointing to next element?
-            killCtr++;
-            //std::cout << "--- bunny killed" << std::endl;
+            it = m_bunniesList.erase(it);
+            //killCtr++;
         }
         else {
             it++;
         }
     }
-    size_t endSize = getColonySize();
 
     // test
-    if (initSize - endSize != killCtr)
-    {
-        std::cout << "-- kill counter error!" << std::endl;;  // TODO: print to error log file
-        std::cin.get();
-    }
+    //size_t endSize = getColonySize();
+    //if (initSize - endSize != killCtr)
+    //{
+    //    std::cout << "--- kill counter error!" << std::endl;;  // TODO: print to error log file
+    //    std::cin.get();
+    //}
 }
 
-// if there is one male >= 2 years old, every female bunny >= 2 years old breeds 1 bunny ()
 bool Colony::breed()
 {
-    //std::cout << "now breed" << std::endl;
-
     if (!getMalesCtr() || !getFemalesCtr())
     {
         return false;
@@ -238,11 +238,13 @@ bool Colony::breed()
     
     size_t newMutants = 0;
     size_t maxBunniesToBreed = getFemalesCtr();
-    if (!maxBunniesToBreed)
+    /*if (!maxBunniesToBreed)
     {
         return false;
-    }
-    std::list<Bunny> offspring; // TODO: why not using original list?
+    }*/
+
+    std::list<Bunny> offspring;
+    // FIXME: this could be a simple loop creating new bunnies
     for (std::list<Bunny>::iterator it = m_bunniesList.begin(); it != m_bunniesList.end(); ++it)
     {
         if (it->getSex() == "female" && it->getAge() > ADULT_AGE && !it->isMutant())
@@ -289,6 +291,9 @@ void Colony::infect()
     size_t mutantsToCreate = m_mutantsCtr;
     std::vector<size_t> prevDists;
 
+    // DEBUGGING:
+    GameManager oGM;
+    oGM.moveCursorTo(0, GRID_HEIGHT + 3);
     std::cout << "--- colony size: " << getColonySize() << std::endl;
 
     while (mutantsToCreate--)
@@ -330,12 +335,12 @@ void Colony::infect()
 
 bool Colony::isColonyTotallyInfected() const
 {
-    return m_mutantsCtr == getColonySize();
+    return m_mutantsCtr >= getColonySize();
 }
 
-void Colony::performCull()
+void Colony::performDeathByStarvation()
 {
-    throw std::logic_error("cull not implemented!");
+    throw std::logic_error("Death by starvation has not been implemented yet!");
 }
 
 size_t Colony::getColonySize() const

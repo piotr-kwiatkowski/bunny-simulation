@@ -17,6 +17,7 @@
 
 constexpr auto BORDER = '#';
 
+// FIXME: should these be members of the GameManager class?
 const size_t WINDOW_WIDTH  = 125;
 const size_t WINDOW_HEIGHT = 58; // max reasonable height for ASUS == 50
 
@@ -64,7 +65,7 @@ int8_t GameManager::start()
     setWinSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     system("color 07"); // FIXME: what does this do?
     drawGrid();
-    drawLegend();
+    printGameInfo();
     //return EXIT_SUCCESS;
     
     Colony oColony;
@@ -73,8 +74,8 @@ int8_t GameManager::start()
         return EXIT_FAILURE;
     }
 
-    oColony.populateColony(); // TODO: verify
-    updateLegend(&oColony);   // TODO: verify
+    oColony.initColony(); // TODO: verify
+    updateGameInfo(&oColony);   // TODO: verify
 
     // debug:
     /*for (size_t i = 0; i < 5; i++)
@@ -120,6 +121,11 @@ int8_t GameManager::start()
             std::cout << std::setw(20) << "COLONY TOTALLY INFECTED";
             moveCursorTo(25, GRID_HEIGHT / 2); // FIXME: magic numbers
             std::cout << std::setw(20) << ">> GAME OVER <<";
+
+            // DEBUGGING:
+            moveCursorTo(10, GRID_HEIGHT + 5);
+            std::cout << std::setw(20) << "tenis";
+
             break;
         }
         
@@ -148,16 +154,19 @@ int8_t GameManager::start()
 bool GameManager::performNextYear(Colony *a_oColony) const
 {
     a_oColony->incrementAge();
+    a_oColony->killElders();
     a_oColony->breed();
-    a_oColony->killElders(); // TODO: killing after breding?
     a_oColony->infect();     // TODO: breeding should be first?
 
     // TODO: food shortage if colony has 1000 bunnies
-    // a_oColony->performFoodShortage();
+    /*if (a_oColony->getColonySize() >= 1000)
+    {
+         a_oColony->performDeathByStarvation();
+    }*/
 
     // sort colony by age
     //a_oColony->m_bunniesList.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to method of Colony class
-    updateLegend(a_oColony);
+    updateGameInfo(a_oColony);
     
     return !(a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected());
 }
@@ -186,6 +195,18 @@ void GameManager::setWinSize(int8_t a_x, int8_t a_y) const
 void GameManager::drawGrid() const
 {
     //setColor(112);  // background: grey, text: black
+
+    // FOR DEBUGGING:
+    /*setColor(WHITE);
+    for (int i = 1; i < GRID_WIDTH; ++i)
+    {
+        moveCursorTo(i, 0);
+        if (i % 10 == 1)
+        {
+            std::cout << i % 10;
+        }
+    }*/
+
     setColor(GREY);
     moveCursorTo(1, 1);
     std::cout << std::setw(GRID_WIDTH) << std::setfill(BORDER) << "\n";
@@ -201,7 +222,7 @@ void GameManager::drawGrid() const
         << std::setfill(' ');
 }
 
-void GameManager::drawLegend() const
+void GameManager::printGameInfo() const
 {
     moveCursorTo(LEGEND_INFO_WIDTH, LINE_YEAR);
     std::cout << "YEAR: ";
@@ -215,7 +236,7 @@ void GameManager::drawLegend() const
     std::cout << "MUTANTS: ";
 }
 
-void GameManager::updateLegend(Colony *a_oColony) const
+void GameManager::updateGameInfo(Colony *a_oColony) const
 {
     setColor(GREY);
     moveCursorTo(LEGEND_VALUE_WIDTH, LINE_YEAR);

@@ -19,7 +19,7 @@ public:
     bool hasLoadedNames();
 
     // populate initial colony
-    void populateColony();
+    void initColony();
 
     // TODO: this method should mbe moved to Manager class
     void print() const;
@@ -27,9 +27,10 @@ public:
     // add 1 year to age of every rabbit in colony
     void incrementAge();
 
-    // kill elder rabbits
+    // kill elder bunnies
     void killElders();
 
+    // if there is one male >= 2 years old, every female bunny >= 2 years old breeds 1 bunny ()
     bool breed();
 
     // infect colony if mutant(s) present
@@ -38,7 +39,8 @@ public:
     // check if all colony is mutant positive
     bool isColonyTotallyInfected() const;
 
-    void performCull();
+    // kill half of the bunnies in the colony, randomly chosen
+    void performDeathByStarvation();
 
     // getters
     size_t getColonySize() const;
@@ -58,7 +60,7 @@ private:
     const int8_t ADULT_AGE = 5;
 
     const int8_t DEATH_AGE_MUTANT = 50;
-    const int8_t DEATH_AGE_ADULT  = 20;
+    const int8_t DEATH_AGE_ADULT  = 10; // shouldn't this be 10?
 
     
     std::vector<std::string> NAMES;

@@ -11,12 +11,16 @@ public:
     // draw template grid for game
     void drawGrid() const;
 
-    void drawLegend() const;
+    void printGameInfo() const;
 
-    void updateLegend(Colony *a_oColony) const;
+    void updateGameInfo(Colony *a_oColony) const;
 
     // set game window size
     void setWinSize(int8_t a_x, int8_t a_y) const;
+
+    // FIXME: should be private?
+    // move cursor to position [X, Y]
+    void moveCursorTo(int8_t a_x, int8_t a_y) const;
 
 private:
     enum ConsoleColors
@@ -25,9 +29,6 @@ private:
         DARK_VIOLET, DARK_YELLOW, DARK_WHITE, GREY, BLUE,
         GREEN, SEA, RED, PINK, YELLOW, WHITE
     };
-
-    // move cursor to position [X, Y]
-    void moveCursorTo(int8_t a_x, int8_t a_y) const;
 
     // set color of console text
     void setColor(ConsoleColors a_color) const;
