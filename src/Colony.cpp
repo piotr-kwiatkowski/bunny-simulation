@@ -24,12 +24,12 @@ Colony::~Colony()
 
 bool Colony::isColonyEmpty() const
 {
-    if (getColonySize())
+    /*if (getColonySize())
     {
         return false;
     }
-    return true;
-    //return !getColonySize();
+    return true;*/
+    return getColonySize() > 0;
 }
 
 bool Colony::hasLoadedNames()
@@ -80,9 +80,9 @@ bool Colony::isBunnyRadioactive() const
 {
     std::random_device rd;
     std::mt19937_64 gen(rd());
-    std::uniform_int_distribution<> distribution(0, 99);
+    std::uniform_int_distribution<> distribution(0, 999);
     int tmp = distribution(gen);
-    return tmp > 98;
+    return tmp > 998;
 }
 
 void Colony::initColony()
@@ -94,8 +94,8 @@ void Colony::initColony()
             getRandomName(),
             getRandomSex(),
             getRandomColor(),
-            INITIAL_AGE,  // FIXME: age should be random 0-10 years
-            false         // FIXME: where's the 2% chance of a mutant? no initial mutants?
+            INITIAL_AGE,
+            false         // no initial mutants?
         );
 
         if (m_kidsCtr == INITIAL_RABBITS_NR-1 && (males || females)) // wtf is this if? xD
@@ -103,7 +103,8 @@ void Colony::initColony()
             i--; // wtf? why decrementing during iteration?
             continue;
         }
-        m_kidsCtr++; // xD LOL
+
+        m_kidsCtr++;
         m_bunniesList.push_back(newBunny);
     }
 
@@ -170,9 +171,9 @@ void Colony::incrementAge()
     }
 
     // DEBUGGING:
-    GameManager oGM;
+    /*GameManager oGM;
     oGM.moveCursorTo(0, GRID_HEIGHT + 1);
-    std::cout << "--- bunnies age incremented" << std::endl;
+    std::cout << "--- bunnies age incremented" << std::endl;*/
 }
 
 void Colony::killElders()

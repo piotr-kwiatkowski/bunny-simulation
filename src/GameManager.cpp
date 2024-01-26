@@ -66,8 +66,7 @@ int8_t GameManager::start()
     system("color 07"); // FIXME: what does this do?
     drawGrid();
     printGameInfo();
-    //return EXIT_SUCCESS;
-    
+
     Colony oColony;
     if (!oColony.hasLoadedNames()) // TODO: verify
     {
@@ -168,7 +167,8 @@ bool GameManager::performNextYear(Colony *a_oColony) const
     //a_oColony->m_bunniesList.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to method of Colony class
     updateGameInfo(a_oColony);
     
-    return !(a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected());
+    //return !(a_oColony->isColonyEmpty() || a_oColony->isColonyTotallyInfected()); // FIXME: is colony ever empty?
+    return !(a_oColony->isColonyTotallyInfected());
 }
 
 void GameManager::print(std::string a_str) const // FIXME: naming; print what?

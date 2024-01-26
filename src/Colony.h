@@ -80,7 +80,7 @@ private:
     // returns random color from COLORS[]
     std::string getRandomColor() const;
 
-    // returns true with 1% chance
+    // returns true with 0.1% chance
     bool isBunnyRadioactive() const;
 
 };
