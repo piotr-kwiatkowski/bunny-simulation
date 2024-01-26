@@ -244,10 +244,10 @@ void GameManager::updateGameInfo(Colony *a_oColony) const
     //PlaySoundA(TEXT("snd/01.wav"), NULL, SND_ASYNC);
     setColor(WHITE);
     moveCursorTo(LEGEND_VALUE_WIDTH, LINE_MALE);
-    printf("%3zu", a_oColony->getMalesCtr());
+    printf("%3zu", a_oColony->getAdultMalesCtr());
     setColor(PINK);
     moveCursorTo(LEGEND_VALUE_WIDTH, LINE_FEMALE);
-    printf("%3zu", a_oColony->getFemalesCtr());
+    printf("%3zu", a_oColony->getAdultFemalesCtr());
     setColor(GREEN);
     moveCursorTo(LEGEND_VALUE_WIDTH, LINE_KIDS);
     printf("%3zu", a_oColony->getKidsCtr());

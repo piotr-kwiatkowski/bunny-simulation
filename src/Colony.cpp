@@ -82,12 +82,7 @@ bool Colony::isBunnyRadioactive() const
     std::mt19937_64 gen(rd());
     std::uniform_int_distribution<> distribution(0, 99);
     int tmp = distribution(gen);
-    if (tmp > 1)  // why?
-    {
-        return false;
-    }
-    
-    return true;
+    return tmp > 98;
 }
 
 void Colony::initColony()
@@ -159,17 +154,12 @@ void Colony::print() const
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 }
 
-// increment age of every bunny
 void Colony::incrementAge()
 {
-    //size_t initialTotalAge = 0;
-    //size_t endTotalAge = 0;
     std::list<Bunny>::iterator it;
     for (it = m_bunniesList.begin(); it != m_bunniesList.end(); ++it)
     {
-        //initialTotalAge += it->getAge(); // FIXME: wtf is this incrementing?
         it->incrementAge();
-        //endTotalAge += it->getAge();
 
         // check if bunny is an adult
         if (!it->isMutant() && it->getAge() == ADULT_AGE)
@@ -178,13 +168,6 @@ void Colony::incrementAge()
             it->getSex() == "male" ? m_malesCtr++ : m_femalesCtr++;
         }
     }
-
-    // test
-    //if (endTotalAge - initialTotalAge != m_bunniesList.size())  // wtf xD co tu kurwa robi ten test? xDDD
-    //{
-    //    std::cout << "-- incrementing age ERROR!\n";  // TODO: print to error log file
-    //    std::cin.get();
-    //}
 
     // DEBUGGING:
     GameManager oGM;
@@ -231,23 +214,22 @@ void Colony::killElders()
 
 bool Colony::breed()
 {
-    if (!getMalesCtr() || !getFemalesCtr())
+    if (!getAdultMalesCtr() || !getAdultFemalesCtr())
     {
         return false;
     }
     
     size_t newMutants = 0;
-    size_t maxBunniesToBreed = getFemalesCtr();
-    /*if (!maxBunniesToBreed)
-    {
-        return false;
-    }*/
-
+    size_t maxBunniesToBreed = getAdultFemalesCtr();
     std::list<Bunny> offspring;
     // FIXME: this could be a simple loop creating new bunnies
     for (std::list<Bunny>::iterator it = m_bunniesList.begin(); it != m_bunniesList.end(); ++it)
     {
-        if (it->getSex() == "female" && it->getAge() > ADULT_AGE && !it->isMutant())
+        if (it->isMutant())
+        {
+            continue;
+        }
+        else if (it->getSex() == "female" && it->getAge() > ADULT_AGE)
         {
             Bunny newBunny(
                 getRandomName(),
@@ -258,7 +240,11 @@ bool Colony::breed()
             );
             if (newBunny.isMutant())
             {
-                newMutants++;
+                m_mutantsCtr++;
+            }
+            else
+            {
+                m_kidsCtr++;
             }
             offspring.push_back(newBunny);
         }
@@ -266,17 +252,9 @@ bool Colony::breed()
         {
             continue;
         }
-
-        maxBunniesToBreed--;
-        if (!maxBunniesToBreed)
-        {
-            break;
-        }
     }
 
     // adding offspring list to colony list
-    m_kidsCtr += (offspring.size() - newMutants);
-    m_mutantsCtr += newMutants;
     m_bunniesList.splice(m_bunniesList.end(), offspring);
     return true;
 }
@@ -348,12 +326,12 @@ size_t Colony::getColonySize() const
     return m_bunniesList.size();
 }
 
-size_t Colony::getMalesCtr() const
+size_t Colony::getAdultMalesCtr() const
 {
     return m_malesCtr;
 }
 
-size_t Colony::getFemalesCtr() const
+size_t Colony::getAdultFemalesCtr() const
 {
     return m_femalesCtr;
 }

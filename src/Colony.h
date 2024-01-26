@@ -18,13 +18,14 @@ public:
     // loads bunny names from .csv file, returns true if loaded
     bool hasLoadedNames();
 
-    // populate initial colony
+    // populate colony with initial 5 bunnies
     void initColony();
 
     // TODO: this method should mbe moved to Manager class
     void print() const;
 
-    // add 1 year to age of every rabbit in colony
+    // increment age of every rabbit in colony
+    // increment adults counter and decrement kids counter if necessary
     void incrementAge();
 
     // kill elder bunnies
@@ -44,8 +45,8 @@ public:
 
     // getters
     size_t getColonySize() const;
-    size_t getMalesCtr() const;
-    size_t getFemalesCtr() const;
+    size_t getAdultMalesCtr() const;
+    size_t getAdultFemalesCtr() const;
     size_t getKidsCtr() const;
     size_t getMutantsCtr() const;
 
@@ -79,7 +80,7 @@ private:
     // returns random color from COLORS[]
     std::string getRandomColor() const;
 
-    // returns true with 2% chance
+    // returns true with 1% chance
     bool isBunnyRadioactive() const;
 
 };
