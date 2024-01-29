@@ -33,6 +33,8 @@ private:
     // set color of console text
     void setColor(ConsoleColors a_color) const;
 
+    void printInitScreen() const;
+
     // update colony (age, breeding, infecting etc.)
     bool performNextYear(Colony *a_oColony) const;
 

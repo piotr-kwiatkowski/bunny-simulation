@@ -64,6 +64,7 @@ int8_t GameManager::start()
     //PlaySoundA("snd/wind.wav", NULL, SND_ASYNC | SND_LOOP); // FIXME
     setWinSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     system("color 07"); // FIXME: what does this do?
+    printInitScreen();
     drawGrid();
     printGameInfo();
 
@@ -112,7 +113,7 @@ int8_t GameManager::start()
     {
         yearCtr++;
         // iteration every 1 second
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000)); // FIXME: this blocks computations when many objects
         if (!performNextYear(&oColony))
         {
             gameOver = true;
@@ -148,6 +149,13 @@ int8_t GameManager::start()
     //test_thread.join();
     
     return EXIT_SUCCESS;
+}
+
+void GameManager::printInitScreen() const
+{
+    moveCursorTo(GRID_WIDTH / 2 - 10, 1);
+    std::cout << ">> PRESS ENTER TO START SIMULATION <<";
+    std::cin.ignore();
 }
 
 bool GameManager::performNextYear(Colony *a_oColony) const

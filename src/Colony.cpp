@@ -107,11 +107,6 @@ void Colony::initColony()
         m_kidsCtr++;
         m_bunniesList.push_back(newBunny);
     }
-
-    // DEBUGGING:
-    GameManager oGM;
-    oGM.moveCursorTo(0, GRID_HEIGHT + 2);
-    std::cout << "--- m_kidsCtr: " << m_kidsCtr << std::endl;
 }
 
 void Colony::print() const
@@ -257,6 +252,12 @@ bool Colony::breed()
 
     // adding offspring list to colony list
     m_bunniesList.splice(m_bunniesList.end(), offspring);
+
+    // DEBUGGING:
+    GameManager oGM;
+    oGM.moveCursorTo(0, GRID_HEIGHT + 3);
+    std::cout << "--- colony size: " << getColonySize() << std::endl;
+
     return true;
 }
 
@@ -269,11 +270,6 @@ void Colony::infect()
     std::mt19937_64 gen(rd()); // mersenne_twister_engine seeded with rd()
     size_t mutantsToCreate = m_mutantsCtr;
     std::vector<size_t> prevDists;
-
-    // DEBUGGING:
-    GameManager oGM;
-    oGM.moveCursorTo(0, GRID_HEIGHT + 3);
-    std::cout << "--- colony size: " << getColonySize() << std::endl;
 
     while (mutantsToCreate--)
     {
