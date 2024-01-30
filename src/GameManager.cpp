@@ -77,15 +77,6 @@ int8_t GameManager::start()
     oColony.initColony(); // TODO: verify
     updateGameInfo(&oColony);   // TODO: verify
 
-    // debug:
-    /*for (size_t i = 0; i < 5; i++)
-    {
-        performNextYear(&oColony);
-        std::cin.ignore();
-    }
-    return EXIT_SUCCESS;*/
-
-
     //========================================================================
     //            MAIN GAME LOOP
     //========================================================================

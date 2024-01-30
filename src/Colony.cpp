@@ -157,7 +157,7 @@ void Colony::incrementAge()
     {
         it->incrementAge();
 
-        // check if bunny is an adult
+        // check if non-mutant bunny is an adult
         if (!it->isMutant() && it->getAge() == ADULT_AGE)
         {
             m_kidsCtr--;
@@ -244,10 +244,6 @@ bool Colony::breed()
             }
             offspring.push_back(newBunny);
         }
-        else
-        {
-            continue;
-        }
     }
 
     // adding offspring list to colony list
@@ -264,37 +260,52 @@ bool Colony::breed()
 // infect random bunnies
 void Colony::infect()
 {
-    //std::cout << "now infect " << std::endl;
-
     std::random_device rd;     // a seed source for the random number engine
     std::mt19937_64 gen(rd()); // mersenne_twister_engine seeded with rd()
     size_t mutantsToCreate = m_mutantsCtr;
-    std::vector<size_t> prevDists;
+    std::vector<size_t> prevDistribiution;
+    const int colonySize = static_cast<int>(getColonySize());
 
-    while (mutantsToCreate--)
+    // DEBUGGING:
+    GameManager oGM;
+    oGM.moveCursorTo(0, GRID_HEIGHT + 3);
+    std::cout << "--- colony size: " << colonySize << "\tmutantsToCreate:" << mutantsToCreate << std::endl;
+
+    // FIXME: 
+    // this loop is unnecesarly complex
+    // it creates n random numbers (where n equals m_mutantsCtr)
+    // then uses this numbers to set bunnies as mutants
+    while (--mutantsToCreate)
     {
-        if (isColonyTotallyInfected())
+        if (isColonyTotallyInfected()) // isn't it veryfied at the end of performNextYear anyway?
         {
             break; // FIXME: any msg?
             std::cout << "--- colony is totally infected" << std::endl;
         }
 
-        std::uniform_int_distribution<> distribution(0, static_cast<int>(getColonySize()) - 1); // FIXME?: wtf is this doing? why -1 after closing parenthesis? this static_cast seems redundant
-        size_t currentDist = distribution(gen);
-        if (std::find(std::begin(prevDists), std::end(prevDists), currentDist) != std::end(prevDists)) // wtf is here happening?
-        {
-            continue;
-        }
-        else
-        {
-            prevDists.push_back(currentDist);
-        }
+        // std::uniform_int_distribution<> distribution(0, static_cast<int>(getColonySize()) - 1); // FIXME?: wtf is this doing? why -1 after closing parenthesis? this static_cast seems redundant
+        std::uniform_int_distribution<> distribution(0, colonySize - 1); // generated random number
+        size_t currentRndNumber = distribution(gen);
+        //if (std::find(std::begin(prevDistribiution), std::end(prevDistribiution), currentRndNumber) != std::end(prevDistribiution)) // wtf is here happening?
+        //{
+        //    continue;
+        //}
+        //else
+        //{
+        //    prevDistribiution.push_back(currentRndNumber);
+        //}
 
         std::list<Bunny>::iterator it = m_bunniesList.begin();
-        std::advance(it, currentDist);  // increment it by rnd distance -- bad idea when list is huge
-        if (it->isMutant() || it->getAge() < ADULT_AGE)
+        std::advance(it, currentRndNumber);  // moves iterator to the currentDistribiution position
+        if (it->isMutant()) // || it->getAge() < ADULT_AGE)
         {
             mutantsToCreate++;
+        }
+        else if (it->getAge() < ADULT_AGE)
+        {
+            it->convertToMutant();
+            m_kidsCtr--;
+            m_mutantsCtr++;
         }
         else
         {
