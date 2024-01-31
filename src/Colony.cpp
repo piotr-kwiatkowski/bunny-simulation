@@ -95,7 +95,7 @@ void Colony::initColony()
             getRandomSex(),
             getRandomColor(),
             INITIAL_AGE,
-            false         // no initial mutants?
+            false         // no initial mutants
         );
 
         if (m_kidsCtr == INITIAL_RABBITS_NR-1 && (males || females)) // wtf is this if? xD
@@ -174,24 +174,23 @@ void Colony::killElders()
     std::list<Bunny>::iterator it = m_bunniesList.begin();
     while(it != m_bunniesList.end())
     {
-        // if bunny is mutant and above 50 yo
-        if (it->isMutant() && it->getAge() > DEATH_AGE_MUTANT)
+        // if bunny is a mutant and 50
+        if (it->isMutant() && it->getAge() >= DEATH_AGE_MUTANT)
         {
             it = m_bunniesList.erase(it);
             m_mutantsCtr--;
-            //killCtr++;
             continue;
         }
-        // if bunny is not a mutant and above age 10
-        else if (!it->isMutant() && it->getAge() > DEATH_AGE_ADULT)
+
+        // if bunny is not a mutant and 10
+        if (!it->isMutant() && it->getAge() >= DEATH_AGE_ADULT)
         {
             it->getSex() == "male" ? m_malesCtr-- : m_femalesCtr--;
             it = m_bunniesList.erase(it);
-            //killCtr++;
+            continue;
         }
-        else {
-            it++;
-        }
+
+        it++;
     }
 
     // test

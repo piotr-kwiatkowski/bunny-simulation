@@ -104,14 +104,16 @@ int8_t GameManager::start()
     {
         yearCtr++;
         // iteration every 1 second
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000)); // FIXME: this blocks computations when many objects
+        std::this_thread::sleep_for(std::chrono::milliseconds(500)); // FIXME: this blocks computations when many objects
         if (!performNextYear(&oColony))
         {
             gameOver = true;
-            moveCursorTo(25, (GRID_HEIGHT / 2)-1); // FIXME: magic numbers
-            std::cout << std::setw(20) << "COLONY TOTALLY INFECTED";
+            moveCursorTo(25, (GRID_HEIGHT / 2) - 3); // FIXME: magic numbers
+            std::cout << /*std::setw(30) <<*/ "COLONY TOTALLY INFECTED";
+            moveCursorTo(25, (GRID_HEIGHT / 2) - 2);
+            std::cout << /*std::setw(30) <<*/ "(or everyone is dead)";
             moveCursorTo(25, GRID_HEIGHT / 2); // FIXME: magic numbers
-            std::cout << std::setw(20) << ">> GAME OVER <<";
+            std::cout << /*std::setw(30) <<*/ ">> GAME OVER <<";
             break;
         }
         
