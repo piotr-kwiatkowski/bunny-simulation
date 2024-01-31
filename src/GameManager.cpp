@@ -112,11 +112,6 @@ int8_t GameManager::start()
             std::cout << std::setw(20) << "COLONY TOTALLY INFECTED";
             moveCursorTo(25, GRID_HEIGHT / 2); // FIXME: magic numbers
             std::cout << std::setw(20) << ">> GAME OVER <<";
-
-            // DEBUGGING:
-            //moveCursorTo(10, GRID_HEIGHT + 5);
-            //std::cout << std::setw(20) << "tenis";
-
             break;
         }
         
@@ -157,10 +152,10 @@ bool GameManager::performNextYear(Colony *a_oColony) const
     a_oColony->infect();     // TODO: breeding should be first?
 
     // TODO: food shortage if colony has 1000 bunnies
-    /*if (a_oColony->getColonySize() >= 1000)
+    if (a_oColony->getColonySize() >= 1000)
     {
-         a_oColony->performDeathByStarvation();
-    }*/
+         //a_oColony->performDeathByStarvation();
+    }
 
     // sort colony by age
     //a_oColony->m_bunniesList.sort([](Bunny a, Bunny b) { return a.getAge() > b.getAge(); });  // TODO: move it to method of Colony class

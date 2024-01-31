@@ -164,11 +164,6 @@ void Colony::incrementAge()
             it->getSex() == "male" ? m_malesCtr++ : m_femalesCtr++;
         }
     }
-
-    // DEBUGGING:
-    /*GameManager oGM;
-    oGM.moveCursorTo(0, GRID_HEIGHT + 1);
-    std::cout << "--- bunnies age incremented" << std::endl;*/
 }
 
 void Colony::killElders()
@@ -249,13 +244,7 @@ bool Colony::breed()
     // adding offspring list to colony list
     m_bunniesList.splice(m_bunniesList.end(), offspring);
 
-    // TODO: update grid info
-
-    // DEBUGGING:
-    GameManager oGM;
-    oGM.moveCursorTo(0, GRID_HEIGHT + 3);
-    std::cout << "--- colony size: " << getColonySize() << std::endl;
-
+    // TODO: update grid info?
     return true;
 }
 
@@ -265,7 +254,6 @@ void Colony::infect()
     std::random_device rd;     // a seed source for the random number engine
     std::mt19937_64 gen(rd()); // mersenne_twister_engine seeded with rd()
     size_t mutantsToCreate = m_mutantsCtr;
-    //std::vector<size_t> prevDistribiution;
     const int colonySize = static_cast<int>(getColonySize());
 
     if (!m_mutantsCtr || colonySize == m_mutantsCtr)
@@ -282,7 +270,7 @@ void Colony::infect()
     // this loop is unnecessarily complex
     // it creates n random numbers (where n equals m_mutantsCtr)
     // then uses this numbers to set bunnies as mutants
-    while (--mutantsToCreate)
+    while (mutantsToCreate--)
     {
         if (isColonyTotallyInfected()) // isn't it veryfied at the end of performNextYear anyway?
         {
@@ -290,43 +278,34 @@ void Colony::infect()
             std::cout << "--- colony is totally infected" << std::endl;
         }
 
-        // std::uniform_int_distribution<> distribution(0, static_cast<int>(getColonySize()) - 1); // FIXME?: wtf is this doing? why -1 after closing parenthesis? this static_cast seems redundant
-        std::uniform_int_distribution<> distribution(0, colonySize - 1); // generated random number
+        std::uniform_int_distribution<> distribution(0, colonySize - 1); // generated random number from range
         size_t currentRndNumber = distribution(gen);
 
         //std::cout << "--- currentRndNumber:" << currentRndNumber;
         //std::cin.ignore();
 
-        //if (std::find(std::begin(prevDistribiution), std::end(prevDistribiution), currentRndNumber) != std::end(prevDistribiution)) // wtf is here happening?
-        //{
-        //    continue;
-        //}
-        //else
-        //{
-        //    prevDistribiution.push_back(currentRndNumber);
-        //}
-
         std::list<Bunny>::iterator it = m_bunniesList.begin();
-        std::advance(it, currentRndNumber);  // moves iterator to the currentDistribiution position
+        std::advance(it, currentRndNumber);  // moves iterator to the currentRndNumber position
         if (it->isMutant()) // || it->getAge() < ADULT_AGE)
         {
             mutantsToCreate++;
+            continue;
         }
-        else if (it->getAge() < ADULT_AGE)
+
+        if (it->getAge() < ADULT_AGE)
         {
             it->convertToMutant();
             m_kidsCtr--;
             m_mutantsCtr++;
+            continue;
         }
-        else
+
+        it->convertToMutant();
+        if (it->getAge() >= ADULT_AGE)
         {
-            it->convertToMutant();
-            if (it->getAge() >= ADULT_AGE)
-            {
-                it->getSex() == "male" ? m_malesCtr-- : m_femalesCtr--;
-            }
-            m_mutantsCtr++;
+            it->getSex() == "male" ? m_malesCtr-- : m_femalesCtr--;
         }
+        m_mutantsCtr++;
     }
 }
 
