@@ -114,8 +114,8 @@ int8_t GameManager::start()
             std::cout << std::setw(20) << ">> GAME OVER <<";
 
             // DEBUGGING:
-            moveCursorTo(10, GRID_HEIGHT + 5);
-            std::cout << std::setw(20) << "tenis";
+            //moveCursorTo(10, GRID_HEIGHT + 5);
+            //std::cout << std::setw(20) << "tenis";
 
             break;
         }

@@ -249,6 +249,8 @@ bool Colony::breed()
     // adding offspring list to colony list
     m_bunniesList.splice(m_bunniesList.end(), offspring);
 
+    // TODO: update grid info
+
     // DEBUGGING:
     GameManager oGM;
     oGM.moveCursorTo(0, GRID_HEIGHT + 3);
@@ -263,16 +265,21 @@ void Colony::infect()
     std::random_device rd;     // a seed source for the random number engine
     std::mt19937_64 gen(rd()); // mersenne_twister_engine seeded with rd()
     size_t mutantsToCreate = m_mutantsCtr;
-    std::vector<size_t> prevDistribiution;
+    //std::vector<size_t> prevDistribiution;
     const int colonySize = static_cast<int>(getColonySize());
 
+    if (!m_mutantsCtr || colonySize == m_mutantsCtr)
+    {
+        return;
+    }
+
     // DEBUGGING:
-    GameManager oGM;
-    oGM.moveCursorTo(0, GRID_HEIGHT + 3);
-    std::cout << "--- colony size: " << colonySize << "\tmutantsToCreate:" << mutantsToCreate << std::endl;
+    //GameManager oGM;
+    //oGM.moveCursorTo(0, GRID_HEIGHT + 4);
+    //std::cout << "--- colony size: " << colonySize << "\tmutantsToCreate:" << mutantsToCreate;
 
     // FIXME: 
-    // this loop is unnecesarly complex
+    // this loop is unnecessarily complex
     // it creates n random numbers (where n equals m_mutantsCtr)
     // then uses this numbers to set bunnies as mutants
     while (--mutantsToCreate)
@@ -286,6 +293,10 @@ void Colony::infect()
         // std::uniform_int_distribution<> distribution(0, static_cast<int>(getColonySize()) - 1); // FIXME?: wtf is this doing? why -1 after closing parenthesis? this static_cast seems redundant
         std::uniform_int_distribution<> distribution(0, colonySize - 1); // generated random number
         size_t currentRndNumber = distribution(gen);
+
+        //std::cout << "--- currentRndNumber:" << currentRndNumber;
+        //std::cin.ignore();
+
         //if (std::find(std::begin(prevDistribiution), std::end(prevDistribiution), currentRndNumber) != std::end(prevDistribiution)) // wtf is here happening?
         //{
         //    continue;
