@@ -315,7 +315,21 @@ bool Colony::isColonyTotallyInfected() const
 
 void Colony::performDeathByStarvation()
 {
-    throw std::logic_error("Death by starvation has not been implemented yet!");
+    // throw std::logic_error("Death by starvation has not been implemented yet!");
+    std::cout << "--- colony size before cull: " << getColonySize() << std::endl; // this should be around 1000
+    const uint64_t bunniesToKill = getColonySize() / 2;
+    std::cout << "--- bunniesToKill: " << bunniesToKill << std::endl; // this should be around 500
+
+    while(bunniesToKill--)
+    {
+        std::uniform_int_distribution<> distribution(0, getColonySize() - 1); // TODO: verify range
+        size_t currentRndNumber = distribution(gen);
+        std::list<Bunny>::iterator it = m_bunniesList.begin();
+        std::advance(it, currentRndNumber);
+        m_bunniesList.erase(it);
+    }
+
+    std::cout << "--- colony size after cull:" << getColonySize() << std::endl; // this should be around 500
 }
 
 size_t Colony::getColonySize() const
