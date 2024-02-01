@@ -22,6 +22,56 @@ Colony::~Colony()
 {
 }
 
+std::string Colony::getRandomName() const
+{
+    // TODO: add commentary
+    std::random_device rd;
+    std::mt19937_64 gen(rd());
+    std::uniform_int_distribution<> distribution(0, static_cast<int>(NAMES.size())-1);
+    return NAMES[distribution(gen)];
+}
+
+std::string Colony::getRandomSex() const
+{
+    std::random_device rd;
+    std::mt19937_64 gen(rd());
+    std::uniform_int_distribution<> distribution(0, 1);
+    return SEX[distribution(gen)];
+}
+
+std::string Colony::getRandomColor() const
+{
+    std::random_device rd;
+    std::mt19937_64 gen(rd());
+    std::uniform_int_distribution<> distribution(0, COLORS_NR - 1);
+    return COLORS[distribution(gen)];
+}
+
+size_t Colony::getColonySize() const
+{
+    return m_bunniesList.size();
+}
+
+size_t Colony::getAdultMalesCtr() const
+{
+    return m_malesCtr;
+}
+
+size_t Colony::getAdultFemalesCtr() const
+{
+    return m_femalesCtr;
+}
+
+size_t Colony::getKidsCtr() const
+{
+    return m_kidsCtr;
+}
+
+size_t Colony::getMutantsCtr() const
+{
+    return m_mutantsCtr;
+}
+
 bool Colony::isColonyEmpty() const
 {
     /*if (getColonySize())
@@ -49,31 +99,6 @@ bool Colony::hasLoadedNames()
         NAMES.push_back(tmpName);
     }
     return true;
-}
-
-std::string Colony::getRandomName() const
-{
-    // TODO: add commentary
-    std::random_device rd;
-    std::mt19937_64 gen(rd());
-    std::uniform_int_distribution<> distribution(0, static_cast<int>(NAMES.size())-1);
-    return NAMES[distribution(gen)];
-}
-
-std::string Colony::getRandomSex() const
-{
-    std::random_device rd;
-    std::mt19937_64 gen(rd());
-    std::uniform_int_distribution<> distribution(0, 1);
-    return SEX[distribution(gen)];
-}
-
-std::string Colony::getRandomColor() const
-{
-    std::random_device rd;
-    std::mt19937_64 gen(rd());
-    std::uniform_int_distribution<> distribution(0, COLORS_NR - 1);
-    return COLORS[distribution(gen)];
 }
 
 bool Colony::isBunnyRadioactive() const
@@ -330,29 +355,4 @@ void Colony::performDeathByStarvation()
     }
 
     std::cout << "--- colony size after cull:" << getColonySize() << std::endl; // this should be around 500
-}
-
-size_t Colony::getColonySize() const
-{
-    return m_bunniesList.size();
-}
-
-size_t Colony::getAdultMalesCtr() const
-{
-    return m_malesCtr;
-}
-
-size_t Colony::getAdultFemalesCtr() const
-{
-    return m_femalesCtr;
-}
-
-size_t Colony::getKidsCtr() const
-{
-    return m_kidsCtr;
-}
-
-size_t Colony::getMutantsCtr() const
-{
-    return m_mutantsCtr;
 }
